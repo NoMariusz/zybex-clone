@@ -1,0 +1,23 @@
+{
+  "name": "zybex-clone",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "typescript": "^4.4.3",
+    "webpack": "^5.57.1",
+    "webpack-cli": "^4.9.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.4.0",
+    "html-webpack-plugin": "^5.3.2",
+    "style-loader": "^3.3.0",
+    "ts-loader": "^9.2.6"
+  },
+  "scripts": {
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production"
+  },
+  "author": "NoMariusz",
+  "license": "ISC"
+}
