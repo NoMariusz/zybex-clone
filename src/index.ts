@@ -1,3 +1,6 @@
-const css = require("../static/css/index.css")
+const _ = require("../static/css/index.css")
 
-console.log("Hello world!")
+import App from "./components/App"
+
+const app = new App();
+app.init();

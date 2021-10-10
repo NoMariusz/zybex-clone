@@ -1,0 +1,1 @@
+export const CHANGE_LAYOUT_TIMEOUT = 2500;
