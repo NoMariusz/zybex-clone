@@ -14,7 +14,7 @@ export default class Menu implements Layout {
 
     constructor(changeLayout: (layName: string) => void) {
         this.changeLayout = changeLayout;
-        this.actualPage = 1;
+        this.actualPage = 0;
 
         this.background = new MenuBackground();
     }
@@ -24,7 +24,7 @@ export default class Menu implements Layout {
     }
 
     onShow() {
-        this.actualPage = 1;
+        this.actualPage = 0;
         this.changePageInterval = setInterval(
             () => this.changePage(),
             CHANGE_LAYOUT_TIMEOUT
@@ -36,7 +36,7 @@ export default class Menu implements Layout {
     }
 
     changePage() {
-        this.actualPage = this.actualPage == 1 ? 2 : 1;
+        this.actualPage = this.actualPage == 0 ? 1 : 0;
         this.background.changeTexture(this.actualPage);
     }
 }

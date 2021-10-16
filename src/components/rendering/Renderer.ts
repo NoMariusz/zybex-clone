@@ -2,18 +2,13 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH, TEXTURE_SCALE } from "../../constants";
 import { CanvasElement } from "./interfaces";
 import RendererImage from "./RendererImage";
 
-import menuBackground1 from "../../../static/gfx/menu/background_1.png";
-import menuBackground2 from "../../../static/gfx/menu/background_2.png";
+import menuSprite from "../../../static/gfx/menu.png";
 
 const images: RendererImage[] = [
     new RendererImage(
-        "menu_background_1",
-        menuBackground1
+        "menu_sprite",
+        menuSprite
     ),
-    new RendererImage(
-        "menu_background_2",
-        menuBackground2
-    )
 ];
 
 class Renderer {
