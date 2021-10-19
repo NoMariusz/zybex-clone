@@ -20,6 +20,6 @@ export default class MenuBackground implements CanvasElement {
     texture = "menu_sprite";
 
     changeTexture(pageNumber: number) {
-        this.texture_offset.y = pageNumber * 960;
+        this.texture_offset.y = pageNumber * CANVAS_HEIGHT;
     }
 }
