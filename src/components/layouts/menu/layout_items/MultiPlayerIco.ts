@@ -1,6 +1,7 @@
+import { Focusable } from "../../../interfaces";
 import SinglePlayerIco from "./SinglePlayerIco";
 
-export default class MultiPlayerIco extends SinglePlayerIco {
+export default class MultiPlayerIco extends SinglePlayerIco implements Focusable {
     texture_offset = {
         x: 1261,
         y: 600,

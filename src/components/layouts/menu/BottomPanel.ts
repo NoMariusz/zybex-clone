@@ -6,7 +6,9 @@ import {
   BOTTOM_ANIM_MAX_OFFSET,
   BOTTOM_ANIM_STEP,
   BOTTOM_ANIM_MIN_OFFSET,
+  FOCUS_ANIM_MS,
 } from "./constants";
+import BottomPanelEl from "./layout_items/BottomPanelEl";
 import MultiPlayerIco from "./layout_items/MultiPlayerIco";
 import PlayerAvatar from "./layout_items/PlayerAvatar";
 import SinglePlayerIco from "./layout_items/SinglePlayerIco";
@@ -15,6 +17,7 @@ import STartIco from "./layout_items/StartIco";
 
 export default class BottomPanel implements Renderable {
   elementOffset: number;
+  focusInterval: NodeJS.Timer
 
   // items
   avatar1: PlayerAvatar;
@@ -23,12 +26,16 @@ export default class BottomPanel implements Renderable {
   multiIco: MultiPlayerIco;
   startIco: STartIco;
 
+  selectedItem: BottomPanelEl;
+
   constructor() {
     this.avatar1 = new PlayerAvatar();
     this.avatar2 = new PlayerAvatar();
     this.singleIco = new SinglePlayerIco();
     this.multiIco = new MultiPlayerIco();
     this.startIco = new StartIco();
+
+    this.selectElement(this.multiIco);
   }
 
   public get canvasElements(): CanvasElement[] {
@@ -40,6 +47,8 @@ export default class BottomPanel implements Renderable {
       this.avatar2,
     ];
   }
+
+  // changing menu page animation
 
   playInitAnim() {
     //start interval playing animation
@@ -70,10 +79,29 @@ export default class BottomPanel implements Renderable {
     this.elementOffset += BOTTOM_ANIM_STEP;
   }
 
+  // focusing elements in menu
+
+  loadFocusInterval(){
+    clearInterval(this.focusInterval)
+
+    let focusVal = true
+    this.focusInterval = setInterval(() => {
+      this.selectedItem.changeFocus(focusVal);
+      focusVal = !focusVal;
+    }, FOCUS_ANIM_MS)
+  }
+
   render() {
     this.animTick();
     for (const item of this.canvasElements) {
       Renderer.render(item);
     }
+  }
+
+  selectElement(newEl: BottomPanelEl) {
+    this.selectedItem?.endFocus();
+    this.selectedItem = newEl;
+    this.selectedItem.startFocus();
+    this.loadFocusInterval()
   }
 }

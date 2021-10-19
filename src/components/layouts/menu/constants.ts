@@ -16,3 +16,5 @@ export const BOTTOM_MENU_RADIUS = CANVAS_WIDTH/4;
 export const BOTTOM_ANIM_MIN_OFFSET = 20;
 export const BOTTOM_ANIM_STEP = 5;
 export const BOTTOM_ANIM_MAX_OFFSET = 120;
+
+export const FOCUS_ANIM_MS = 600;

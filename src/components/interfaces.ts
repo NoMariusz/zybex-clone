@@ -11,3 +11,9 @@ export interface Size {
 export interface Renderable {
     render(): void;
 }
+
+export interface Focusable {
+    changeFocus(value: boolean): void;
+    startFocus(): void;
+    endFocus(): void;
+}
