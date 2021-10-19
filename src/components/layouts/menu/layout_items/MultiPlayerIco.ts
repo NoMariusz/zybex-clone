@@ -7,6 +7,12 @@ export default class MultiPlayerIco extends SinglePlayerIco implements Focusable
         y: 600,
     };
 
+    isSelected = false;
+
+    endFocus(){
+        this.texture_offset.y = this.isSelected  ? 700 : 600;
+    }
+
     changeFocus(value: boolean) {
         this.texture_offset.y = value ? 700 : 600;
     }

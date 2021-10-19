@@ -1,25 +1,32 @@
+import KeyListener from "../controls/KeyListener";
 import { Renderable } from "../interfaces";
 import { Layout, Layouts } from "./interfaces";
 import Menu from "./menu/Menu";
 
 export default class LayoutManager implements Renderable {
-    /* Manage swaps between layouts and controlling them */
-    
-    layouts: Layouts;
-    activeLayout: Layout;
+  /* Manage swaps between layouts and controlling them */
 
-    constructor() {
-        this.layouts = {
-            menu: new Menu((name: string) => this.changeLayout(name))
-        }
+  layouts: Layouts;
+  activeLayout: Layout;
+  keyListener: KeyListener;
 
-        this.activeLayout = this.layouts.menu;
-        this.activeLayout.onShow()
-    }
+  constructor() {
+    this.keyListener = new KeyListener();
 
-    render() {
-        this.activeLayout.render();
-    }
+    this.layouts = {
+      menu: new Menu(
+        (name: string) => this.changeLayout(name),
+        this.keyListener
+      ),
+    };
 
-    changeLayout(name: string) {}
+    this.activeLayout = this.layouts.menu;
+    this.activeLayout.onShow();
+  }
+
+  render() {
+    this.activeLayout.render();
+  }
+
+  changeLayout(name: string) {}
 }

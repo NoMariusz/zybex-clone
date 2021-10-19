@@ -17,7 +17,7 @@ import STartIco from "./layout_items/StartIco";
 
 export default class BottomPanel implements Renderable {
   elementOffset: number;
-  focusInterval: NodeJS.Timer
+  focusInterval: NodeJS.Timer;
 
   // items
   avatar1: PlayerAvatar;
@@ -38,7 +38,7 @@ export default class BottomPanel implements Renderable {
     this.selectElement(this.multiIco);
   }
 
-  public get canvasElements(): CanvasElement[] {
+  public get canvasElements(): BottomPanelEl[] {
     return [
       this.avatar1,
       this.singleIco,
@@ -64,13 +64,12 @@ export default class BottomPanel implements Renderable {
     // chage elements position
     const elemsCount = this.canvasElements.length;
     const middleIdx = elemsCount / 2 - 0.5;
-    const middlePos = CANVAS_WIDTH / 2;
+    const middlePos = CANVAS_WIDTH / 2 - 37;
     for (let idx = 0; idx < elemsCount; idx++) {
       const element = this.canvasElements[idx];
       const sign = Math.sign(idx - middleIdx);
-      const maxPos =
-        middlePos + BOTTOM_ANIM_MAX_OFFSET * (idx - middleIdx);
-      const actualPos = middlePos + this.elementOffset*middleIdx * sign;
+      const maxPos = middlePos + BOTTOM_ANIM_MAX_OFFSET * (idx - middleIdx);
+      const actualPos = middlePos + this.elementOffset * middleIdx * sign;
       element.position.x =
         sign < 0 ? Math.max(maxPos, actualPos) : Math.min(maxPos, actualPos);
     }
@@ -81,14 +80,14 @@ export default class BottomPanel implements Renderable {
 
   // focusing elements in menu
 
-  loadFocusInterval(){
-    clearInterval(this.focusInterval)
+  loadFocusInterval() {
+    clearInterval(this.focusInterval);
 
-    let focusVal = true
+    let focusVal = true;
     this.focusInterval = setInterval(() => {
       this.selectedItem.changeFocus(focusVal);
       focusVal = !focusVal;
-    }, FOCUS_ANIM_MS)
+    }, FOCUS_ANIM_MS);
   }
 
   render() {
@@ -102,6 +101,55 @@ export default class BottomPanel implements Renderable {
     this.selectedItem?.endFocus();
     this.selectedItem = newEl;
     this.selectedItem.startFocus();
-    this.loadFocusInterval()
+    this.loadFocusInterval();
+  }
+
+  // handling move focus
+
+  handleKeys(key: string) {
+    console.log(key);
+
+    switch (key) {
+      case "a":
+        this.moveFocus(-1);
+        break;
+      case "d":
+        this.moveFocus(1);
+        break;
+      case " ":
+        this.handleSelect();
+
+      default:
+        break;
+    }
+  }
+
+  moveFocus(velocity: number) {
+    const elIdx = this.canvasElements.indexOf(this.selectedItem);
+    let newIdx = elIdx + velocity;
+    if (newIdx < 0) {
+      newIdx = this.canvasElements.length - 1;
+    }
+    if (newIdx >= this.canvasElements.length) {
+      newIdx = 0;
+    }
+
+    this.selectElement(this.canvasElements[newIdx]);
+  }
+
+  // selecting menu elements
+
+  handleSelect() {
+    if (this.selectedItem instanceof MultiPlayerIco) {
+      this.singleIco.unselect()
+      this.multiIco.select()
+    } else if (this.selectedItem instanceof SinglePlayerIco) {
+      this.singleIco.select()
+      this.multiIco.unselect()
+    } else if (this.selectedItem instanceof PlayerAvatar) {
+      this.selectedItem.changeColor();
+    } else if (this.selectedItem instanceof StartIco) {
+      console.log("Change page");
+    }
   }
 }
