@@ -1,6 +1,6 @@
 import { CANVAS_WIDTH } from "../../../constants";
 import { Renderable } from "../../interfaces";
-import { CanvasElement } from "../../rendering/interfaces";
+import { KEYS } from "../../controls/constants"
 import Renderer from "../../rendering/Renderer";
 import {
   BOTTOM_ANIM_MAX_OFFSET,
@@ -112,13 +112,13 @@ export default class BottomPanel implements Renderable {
     console.log(key);
 
     switch (key) {
-      case "a":
+      case KEYS.LEFT:
         this.moveFocus(-1);
         break;
-      case "d":
+      case KEYS.RIGHT:
         this.moveFocus(1);
         break;
-      case " ":
+      case KEYS.ACTION:
         this.handleSelect();
 
       default:
