@@ -3,8 +3,12 @@ import { CanvasElement } from "./interfaces";
 import RendererImage from "./RendererImage";
 
 import menuSprite from "../../../static/gfx/menu.png";
+import screensSprite from "../../../static/gfx/screens_sprite.png";
 
-const images: RendererImage[] = [new RendererImage("menu_sprite", menuSprite)];
+const images: RendererImage[] = [
+  new RendererImage("menu_sprite", menuSprite),
+  new RendererImage("screens_sprite", screensSprite),
+];
 
 class Renderer {
   /* Handle all rendering images at canvas */
@@ -25,7 +29,7 @@ class Renderer {
     if (target.flip) {
       this.flip(target);
     }
-    
+
     // draw
     this.draw(target);
 

@@ -1,14 +1,14 @@
 import KeyListener from "../controls/KeyListener";
 import { Renderable } from "../interfaces";
-import Menu from "./menu/Menu";
 
 export interface Layout extends Renderable {
   keyListener: KeyListener;
-  changeLayout(layName: string): void;
+  changeLayout(layName: Layouts): void;
   onShow(): void;
   onHide(): void;
 }
 
-export interface Layouts {
-  menu: Menu;
+export enum Layouts {
+  MENU,
+  LEVEL_ANNOUNCE
 }

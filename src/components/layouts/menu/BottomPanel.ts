@@ -1,6 +1,6 @@
 import { CANVAS_WIDTH } from "../../../constants";
 import { Renderable } from "../../interfaces";
-import { KEYS } from "../../controls/constants"
+import { KEYS } from "../../controls/constants";
 import Renderer from "../../rendering/Renderer";
 import {
   BOTTOM_ANIM_MAX_OFFSET,
@@ -19,6 +19,8 @@ export default class BottomPanel implements Renderable {
   elementOffset: number;
   focusInterval: NodeJS.Timer;
 
+  startGameCallback: () => void;
+
   // items
   avatar1: PlayerAvatar;
   avatar2: PlayerAvatar;
@@ -28,7 +30,8 @@ export default class BottomPanel implements Renderable {
 
   selectedItem: BottomPanelEl;
 
-  constructor() {
+  constructor(startGameCallback: () => void) {
+    this.startGameCallback = startGameCallback;
     this.avatar1 = new PlayerAvatar();
     this.avatar2 = new PlayerAvatar();
     this.singleIco = new SinglePlayerIco();
@@ -48,6 +51,17 @@ export default class BottomPanel implements Renderable {
       this.multiIco,
       this.avatar2,
     ];
+  }
+
+  render() {
+    this.animTick();
+    for (const item of this.canvasElements) {
+      Renderer.render(item);
+    }
+  }
+
+  clear() {
+    clearInterval(this.focusInterval);
   }
 
   // changing menu page animation
@@ -92,13 +106,6 @@ export default class BottomPanel implements Renderable {
     }, FOCUS_ANIM_MS);
   }
 
-  render() {
-    this.animTick();
-    for (const item of this.canvasElements) {
-      Renderer.render(item);
-    }
-  }
-
   selectElement(newEl: BottomPanelEl) {
     this.selectedItem?.endFocus();
     this.selectedItem = newEl;
@@ -120,7 +127,6 @@ export default class BottomPanel implements Renderable {
         break;
       case KEYS.ACTION:
         this.handleSelect();
-
       default:
         break;
     }
@@ -151,7 +157,7 @@ export default class BottomPanel implements Renderable {
     } else if (this.selectedItem instanceof PlayerAvatar) {
       this.selectedItem.changeColor();
     } else if (this.selectedItem instanceof StartIco) {
-      console.log("Change page");
+      this.startGameCallback();
     }
   }
 }

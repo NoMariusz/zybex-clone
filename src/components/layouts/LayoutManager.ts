@@ -1,12 +1,13 @@
 import KeyListener from "../controls/KeyListener";
 import { Renderable } from "../interfaces";
 import { Layout, Layouts } from "./interfaces";
+import LevelAnnounce from "./level_announce/LevelAnnounce";
 import Menu from "./menu/Menu";
 
 export default class LayoutManager implements Renderable {
   /* Manage swaps between layouts and controlling them */
 
-  layouts: Layouts;
+  layouts: { [id: number]: Layout } = {};
   activeLayout: Layout;
   keyListener: KeyListener;
 
@@ -14,13 +15,17 @@ export default class LayoutManager implements Renderable {
     this.keyListener = new KeyListener();
 
     this.layouts = {
-      menu: new Menu(
-        (name: string) => this.changeLayout(name),
+      [Layouts.MENU]: new Menu(
+        (name: Layouts) => this.changeLayout(name),
+        this.keyListener
+      ),
+      [Layouts.LEVEL_ANNOUNCE]: new LevelAnnounce(
+        (name: Layouts) => this.changeLayout(name),
         this.keyListener
       ),
     };
 
-    this.activeLayout = this.layouts.menu;
+    this.activeLayout = this.layouts[Layouts.MENU];
     this.activeLayout.onShow();
   }
 
@@ -28,5 +33,9 @@ export default class LayoutManager implements Renderable {
     this.activeLayout.render();
   }
 
-  changeLayout(name: string) {}
+  changeLayout(name: Layouts) {
+    this.activeLayout.onHide();
+    this.activeLayout = this.layouts[name];
+    this.activeLayout.onShow();
+  }
 }

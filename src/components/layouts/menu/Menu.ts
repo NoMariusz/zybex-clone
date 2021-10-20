@@ -1,12 +1,12 @@
 import KeyListener from "../../controls/KeyListener";
 import Renderer from "../../rendering/Renderer";
-import { Layout } from "../interfaces";
+import { Layout, Layouts } from "../interfaces";
 import BottomPanel from "./BottomPanel";
 import { CHANGE_LAYOUT_TIMEOUT } from "./constants";
 import MenuBackground from "./layout_items/MenuBackground";
 
 export default class Menu implements Layout {
-  changeLayout: (layName: string) => void;
+  changeLayout: (layName: Layouts) => void;
   keyListener: KeyListener;
 
   actualPage: number;
@@ -18,14 +18,14 @@ export default class Menu implements Layout {
   background: MenuBackground;
 
   constructor(
-    changeLayout: (layName: string) => void,
+    changeLayout: (layName: Layouts) => void,
     keyListener: KeyListener
   ) {
     this.changeLayout = changeLayout;
     this.keyListener = keyListener;
     this.actualPage = 0;
 
-    this.bottomPanel = new BottomPanel();
+    this.bottomPanel = new BottomPanel(() => this.startGame());
     this.background = new MenuBackground();
   }
 
@@ -47,11 +47,16 @@ export default class Menu implements Layout {
 
   onHide() {
     clearInterval(this.changePageInterval);
+    this.bottomPanel.clear();
   }
 
   changePage() {
     this.actualPage = this.actualPage == 0 ? 1 : 0;
     this.background.changeTexture(this.actualPage);
     this.bottomPanel.playInitAnim();
+  }
+
+  startGame() {
+    this.changeLayout(Layouts.LEVEL_ANNOUNCE)
   }
 }
