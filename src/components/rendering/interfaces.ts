@@ -5,4 +5,5 @@ export interface CanvasElement {
     texture: string;
     texture_offset: Position;
     size: Size;
+    flip: boolean;
 }

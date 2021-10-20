@@ -35,6 +35,8 @@ export default class BottomPanel implements Renderable {
     this.multiIco = new MultiPlayerIco();
     this.startIco = new StartIco();
 
+    this.avatar2.flip = true;
+    this.avatar2.changeColor();
     this.selectElement(this.multiIco);
   }
 
@@ -141,11 +143,11 @@ export default class BottomPanel implements Renderable {
 
   handleSelect() {
     if (this.selectedItem instanceof MultiPlayerIco) {
-      this.singleIco.unselect()
-      this.multiIco.select()
+      this.singleIco.unselect();
+      this.multiIco.select();
     } else if (this.selectedItem instanceof SinglePlayerIco) {
-      this.singleIco.select()
-      this.multiIco.unselect()
+      this.singleIco.select();
+      this.multiIco.unselect();
     } else if (this.selectedItem instanceof PlayerAvatar) {
       this.selectedItem.changeColor();
     } else if (this.selectedItem instanceof StartIco) {
