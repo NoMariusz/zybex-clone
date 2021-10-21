@@ -1,5 +1,5 @@
 import { Focusable } from "../../../interfaces";
-import { AVATAR_COLORS } from "../constants";
+import { AVATAR_COLORS } from "../../../../constants";
 import BottomPanelEl from "./BottomPanelEl";
 
 export default class PlayerAvatar extends BottomPanelEl implements Focusable {

@@ -6,3 +6,11 @@ export const CANVAS_WIDTH = 1260;
 export const CANVAS_HEIGHT = 900;
 
 export const TEXTURE_SCALE = 1;
+
+export enum AVATAR_COLORS {
+  red = 0,
+  blue = 100,
+  aqua = 200,
+  green = 300,
+  white = 1000,
+}
