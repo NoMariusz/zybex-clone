@@ -1,15 +1,13 @@
 import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
-import AnnounceBackground from "./AnnounceBackground";
 import Renderer from "../../rendering/Renderer";
 import { KEYS } from "../../controls/constants";
 
-export default class LevelAnnounce implements Layout {
+export default class Game implements Layout {
   changeLayout: (layName: Layouts) => void;
   keyListener: KeyListener;
 
   //items
-  announceBackground: AnnounceBackground;
 
   constructor(
     changeLayout: (layName: Layouts) => void,
@@ -17,17 +15,15 @@ export default class LevelAnnounce implements Layout {
   ) {
     this.changeLayout = (s) => changeLayout(s);
     this.keyListener = keyListener;
-
-    this.announceBackground = new AnnounceBackground();
   }
 
   render() {
-    Renderer.render(this.announceBackground);
+    // Renderer.render();
   }
 
   handleKeys(key: string){
     if(key == KEYS.ACTION){
-        this.changeLayout(Layouts.GAME)
+        this.changeLayout(Layouts.MENU)
     }
   }
 

@@ -11,7 +11,8 @@
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     margin: 0 auto;
-    display: block
+    display: block;
+    background-color: #040404;
 }
 
 body{

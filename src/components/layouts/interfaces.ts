@@ -10,5 +10,6 @@ export interface Layout extends Renderable {
 
 export enum Layouts {
   MENU,
-  LEVEL_ANNOUNCE
+  LEVEL_ANNOUNCE,
+  GAME
 }
