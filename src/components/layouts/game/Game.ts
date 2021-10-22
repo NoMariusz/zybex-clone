@@ -2,9 +2,10 @@ import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
 import { KEYS } from "../../controls/constants";
 import Board from "./Board";
-import PlayerUi from "./PlayerUi";
+import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
 import { Players } from "./constants";
+import Player2Ui from "./ui/Player2Ui";
 
 export default class Game implements Layout {
   changeLayout: (layName: Layouts) => void;
@@ -13,11 +14,10 @@ export default class Game implements Layout {
   //items
   board: Board;
 
-  p1Ui: PlayerUi;
-  p2Ui: PlayerUi | null = null;
+  playerUi: PlayerUi;
+  player2Ui: Player2Ui;
 
-  p1: Player;
-  p2: Player | null = null;
+  player: Player;
 
   constructor(
     changeLayout: (layName: Layouts) => void,
@@ -26,26 +26,18 @@ export default class Game implements Layout {
     this.changeLayout = (s) => changeLayout(s);
     this.keyListener = keyListener;
 
-    this.initPlayers();
+    this.player = new Player(Players.PlayerOne);
+    this.playerUi = new PlayerUi(this.player);
+    this.player2Ui = new Player2Ui(this.player);
 
-    this.board = new Board(this.players);
-  }
-
-  public get players(): Player[] {
-    return this.p2 != null ? [this.p1, this.p2] : [this.p1];
-  }
-
-  initPlayers() {
-    this.p1 = new Player(Players.PlayerOne);
-    this.p1Ui = new PlayerUi(this.p1);
+    this.board = new Board(this.player);
   }
 
   render() {
     this.board.render();
-    this.p1Ui.render();
-    this.p1.render();
-    this.p2Ui?.render();
-    this.p2?.render();
+    this.playerUi.render();
+    this.player.render();
+    this.player2Ui.render();
   }
 
   handleKeys(key: string) {
@@ -56,7 +48,7 @@ export default class Game implements Layout {
 
   onShow() {
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
-    this.p1.avatar.loadColor();
+    this.player.avatar.loadColor();
   }
   onHide() {}
 }
