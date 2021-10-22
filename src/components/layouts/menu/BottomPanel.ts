@@ -8,7 +8,7 @@ import {
   BOTTOM_ANIM_MIN_OFFSET,
   FOCUS_ANIM_MS,
 } from "./constants";
-import BottomPanelEl from "./layout_items/BottomPanelEl";
+import BottomPanelEl from "./layout_items/BottomPanelElement";
 import MultiPlayerIco from "./layout_items/MultiPlayerIco";
 import PlayerAvatar from "./layout_items/PlayerAvatar";
 import SinglePlayerIco from "./layout_items/SinglePlayerIco";
@@ -21,7 +21,7 @@ export default class BottomPanel implements Renderable {
 
   startGameCallback: () => void;
 
-  // items
+  // elements
   avatar1: PlayerAvatar;
   avatar2: PlayerAvatar;
   singleIco: SinglePlayerIco;

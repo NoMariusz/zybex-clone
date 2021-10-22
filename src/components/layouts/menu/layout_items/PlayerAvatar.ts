@@ -1,6 +1,6 @@
 import { Focusable } from "../../../interfaces";
 import { AVATAR_COLORS } from "../../../../constants";
-import BottomPanelEl from "./BottomPanelEl";
+import BottomPanelEl from "./BottomPanelElement";
 
 export default class PlayerAvatar extends BottomPanelEl implements Focusable {
   texture_offset = {

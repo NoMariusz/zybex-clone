@@ -4,8 +4,6 @@ import { KEYS } from "../../controls/constants";
 import Board from "./Board";
 import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
-import { Players } from "./constants";
-import Player2Ui from "./ui/Player2Ui";
 
 export default class Game implements Layout {
   changeLayout: (layName: Layouts) => void;
@@ -15,7 +13,7 @@ export default class Game implements Layout {
   board: Board;
 
   playerUi: PlayerUi;
-  player2Ui: Player2Ui;
+  player2Ui: PlayerUi;
 
   player: Player;
 
@@ -26,9 +24,9 @@ export default class Game implements Layout {
     this.changeLayout = (s) => changeLayout(s);
     this.keyListener = keyListener;
 
-    this.player = new Player(Players.PlayerOne);
-    this.playerUi = new PlayerUi(this.player);
-    this.player2Ui = new Player2Ui(this.player);
+    this.player = new Player();
+    this.playerUi = new PlayerUi(this.player, 1);
+    this.player2Ui = new PlayerUi(new Player(), 2);
 
     this.board = new Board(this.player);
   }

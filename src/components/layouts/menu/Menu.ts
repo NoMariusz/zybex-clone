@@ -13,9 +13,9 @@ export default class Menu implements Layout {
   actualPage: number;
   changePageInterval: NodeJS.Timer;
 
-  // sub items
-  bottomPanel: BottomPanel;
   // items
+  bottomPanel: BottomPanel;
+  // elements
   background: MenuBackground;
 
   constructor(

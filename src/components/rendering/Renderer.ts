@@ -4,10 +4,12 @@ import RendererImage from "./RendererImage";
 
 import menuSprite from "../../../static/gfx/menu.png";
 import screensSprite from "../../../static/gfx/screens_sprite.png";
+import gameSprite from "../../../static/gfx/game_sprite.png";
 
 const images: RendererImage[] = [
   new RendererImage("menu_sprite", menuSprite),
   new RendererImage("screens_sprite", screensSprite),
+  new RendererImage("game_sprite", gameSprite),
 ];
 
 class Renderer {
