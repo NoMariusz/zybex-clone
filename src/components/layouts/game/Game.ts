@@ -56,6 +56,7 @@ export default class Game implements Layout {
 
   onShow() {
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
+    this.p1.avatar.loadColor();
   }
   onHide() {}
 }

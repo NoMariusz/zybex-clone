@@ -8,7 +8,7 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
     y: AVATAR_COLORS.red,
   };
 
-  lastColor: number = AVATAR_COLORS.red;
+  lastColor: AVATAR_COLORS = AVATAR_COLORS.red;
 
   size = {
     width: 67,

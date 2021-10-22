@@ -4,6 +4,7 @@ import { Layout, Layouts } from "../interfaces";
 import BottomPanel from "./BottomPanel";
 import { CHANGE_LAYOUT_TIMEOUT } from "./constants";
 import MenuBackground from "./layout_items/MenuBackground";
+import store from "../store";
 
 export default class Menu implements Layout {
   changeLayout: (layName: Layouts) => void;
@@ -57,6 +58,9 @@ export default class Menu implements Layout {
   }
 
   startGame() {
-    this.changeLayout(Layouts.LEVEL_ANNOUNCE)
+    // save avatar color to store
+    store.avatarColor = this.bottomPanel.avatar1.lastColor;
+
+    this.changeLayout(Layouts.LEVEL_ANNOUNCE);
   }
 }
