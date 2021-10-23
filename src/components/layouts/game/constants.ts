@@ -1,10 +1,24 @@
-export const BOARD_Y = 100;
-export const BOARD_HEIGHT = 700;
+// overall things
+
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
+
+export const BOARD_Y = 105;
+export const BOARD_HEIGHT = CANVAS_HEIGHT - BOARD_Y * 2;
+export const BOARD_X = 0;
+export const BOARD_WIDTH = CANVAS_WIDTH;
+
+// game configuration
+
+export const PLAYER_SPEED = 12;
+
+// weapons
 
 export enum Weapons {
   Orbit,
   Pulse,
 }
+
+// ui stuff
 
 export const NUMBER_OFF = [
   { x: 0, y: 350 },

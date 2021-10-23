@@ -15,10 +15,18 @@ export default class Player implements Renderable {
   lives: number = 7;
   points: number = 0;
 
-  position: Position = {
+  // make real position private to set pos only by setter that updates avatar too
+  private _position: Position = {
     x: 0,
     y: Math.random() * BOARD_HEIGHT * 0.9,
   };
+  get position() {
+    return this._position;
+  }
+  set position(newPos: Position) {
+    this._position = newPos;
+    this.updateAvatar();
+  }
 
   size: Size;
 
@@ -38,5 +46,6 @@ export default class Player implements Renderable {
 
   updateAvatar() {
     this.avatar.position.y = this.position.y + BOARD_Y;
+    this.avatar.position.x = this.position.x;
   }
 }

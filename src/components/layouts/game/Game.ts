@@ -1,6 +1,6 @@
 import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
-import { KEYS } from "../../controls/constants";
+import { Keys } from "../../controls/constants";
 import Board from "./Board";
 import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
@@ -34,12 +34,12 @@ export default class Game implements Layout {
   render() {
     this.board.render();
     this.playerUi.render();
-    this.player.render();
     this.player2Ui.render();
+    this.player.render();
   }
 
   handleKeys(key: string) {
-    if (key == KEYS.ACTION) {
+    if (key == Keys.ACTION) {
       this.changeLayout(Layouts.MENU);
     }
   }

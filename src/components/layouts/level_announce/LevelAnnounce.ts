@@ -2,7 +2,7 @@ import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
 import AnnounceBackground from "./AnnounceBackground";
 import Renderer from "../../rendering/Renderer";
-import { KEYS } from "../../controls/constants";
+import { Keys } from "../../controls/constants";
 
 export default class LevelAnnounce implements Layout {
   changeLayout: (layName: Layouts) => void;
@@ -25,14 +25,14 @@ export default class LevelAnnounce implements Layout {
     Renderer.render(this.announceBackground);
   }
 
-  handleKeys(key: string){
-    if(key == KEYS.ACTION){
-        this.changeLayout(Layouts.GAME)
+  handleKeys(key: string) {
+    if (key == Keys.ACTION) {
+      this.changeLayout(Layouts.GAME);
     }
   }
 
   onShow() {
-    this.keyListener.subscribedFunc = (k) => this.handleKeys(k)
+    this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
   }
   onHide() {}
 }

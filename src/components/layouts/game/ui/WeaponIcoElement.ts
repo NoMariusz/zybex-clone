@@ -21,7 +21,7 @@ export default class WeaponIcoElement
 
   size = {
     width: 120,
-    height: 80,
+    height: 60,
   };
 
   texture = "game_sprite";
@@ -31,7 +31,7 @@ export default class WeaponIcoElement
   weapon: Weapons;
 
   constructor(weapon: Weapons) {
-    super(80);
+    super(65);
     this.weapon = weapon;
     this.texture_offset = WEAPON_TO_TEXTURE[weapon];
     this.position.x = WEAPON_TO_X_POSITION[weapon];

@@ -11,7 +11,7 @@ export default class WeaponLevelElement implements CanvasElement {
 
   size = {
     width: 100,
-    height: 70,
+    height: 60,
   };
 
   texture = "game_sprite";
