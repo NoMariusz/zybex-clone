@@ -4,11 +4,11 @@ import {
   BOARD_HEIGHT,
   BOARD_Y,
   BOTTOM_UI_POS_Y,
-  NUMBER_POS,
+  NUMBER_OFF,
 } from "../constants";
 
 export default class NumberElement implements CanvasElement {
-  texture_offset = NUMBER_POS[0];
+  texture_offset = NUMBER_OFF[0];
 
   position = {
     x: 0,
@@ -25,6 +25,6 @@ export default class NumberElement implements CanvasElement {
   flip = false;
 
   changeNum(number: number) {
-    this.texture_offset = NUMBER_POS[number];
+    this.texture_offset = NUMBER_OFF[number];
   }
 }

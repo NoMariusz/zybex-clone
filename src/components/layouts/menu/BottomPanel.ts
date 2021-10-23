@@ -116,8 +116,6 @@ export default class BottomPanel implements Renderable {
   // handling move focus
 
   handleKeys(key: string) {
-    console.log(key);
-
     switch (key) {
       case KEYS.LEFT:
         this.moveFocus(-1);

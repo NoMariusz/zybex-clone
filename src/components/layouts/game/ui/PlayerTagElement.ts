@@ -1,13 +1,7 @@
 import { CANVAS_WIDTH } from "../../../../constants";
 import { Focusable, Position } from "../../../interfaces";
 import { CanvasElement } from "../../../rendering/interfaces";
-import {
-  BOARD_HEIGHT,
-  BOARD_Y,
-  BOTTOM_UI_POS_Y,
-  NUMBER_POS,
-  PLAYER_TAGS,
-} from "../constants";
+import { BOTTOM_UI_POS_Y, PLAYER_TAGS } from "../constants";
 
 export default class PlayerTagElement implements CanvasElement {
   texture_offset: Position;
@@ -27,7 +21,6 @@ export default class PlayerTagElement implements CanvasElement {
   flip = false;
 
   constructor(playerNum: number) {
-    this.position.x = playerNum == 1 ? 75 : CANVAS_WIDTH / 2 + 75;
     this.texture_offset = PLAYER_TAGS[playerNum - 1];
   }
 }

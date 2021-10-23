@@ -6,7 +6,7 @@ export enum Weapons {
   Pulse,
 }
 
-export const NUMBER_POS = [
+export const NUMBER_OFF = [
   { x: 0, y: 350 },
   { x: 0, y: 400 },
   { x: 0, y: 450 },
@@ -24,6 +24,27 @@ export const PLAYER_TAGS = [
   { x: 75, y: 200 },
 ];
 
-export const SCORE_ELEMENTS_OFFSET = 150;
+export const SCORE_ELEMENTS_OFFSET = 130;
 
 export const BOTTOM_UI_POS_Y = BOARD_Y + BOARD_HEIGHT + 45;
+export const TOP_UI_POS_Y = 45;
+
+export const WEAPON_TO_NAME_TEXTURE = {
+  [Weapons.Orbit]: { x: 0, y: 300 },
+  [Weapons.Pulse]: { x: 300, y: 300 },
+};
+
+export const WEAPON_TO_TEXTURE = {
+  [Weapons.Orbit]: { x: 0, y: 100 },
+  [Weapons.Pulse]: { x: 300, y: 100 },
+};
+
+export const WEAPON_TO_X_POSITION = {
+  [Weapons.Orbit]: 250,
+  [Weapons.Pulse]: 800,
+};
+
+export const WEAPON_LEVELS_TEXTURES = [
+  { x: 0, y: 0 },
+  { x: 150, y: 0 },
+];
