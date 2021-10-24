@@ -1,7 +1,7 @@
 import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
 import { Keys } from "../../controls/constants";
-import Board from "./Board";
+import Board from "./board/Board";
 import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
 

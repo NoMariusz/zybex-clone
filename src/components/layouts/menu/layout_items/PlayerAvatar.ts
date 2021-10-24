@@ -15,6 +15,8 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
     height: 70,
   };
 
+  flip: boolean;
+
   changeFocus(value: boolean) {
     this.texture_offset.y = value ? AVATAR_COLORS.white : this.lastColor;
   }

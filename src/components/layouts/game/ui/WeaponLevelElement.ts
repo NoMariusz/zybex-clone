@@ -16,8 +16,6 @@ export default class WeaponLevelElement implements CanvasElement {
 
   texture = "game_sprite";
 
-  flip = false;
-
   change(level: number) {
     this.texture_offset = WEAPON_LEVELS_TEXTURES[level - 1];
   }

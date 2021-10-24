@@ -22,8 +22,6 @@ export default class NumberElement implements CanvasElement {
 
   texture = "game_sprite";
 
-  flip = false;
-
   changeNum(number: number) {
     this.texture_offset = NUMBER_OFF[number];
   }

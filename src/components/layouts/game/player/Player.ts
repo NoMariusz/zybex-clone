@@ -1,7 +1,7 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import { BOARD_HEIGHT, BOARD_Y, Weapons } from "../constants";
-import Avatar from "./Avatar";
+import Avatar from "./AvatarElement";
 import Weapon from "./Weapon";
 
 export default class Player implements Renderable {

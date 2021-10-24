@@ -1,6 +1,6 @@
 import { Layout, Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
-import AnnounceBackground from "./AnnounceBackground";
+import AnnounceBackground from "./AnnounceElement";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
 

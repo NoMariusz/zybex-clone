@@ -11,6 +11,11 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 
 export const PLAYER_SPEED = 12;
 
+export const LEVEL_TEXTURE_SCALE = 128 / BOARD_HEIGHT;
+export const LEVEL_TEXTURE_FULL_WIDTH = 7264;
+
+export const PLAYFIELD_SCROLL_SPEED = 0.5;
+
 // weapons
 
 export enum Weapons {

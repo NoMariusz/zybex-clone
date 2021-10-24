@@ -16,8 +16,6 @@ export default class WeaponNameElement implements CanvasElement {
 
   texture = "game_sprite";
 
-  flip = false;
-
   change(weapon: Weapons) {
     this.texture_offset = WEAPON_TO_NAME_TEXTURE[weapon];
   }

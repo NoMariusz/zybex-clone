@@ -1,21 +1,28 @@
-import { Keys } from "../../controls/constants";
-import pressedKeys from "../../controls/pressedKeys";
-import { Position, Renderable } from "../../interfaces";
-import Renderer from "../../rendering/Renderer";
-import { BOARD_HEIGHT, BOARD_WIDTH, PLAYER_SPEED } from "./constants";
-import Player from "./player/Player";
+import { Keys } from "../../../controls/constants";
+import pressedKeys from "../../../controls/pressedKeys";
+import { Position, Renderable } from "../../../interfaces";
+import Renderer from "../../../rendering/Renderer";
+import { BOARD_HEIGHT, BOARD_WIDTH, PLAYER_SPEED } from "../constants";
+import Player from "../player/Player";
+import PlayfieldManager from "./PlayfieldManager";
 
 export default class Board implements Renderable {
   /* Manage all board actions, like managing player or enemies */
   player: Player;
 
+  playfieldManager: PlayfieldManager;
+
   constructor(player: Player) {
     this.player = player;
+    this.playfieldManager = new PlayfieldManager();
   }
 
   render() {
     this.movePlayer();
+    this.playfieldManager.render();
   }
+
+  //player moves
 
   movePlayer() {
     // get pos after move

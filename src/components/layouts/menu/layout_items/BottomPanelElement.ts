@@ -20,8 +20,6 @@ export default class BottomPanelElement implements CanvasElement, Focusable {
 
   texture = "menu_sprite";
 
-  flip = false;
-
   changeFocus(value: boolean) {
     throw Error("Not implemented");
   }

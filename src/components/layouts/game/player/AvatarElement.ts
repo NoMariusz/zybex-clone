@@ -2,7 +2,7 @@ import { CanvasElement } from "../../../rendering/interfaces";
 import { AVATAR_COLORS, CANVAS_HEIGHT } from "../../../../constants";
 import store from "../../store";
 
-export default class Avatar implements CanvasElement {
+export default class AvatarElement implements CanvasElement {
   texture_offset = {
     x: 1261,
     y: AVATAR_COLORS.red,
@@ -14,13 +14,11 @@ export default class Avatar implements CanvasElement {
   };
 
   size = {
-    width: 67,
-    height: 70,
+    width: 65,
+    height: 67,
   };
 
   texture = "menu_sprite";
-
-  flip = false;
 
   loadColor() {
     // load avatar color from store

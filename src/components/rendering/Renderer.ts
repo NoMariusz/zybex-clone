@@ -1,15 +1,17 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH, TEXTURE_SCALE } from "../../constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants";
 import { CanvasElement } from "./interfaces";
 import RendererImage from "./RendererImage";
 
 import menuSprite from "../../../static/gfx/menu.png";
 import screensSprite from "../../../static/gfx/screens_sprite.png";
 import gameSprite from "../../../static/gfx/game_sprite.png";
+import levelSprite from "../../../static/gfx/level_sprite.png";
 
 const images: RendererImage[] = [
   new RendererImage("menu_sprite", menuSprite),
   new RendererImage("screens_sprite", screensSprite),
   new RendererImage("game_sprite", gameSprite),
+  new RendererImage("level_sprite", levelSprite),
 ];
 
 class Renderer {
@@ -33,7 +35,11 @@ class Renderer {
     }
 
     // draw
-    this.draw(target);
+    if ("texture_size" in target) {
+      this.drawWithScale(target);
+    } else {
+      this.draw(target);
+    }
 
     if (target.flip) {
       // restore context to base configuration
@@ -52,8 +58,24 @@ class Renderer {
       image.image,
       target.texture_offset.x,
       target.texture_offset.y,
-      target.size.width / TEXTURE_SCALE,
-      target.size.height / TEXTURE_SCALE,
+      target.size.width,
+      target.size.height,
+      target.position.x,
+      target.position.y,
+      target.size.width,
+      target.size.height
+    );
+  }
+
+  drawWithScale(target: CanvasElement) {
+    const image = images.find((i) => i.name == target.texture);
+
+    this.context.drawImage(
+      image.image,
+      target.texture_offset.x,
+      target.texture_offset.y,
+      target.texture_size.width,
+      target.texture_size.height,
       target.position.x,
       target.position.y,
       target.size.width,

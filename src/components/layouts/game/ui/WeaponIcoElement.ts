@@ -26,8 +26,6 @@ export default class WeaponIcoElement
 
   texture = "game_sprite";
 
-  flip = false;
-
   weapon: Weapons;
 
   constructor(weapon: Weapons) {

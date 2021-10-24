@@ -18,8 +18,6 @@ export default class PlayerTagElement implements CanvasElement {
 
   texture = "game_sprite";
 
-  flip = false;
-
   constructor(playerNum: number) {
     this.texture_offset = PLAYER_TAGS[playerNum - 1];
   }
