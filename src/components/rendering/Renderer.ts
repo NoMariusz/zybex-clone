@@ -51,8 +51,12 @@ class Renderer {
     this.context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
 
+  getImage(name: string) {
+    return images.find((i) => i.name == name);
+  }
+
   draw(target: CanvasElement) {
-    const image = images.find((i) => i.name == target.texture);
+    const image = this.getImage(target.texture);
 
     this.context.drawImage(
       image.image,

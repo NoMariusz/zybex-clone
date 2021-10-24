@@ -18,7 +18,7 @@ export default class Player implements Renderable {
   // make real position private to set pos only by setter that updates avatar too
   private _position: Position = {
     x: 0,
-    y: Math.random() * BOARD_HEIGHT * 0.9,
+    y: BOARD_HEIGHT / 2,
   };
   get position() {
     return this._position;

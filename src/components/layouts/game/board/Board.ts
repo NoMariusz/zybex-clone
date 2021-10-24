@@ -14,7 +14,7 @@ export default class Board implements Renderable {
 
   constructor(player: Player) {
     this.player = player;
-    this.playfieldManager = new PlayfieldManager();
+    this.playfieldManager = new PlayfieldManager(player);
   }
 
   render() {
