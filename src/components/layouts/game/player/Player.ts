@@ -8,11 +8,13 @@ import {
 } from "../constants";
 import Avatar from "./AvatarElement";
 import Weapon from "./Weapon";
+import PlayerAnimator from "./animations/PlayerAnimator";
 
 export default class Player implements Renderable {
   /* Describe player in game */
 
   avatar: Avatar;
+  animator: PlayerAnimator;
 
   // properties in game
   weapon: Weapon;
@@ -40,6 +42,8 @@ export default class Player implements Renderable {
 
   constructor(dieCallbak: () => void = () => {}) {
     this.avatar = new Avatar();
+
+    this.animator = new PlayerAnimator(this.avatar);
 
     this.dieCallbak = dieCallbak;
 
@@ -71,14 +75,18 @@ export default class Player implements Renderable {
     };
     this.lives--;
 
-    if (this.lives <= 0) {
+    if (this.lives < 0) {
       this.immortality = true;
       this.onDie();
     }
 
     // start immortality
     this.immortality = true;
-    setTimeout(() => (this.immortality = false), PLAYER_IMMORTALITY_TIME);
+    this.animator.startAnim("immortality");
+    setTimeout(() => {
+      this.immortality = false;
+      this.animator.endAnim("immortality");
+    }, PLAYER_IMMORTALITY_TIME);
   }
 
   onDie() {

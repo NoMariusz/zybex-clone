@@ -48,7 +48,9 @@ export default class Game implements Layout {
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
     this.player.avatar.loadColor();
   }
-  onHide() {}
+  onHide() {
+    this.player.animator.clearAnims();
+  }
 
   gameOver() {
     console.log("Game Over");

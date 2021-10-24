@@ -9,9 +9,9 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 
 // game configuration
 
-export const PLAYER_SPEED = 12;
+export const PLAYER_SPEED = 8;
 
-export const PLAYER_IMMORTALITY_TIME = 1 * 1000;
+export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
 
 export const LEVEL_TEXTURE_FULL_WIDTH = 7264;
 export const LEVEL_TEXTURE_FULL_HEIGHT = 128;

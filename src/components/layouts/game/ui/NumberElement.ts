@@ -23,6 +23,9 @@ export default class NumberElement implements CanvasElement {
   texture = "game_sprite";
 
   changeNum(number: number) {
+    if (number < 0 || number > 9) {
+      return;
+    }
     this.texture_offset = NUMBER_OFF[number];
   }
 }
