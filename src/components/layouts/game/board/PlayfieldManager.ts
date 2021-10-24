@@ -40,7 +40,7 @@ export default class PlayfieldManager implements Renderable {
     const { pos, size } = this.getPlayerLevelImagePosition();
     const res = this.playfieldCollider.checkCollision(pos, size);
     if (res) {
-      console.log(" Colliding !!!");
+      this.player.takeDamage();
     }
   }
 

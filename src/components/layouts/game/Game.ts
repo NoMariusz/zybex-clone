@@ -24,7 +24,7 @@ export default class Game implements Layout {
     this.changeLayout = (s) => changeLayout(s);
     this.keyListener = keyListener;
 
-    this.player = new Player();
+    this.player = new Player(() => this.gameOver());
     this.playerUi = new PlayerUi(this.player, 1);
     this.player2Ui = new PlayerUi(new Player(), 2);
 
@@ -40,7 +40,7 @@ export default class Game implements Layout {
 
   handleKeys(key: string) {
     if (key == Keys.ACTION) {
-      this.changeLayout(Layouts.MENU);
+      this.gameOver();
     }
   }
 
@@ -49,4 +49,9 @@ export default class Game implements Layout {
     this.player.avatar.loadColor();
   }
   onHide() {}
+
+  gameOver() {
+    console.log("Game Over");
+    this.changeLayout(Layouts.MENU);
+  }
 }
