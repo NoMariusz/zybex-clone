@@ -1,6 +1,7 @@
 import Avatar from "../AvatarElement";
 import Animation from "./Animation";
 import ImmortalityAnimation from "./ImmortalityAnimation";
+import DeathAnimation from "./DeathAnimation";
 
 export default class PlayerAnimator {
   /* Handle starting and ending animations and protect animations from overlaping */
@@ -12,7 +13,10 @@ export default class PlayerAnimator {
   constructor(avatar: Avatar) {
     this.avatar = avatar;
 
-    this.animations = [new ImmortalityAnimation(this.avatar)];
+    this.animations = [
+      new DeathAnimation(this.avatar),
+      new ImmortalityAnimation(this.avatar),
+    ];
   }
 
   startAnim(name: string) {

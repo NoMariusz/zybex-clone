@@ -22,6 +22,7 @@ export default class Player implements Renderable {
   lives: number = 7;
   points: number = 0;
   immortality = false;
+  locked = false;
 
   // make real position private to set pos only by setter that updates avatar too
   private _position: Position = {
@@ -69,27 +70,44 @@ export default class Player implements Renderable {
     }
 
     // change properties
-    this.position = {
-      x: 0,
-      y: BOARD_HEIGHT / 2,
-    };
     this.lives--;
+    this.immortality = true;
+    this.locked = true;
 
     if (this.lives < 0) {
       this.immortality = true;
       this.onDie();
     }
 
-    // start immortality
-    this.immortality = true;
-    this.animator.startAnim("immortality");
+    //play die animation
+    this.animator.startAnim("death");
     setTimeout(() => {
-      this.immortality = false;
-      this.animator.endAnim("immortality");
-    }, PLAYER_IMMORTALITY_TIME);
+      // after anim make next actions
+      this.position = {
+        x: 0,
+        y: BOARD_HEIGHT / 2,
+      };
+
+      this.animator.endAnim("death");
+      this.locked = false;
+
+      this.startImmortalityAnim();
+    }, 200 * 7);
   }
 
   onDie() {
     this.dieCallbak();
+  }
+
+  startImmortalityAnim() {
+    this.animator.startAnim("immortality");
+    setTimeout(() => {
+      this.endImmortality();
+    }, PLAYER_IMMORTALITY_TIME);
+  }
+
+  endImmortality() {
+    this.immortality = false;
+    this.animator.endAnim("immortality");
   }
 }

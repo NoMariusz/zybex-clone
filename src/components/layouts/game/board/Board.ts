@@ -25,6 +25,10 @@ export default class Board implements Renderable {
   //player moves
 
   movePlayer() {
+    // not move player when is locked
+    if (this.player.locked) {
+      return;
+    }
     // get pos after move
     const newPos = this.getPlayerNewPos();
     // restrict player move to be at board area
