@@ -10,5 +10,5 @@ export enum AVATAR_COLORS {
   blue = 100,
   aqua = 200,
   green = 300,
-  white = 1000,
+  white = 400,
 }

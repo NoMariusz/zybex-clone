@@ -4,7 +4,7 @@ import store from "../../store";
 
 export default class AvatarElement implements CanvasElement {
   texture_offset = {
-    x: 1261,
+    x: 600,
     y: AVATAR_COLORS.red,
   };
 
@@ -18,7 +18,7 @@ export default class AvatarElement implements CanvasElement {
     height: 67,
   };
 
-  texture = "menu_sprite";
+  texture = "game_sprite";
 
   loadColor() {
     // load avatar color from store
