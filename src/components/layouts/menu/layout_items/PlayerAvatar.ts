@@ -4,7 +4,7 @@ import BottomPanelEl from "./BottomPanelElement";
 
 export default class PlayerAvatar extends BottomPanelEl implements Focusable {
   texture_offset = {
-    x: 600,
+    x: 1260,
     y: AVATAR_COLORS.red,
   };
 
@@ -16,8 +16,6 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
   };
 
   flip: boolean;
-
-  texture = "game_sprite";
 
   changeFocus(value: boolean) {
     this.texture_offset.y = value ? AVATAR_COLORS.white : this.lastColor;

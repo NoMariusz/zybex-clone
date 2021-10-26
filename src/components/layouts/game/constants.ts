@@ -1,6 +1,6 @@
 // overall things
 
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
+import { AVATAR_COLORS, CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
 
 export const BOARD_Y = 105;
 export const BOARD_HEIGHT = CANVAS_HEIGHT - BOARD_Y * 2;
@@ -31,6 +31,14 @@ export enum Weapons {
 
 // ui stuff
 
+export const COLOR_TO_GAME_AVATAR_Y = {
+  [AVATAR_COLORS.red]: 0,
+  [AVATAR_COLORS.blue]: 100,
+  [AVATAR_COLORS.aqua]: 200,
+  [AVATAR_COLORS.green]: 300,
+  [AVATAR_COLORS.white]: 400,
+};
+
 export const NUMBER_OFF = [
   { x: 0, y: 350 },
   { x: 0, y: 400 },
@@ -53,6 +61,8 @@ export const SCORE_ELEMENTS_OFFSET = 130;
 
 export const BOTTOM_UI_POS_Y = BOARD_Y + BOARD_HEIGHT + 45;
 export const TOP_UI_POS_Y = 45;
+
+// weapons
 
 export const WEAPON_TO_NAME_TEXTURE = {
   [Weapons.Orbit]: { x: 0, y: 300 },
