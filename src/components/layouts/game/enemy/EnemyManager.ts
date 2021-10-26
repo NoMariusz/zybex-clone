@@ -1,11 +1,15 @@
-import { Renderable } from "../../../interfaces";
+import { Collidable, Renderable } from "../../../interfaces";
 import Enemy from "./Enemy";
 import spawnData from "./spawnData";
 
 export default class EnemyManager implements Renderable {
   /* manage enemies, their creation, communication with other application systems */
-  spawnDataIndex: number;
+  private spawnDataIndex: number;
   activeEnemy: Enemy;
+
+  get collidablesWithPlayer(): Collidable[] {
+    return this.activeEnemy != null ? [...this.activeEnemy.sections] : [];
+  }
 
   start() {
     this.spawnDataIndex = 0;
@@ -34,6 +38,7 @@ export default class EnemyManager implements Renderable {
       this.onEnemyDie()
     );
     this.activeEnemy = enemy;
+
     // increment index
     this.spawnDataIndex++;
   }

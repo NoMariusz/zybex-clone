@@ -1,14 +1,14 @@
-import { Position, Renderable, Size } from "../../../interfaces";
+import { Collidable, Position, Renderable, Size } from "../../../interfaces";
 import { CanvasElement } from "../../../rendering/interfaces";
 import Renderer from "../../../rendering/Renderer";
 import { BASE_ENEMY_HP } from "../constants";
 import { translateToCanvasPos } from "../utils";
 
-export default abstract class EnemySection implements Renderable {
+export default abstract class EnemySection implements Renderable, Collidable {
   /* Describe one part of enemy or enemy group  */
 
   element: CanvasElement;
-  hp: number;
+  private hp: number;
   live: boolean;
   canClear: boolean;
   private _position: Position;

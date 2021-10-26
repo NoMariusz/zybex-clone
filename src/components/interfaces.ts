@@ -1,19 +1,24 @@
 export interface Position {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 }
 
 export interface Size {
-    width: number;
-    height: number;
+  width: number;
+  height: number;
 }
 
 export interface Renderable {
-    render(): void;
+  render(): void;
 }
 
 export interface Focusable {
-    changeFocus(value: boolean): void;
-    startFocus(): void;
-    endFocus(): void;
+  changeFocus(value: boolean): void;
+  startFocus(): void;
+  endFocus(): void;
+}
+
+export interface Collidable {
+  position: Position;
+  size: Size;
 }

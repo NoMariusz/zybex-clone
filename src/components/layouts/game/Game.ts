@@ -34,16 +34,16 @@ export default class Game implements Layout {
     this.playerUi = new PlayerUi(this.player, 1);
     this.player2Ui = new PlayerUi(new Player(), 2);
 
-    this.board = new Board(this.player);
     this.enemyManager = new EnemyManager();
+    this.board = new Board(this.player, this.enemyManager);
   }
 
   render() {
     this.board.render();
+    this.enemyManager.render();
     this.playerUi.render();
     this.player2Ui.render();
     this.player.render();
-    this.enemyManager.render();
   }
 
   handleKeys(key: string) {
