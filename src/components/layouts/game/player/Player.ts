@@ -6,6 +6,7 @@ import {
   PLAYER_IMMORTALITY_TIME,
   Weapons,
 } from "../constants";
+import { translateToCanvasPos } from "../utils";
 import Avatar from "./AvatarElement";
 import Weapon from "./Weapon";
 import PlayerAnimator from "./animations/PlayerAnimator";
@@ -60,8 +61,7 @@ export default class Player implements Renderable {
   }
 
   updateAvatar() {
-    this.avatar.position.y = this.position.y + BOARD_Y;
-    this.avatar.position.x = this.position.x;
+    this.avatar.position = translateToCanvasPos(this.position);
   }
 
   takeDamage() {

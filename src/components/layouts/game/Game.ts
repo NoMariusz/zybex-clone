@@ -4,6 +4,7 @@ import { Keys } from "../../controls/constants";
 import Board from "./board/Board";
 import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
+import EnemyManager from "./enemy/EnemyManager";
 
 export default class Game implements Layout {
   changeLayout: (layName: Layouts) => void;
@@ -11,6 +12,7 @@ export default class Game implements Layout {
 
   //items
   board: Board;
+  enemyManager: EnemyManager;
 
   playerUi: PlayerUi;
   player2Ui: PlayerUi;
@@ -29,6 +31,7 @@ export default class Game implements Layout {
     this.player2Ui = new PlayerUi(new Player(), 2);
 
     this.board = new Board(this.player);
+    this.enemyManager = new EnemyManager();
   }
 
   render() {
@@ -36,6 +39,7 @@ export default class Game implements Layout {
     this.playerUi.render();
     this.player2Ui.render();
     this.player.render();
+    this.enemyManager.render();
   }
 
   handleKeys(key: string) {
@@ -47,9 +51,11 @@ export default class Game implements Layout {
   onShow() {
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
     this.player.avatar.loadColor();
+    this.enemyManager.start();
   }
   onHide() {
     this.player.animator.clearAnims();
+    this.enemyManager.clear();
   }
 
   gameOver() {
