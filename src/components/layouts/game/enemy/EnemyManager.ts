@@ -1,13 +1,14 @@
 import { Renderable } from "../../../interfaces";
-import Coin from "./enemies/coin_group/Coin";
 import Enemy from "./Enemy";
+import spawnData from "./spawnData";
 
 export default class EnemyManager implements Renderable {
   /* manage enemies, their creation, communication with other application systems */
-  enemiesClasses = [Coin];
+  spawnDataIndex: number;
   activeEnemy: Enemy;
 
   start() {
+    this.spawnDataIndex = 0;
     this.initEnemy();
   }
 
@@ -20,25 +21,31 @@ export default class EnemyManager implements Renderable {
   }
 
   initEnemy() {
-    // get random enemy
-    const randomEnemyIdx = Math.floor(
-      Math.random() * this.enemiesClasses.length
-    );
-    const randomEnemyCls = this.enemiesClasses[randomEnemyIdx];
+    // check if can init new enemies
+    if (this.spawnDataIndex >= spawnData.length) {
+      this.enemiesEnded();
+      // return break enemies spawn loop
+      return;
+    }
+    // get next enemy data
+    const spawnInfo = spawnData[this.spawnDataIndex];
     // init enemy
-    const randomEnemy = new randomEnemyCls(
-      {
-        x: 0,
-        y: 80,
-      },
-      () => this.onEnemyDie()
+    const enemy = new spawnInfo.class(spawnInfo.initialPosition, () =>
+      this.onEnemyDie()
     );
-    this.activeEnemy = randomEnemy;
+    this.activeEnemy = enemy;
+    // increment index
+    this.spawnDataIndex++;
   }
 
   onEnemyDie() {
     //spawn new enemy
     this.activeEnemy = null;
     this.initEnemy();
+  }
+
+  enemiesEnded() {
+    // to temporary loop enemies
+    this.spawnDataIndex = 0;
   }
 }

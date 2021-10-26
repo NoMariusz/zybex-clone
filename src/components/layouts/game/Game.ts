@@ -26,6 +26,10 @@ export default class Game implements Layout {
     this.changeLayout = (s) => changeLayout(s);
     this.keyListener = keyListener;
 
+    this.init();
+  }
+
+  init() {
     this.player = new Player(() => this.gameOver());
     this.playerUi = new PlayerUi(this.player, 1);
     this.player2Ui = new PlayerUi(new Player(), 2);
@@ -49,6 +53,8 @@ export default class Game implements Layout {
   }
 
   onShow() {
+    this.init();
+
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
     this.player.avatar.loadColor();
     this.enemyManager.start();
