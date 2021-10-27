@@ -7,10 +7,13 @@ import EnemySection from "../../EnemySection";
 import CoinElement from "./CoinElement";
 
 export default class CoinSection extends EnemySection {
+  shotTimerMs: number;
+
   constructor() {
     super();
     this.element = new CoinElement();
     this.size = this.element.size;
+    this.shotTimerMs = 2500;
   }
 
   move() {
@@ -18,5 +21,9 @@ export default class CoinSection extends EnemySection {
       ...this.position,
       x: this.position.x - BOARD_SCROLL_SPEED,
     };
+  }
+
+  render() {
+    super.render();
   }
 }

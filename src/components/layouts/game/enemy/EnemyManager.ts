@@ -8,7 +8,12 @@ export default class EnemyManager implements Renderable {
   activeEnemy: Enemy | null;
 
   get collidablesWithPlayer(): Collidable[] {
-    return this.activeEnemy != null ? [...this.activeEnemy.sections] : [];
+    return this.activeEnemy == null
+      ? []
+      : [
+          ...this.activeEnemy.sections,
+          ...this.activeEnemy.sections.map((s) => s.bullets).flat(),
+        ];
   }
 
   start() {

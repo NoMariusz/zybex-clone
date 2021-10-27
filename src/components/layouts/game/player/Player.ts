@@ -8,7 +8,7 @@ import {
 } from "../constants";
 import { translateToCanvasPos } from "../utils";
 import Avatar from "./AvatarElement";
-import Weapon from "./Weapon";
+import Weapon from "../weapons/Weapon";
 import PlayerAnimator from "./animations/PlayerAnimator";
 
 export default class Player implements Renderable {
