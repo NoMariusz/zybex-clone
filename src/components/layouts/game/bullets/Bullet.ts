@@ -6,7 +6,8 @@ import Renderer from "../../../rendering/Renderer";
 
 export default class Bullet implements Collidable, Renderable {
   element: BulletElement;
-  _size: Size;
+  private _size: Size;
+  velocity: number = 1;
 
   speed = BOARD_SCROLL_SPEED * 2;
 
@@ -42,7 +43,7 @@ export default class Bullet implements Collidable, Renderable {
   move() {
     this.position = {
       ...this.position,
-      x: this.position.x - this.speed * 2,
+      x: this.position.x + this.velocity * this.speed * 2,
     };
   }
 }

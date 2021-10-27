@@ -56,12 +56,13 @@ export default class Game implements Layout {
     this.init();
 
     this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
-    this.player.avatar.loadColor();
+    this.player.onStart();
     this.enemyManager.start();
   }
   onHide() {
     this.player.animator.clearAnims();
     this.enemyManager.clear();
+    this.player.shotManager.stopShot();
   }
 
   gameOver() {
