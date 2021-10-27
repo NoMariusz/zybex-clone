@@ -8,3 +8,7 @@ export interface CanvasElement {
   flip?: boolean;
   texture_size?: Size;
 }
+
+export interface ScaledCanvasElement extends CanvasElement {
+  texture_size: Size;
+}

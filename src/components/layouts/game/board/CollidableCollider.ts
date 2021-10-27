@@ -1,11 +1,4 @@
-import { Collidable, Position, Size } from "../../../interfaces";
-import Renderer from "../../../rendering/Renderer";
-import {
-  LEVEL_TEXTURE_FULL_HEIGHT,
-  LEVEL_TEXTURE_FULL_WIDTH,
-  LEVEL_TEXTURE_SCALE,
-  PLAYFIELD_COLLIDE_TOLERANCY,
-} from "../constants";
+import { Collidable } from "../../../interfaces";
 
 export default class CollidableCollider {
   /* Detect collision with collidables */

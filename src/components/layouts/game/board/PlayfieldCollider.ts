@@ -24,6 +24,7 @@ export default class PlayfieldCollider {
     canvas.height = LEVEL_TEXTURE_FULL_HEIGHT;
     // get context
     const context = canvas.getContext("2d");
+    if (!context) throw new Error(`Can't get context`);
     // get image
     const img = Renderer.getImage("level_sprite").image;
     // draw image to context

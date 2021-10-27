@@ -5,7 +5,9 @@ export default class KeyListener {
   subscribedFunc: (key: string) => void;
 
   constructor() {
-    const root: HTMLBodyElement = document.querySelector("body");
+    const root: HTMLBodyElement | null = document.querySelector("body");
+    if (!root) throw new Error(`Can't get document body`);
+
     root.onkeyup = (e) => {
       this.subscribedFunc(e.key);
       this.changeKeyState(e.key, false);

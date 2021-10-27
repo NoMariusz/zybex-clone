@@ -27,7 +27,7 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
   }
 
   changeColor() {
-    let color: number;
+    let color: number = AVATAR_COLORS.red;
     let setNext = false;
     // loop in every color
     for (const col in AVATAR_COLORS) {

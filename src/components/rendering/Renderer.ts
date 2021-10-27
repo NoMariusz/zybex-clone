@@ -1,5 +1,5 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants";
-import { CanvasElement } from "./interfaces";
+import { CanvasElement, ScaledCanvasElement } from "./interfaces";
 import RendererImage from "./RendererImage";
 
 import menuSprite from "../../../static/gfx/menu.png";
@@ -21,8 +21,17 @@ class Renderer {
   context: CanvasRenderingContext2D;
 
   constructor() {
-    this.canvas = document.querySelector("#root");
-    this.context = this.canvas.getContext("2d");
+    this.loadContext();
+  }
+
+  loadContext() {
+    const canvas = document.querySelector("#root");
+    if (!canvas) throw new Error(`Can't find canvas`);
+    this.canvas = canvas as HTMLCanvasElement;
+
+    const context = this.canvas.getContext("2d");
+    if (!context) throw new Error(`Can't get context from canvas`);
+    this.context = context;
   }
 
   render(target: CanvasElement) {
@@ -36,7 +45,7 @@ class Renderer {
 
     // draw
     if ("texture_size" in target) {
-      this.drawWithScale(target);
+      this.drawWithScale(target as ScaledCanvasElement);
     } else {
       this.draw(target);
     }
@@ -52,7 +61,9 @@ class Renderer {
   }
 
   getImage(name: string) {
-    return images.find((i) => i.name == name);
+    const image = images.find((i) => i.name == name);
+    if (!image) throw new Error(`Can't find ${name} image in images`);
+    return image;
   }
 
   draw(target: CanvasElement) {
@@ -71,8 +82,8 @@ class Renderer {
     );
   }
 
-  drawWithScale(target: CanvasElement) {
-    const image = images.find((i) => i.name == target.texture);
+  drawWithScale(target: ScaledCanvasElement) {
+    const image = this.getImage(target.texture);
 
     this.context.drawImage(
       image.image,

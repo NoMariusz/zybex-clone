@@ -5,7 +5,7 @@ import spawnData from "./spawnData";
 export default class EnemyManager implements Renderable {
   /* manage enemies, their creation, communication with other application systems */
   private spawnDataIndex: number;
-  activeEnemy: Enemy;
+  activeEnemy: Enemy | null;
 
   get collidablesWithPlayer(): Collidable[] {
     return this.activeEnemy != null ? [...this.activeEnemy.sections] : [];
