@@ -63,4 +63,12 @@ export default abstract class EnemySection implements Renderable, Collidable {
       this.shot();
     }, this.shotTimerMs);
   }
+
+  takeDamage(count: number) {
+    this.hp -= count;
+    if (this.hp <= 0) {
+      this.live = true;
+      this.canClear = true;
+    }
+  }
 }

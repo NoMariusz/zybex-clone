@@ -10,7 +10,7 @@ export default class ShotManager implements Renderable {
 
   shotTimeout: NodeJS.Timeout;
   shotBurstMultiplier = 1;
-  shotTimeoutMs = 900;
+  shotTimeoutMs = 700;
   private break = false;
 
   bullets: Bullet[] = [];
@@ -55,7 +55,8 @@ export default class ShotManager implements Renderable {
 
   checkBullets() {
     for (const bullet of this.bullets) {
-      if (bullet.position.x > BOARD_WIDTH) this.clearBullet(bullet);
+      if (bullet.position.x > BOARD_WIDTH || !bullet.active)
+        this.clearBullet(bullet);
     }
   }
 

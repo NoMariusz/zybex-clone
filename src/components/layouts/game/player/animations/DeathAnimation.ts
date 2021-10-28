@@ -55,8 +55,6 @@ export default class DeathAnimation implements Animation {
   }
 
   end() {
-    console.log({ ...this.baseTexture });
-
     this.avatar.texture_offset = this.baseTexture;
   }
 

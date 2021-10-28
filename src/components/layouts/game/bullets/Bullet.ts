@@ -10,6 +10,9 @@ export default class Bullet implements Collidable, Renderable {
   velocity: number = 1;
 
   speed = BOARD_SCROLL_SPEED * 2;
+  damage: number = 35;
+
+  active = true;
 
   private _position: Position;
 
@@ -45,5 +48,9 @@ export default class Bullet implements Collidable, Renderable {
       ...this.position,
       x: this.position.x + this.velocity * this.speed * 2,
     };
+  }
+
+  destroy() {
+    this.active = false;
   }
 }

@@ -27,6 +27,7 @@ export default class Board implements Renderable {
     this.movePlayer();
     this.playfieldManager.render();
     this.collidePlayer();
+    this.collideEnemies();
   }
 
   //player moves
@@ -73,6 +74,23 @@ export default class Board implements Renderable {
         enemyColl
       );
       if (collide) this.player.takeDamage();
+    }
+  }
+
+  collideEnemies() {
+    if (this.enemyManager.activeEnemy == null) return;
+
+    for (const bullet of this.player.shotManager.bullets) {
+      for (const enemySection of this.enemyManager.activeEnemy?.sections) {
+        const collide = this.collidableCollider.checkCollision(
+          enemySection,
+          bullet
+        );
+        if (collide) {
+          enemySection.takeDamage(bullet.damage);
+          bullet.destroy();
+        }
+      }
     }
   }
 }
