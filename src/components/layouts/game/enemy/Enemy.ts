@@ -50,21 +50,21 @@ export default abstract class Enemy implements Renderable {
 
   clear() {
     for (const sec of this.sections) {
-      sec.die();
+      sec.clear();
     }
   }
 
   checkSectionClear(section: EnemySection) {
-    if (section.position.x < -section.size.width - 50 || section.canClear) {
+    if (section.position.x < -section.size.width - 50 || section.canBeCleared) {
       this.clearSection(section);
     }
   }
 
   clearSection(section: EnemySection) {
-    const secIdx = this.sections.findIndex((s) => s == section);
-    this.sections[secIdx].die();
+    const secIdx = this.sections.findIndex((s) => s === section);
+    this.sections[secIdx].clear();
     this.sections.splice(secIdx, 1);
 
-    if (this.sections.length <= 1) this.deathCallback();
+    if (this.sections.length <= 0) this.deathCallback();
   }
 }

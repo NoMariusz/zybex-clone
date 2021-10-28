@@ -15,6 +15,11 @@ export default class EnemyManager extends BulletClearer implements Renderable {
       ? []
       : [...this.activeEnemy.sections.filter((s) => s.live), ...this.bullets];
   }
+  get collidablesWithPlayerBullets(): Collidable[] {
+    return this.activeEnemy == null
+      ? []
+      : [...this.activeEnemy.sections.filter((s) => s.live)];
+  }
 
   start() {
     this.bullets = [];

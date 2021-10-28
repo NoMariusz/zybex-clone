@@ -7,6 +7,8 @@ import EnemyManager from "../enemy/EnemyManager";
 import Player from "../player/Player";
 import PlayfieldManager from "./PlayfieldManager";
 import CollidableCollider from "./CollidableCollider";
+import Enemy from "../enemy/Enemy";
+import EnemySection from "../enemy/EnemySection";
 
 export default class Board implements Renderable {
   /* Manage all board actions, like managing player or enemies */
@@ -70,8 +72,8 @@ export default class Board implements Renderable {
   collidePlayer() {
     for (const enemyColl of this.enemyManager.collidablesWithPlayer) {
       const collide = this.collidableCollider.checkCollision(
-        this.player,
-        enemyColl
+        enemyColl,
+        this.player
       );
       if (collide) this.player.takeDamage();
     }
@@ -81,14 +83,18 @@ export default class Board implements Renderable {
     if (this.enemyManager.activeEnemy == null) return;
 
     for (const bullet of this.player.shotManager.bullets) {
-      for (const enemySection of this.enemyManager.activeEnemy?.sections) {
+      for (const enemyCollidable of this.enemyManager
+        .collidablesWithPlayerBullets) {
         const collide = this.collidableCollider.checkCollision(
-          enemySection,
-          bullet
+          bullet,
+          enemyCollidable
         );
         if (collide) {
-          enemySection.takeDamage(bullet.damage);
+          if (enemyCollidable instanceof EnemySection)
+            enemyCollidable.takeDamage(bullet.damage);
+
           bullet.destroy();
+          break;
         }
       }
     }

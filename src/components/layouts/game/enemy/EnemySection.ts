@@ -15,7 +15,7 @@ export default abstract class EnemySection implements Renderable, Collidable {
   element: CanvasElement;
   private hp: number;
   live: boolean;
-  canClear: boolean;
+  canBeCleared: boolean;
   private _position: Position;
   size: Size;
 
@@ -34,7 +34,7 @@ export default abstract class EnemySection implements Renderable, Collidable {
   constructor() {
     this.hp = BASE_ENEMY_HP;
     this.live = true;
-    this.canClear = false;
+    this.canBeCleared = false;
     this.bulletFactory = new BulletFactory();
   }
 
@@ -67,8 +67,14 @@ export default abstract class EnemySection implements Renderable, Collidable {
   }
 
   die() {
-    clearInterval(this.shotTimer);
     this.live = false;
-    this.canClear = true;
+    this.clear();
+  }
+
+  clear() {
+    if (this.canBeCleared) return;
+
+    clearInterval(this.shotTimer);
+    this.canBeCleared = true;
   }
 }

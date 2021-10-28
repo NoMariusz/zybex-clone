@@ -9,9 +9,9 @@ const initPositions: Position[] = [
   { x: 0, y: 30 },
   { x: 75, y: 120 },
   { x: 140, y: 80 },
+  { x: 195, y: 180 },
   { x: 210, y: 0 },
   { x: 270, y: 110 },
-  { x: 195, y: 180 },
 ];
 
 export default class Coin extends Enemy {
