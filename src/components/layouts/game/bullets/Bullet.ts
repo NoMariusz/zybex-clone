@@ -10,9 +10,10 @@ export default class Bullet implements Collidable, Renderable {
   velocity: number = 1;
 
   speed = BOARD_SCROLL_SPEED * 2;
-  damage: number = 35;
+  damage: number = 120;
 
   active = true;
+  canClear = false;
 
   private _position: Position;
 

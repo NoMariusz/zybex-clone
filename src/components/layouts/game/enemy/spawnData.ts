@@ -12,7 +12,7 @@ const spawnData: SpawnData[] = [
   { class: Coin, initialPosition: { x: 0, y: 100 } },
   { class: Coin, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
   { class: Coin, initialPosition: { x: 0, y: 100 } },
-  { class: Coin, initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 } },
+  { class: Coin, initialPosition: { x: 0, y: BOARD_HEIGHT / 3 } },
   { class: Coin, initialPosition: { x: 0, y: 100 } },
 ];
 

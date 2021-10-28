@@ -36,17 +36,14 @@ export default abstract class EnemySection implements Renderable, Collidable {
     this.live = true;
     this.canClear = false;
     this.bulletFactory = new BulletFactory();
-    this.bullets = [];
   }
 
   render() {
     Renderer.render(this.element);
-    for (const b of this.bullets) {
-      b.render();
-    }
   }
 
   shot() {
+    if (!this.live) return;
     const bullet = this.bulletFactory.makeBullet(this);
     bullet.position = {
       ...this.position,
@@ -66,9 +63,12 @@ export default abstract class EnemySection implements Renderable, Collidable {
 
   takeDamage(count: number) {
     this.hp -= count;
-    if (this.hp <= 0) {
-      this.live = true;
-      this.canClear = true;
-    }
+    if (this.hp <= 0) this.die();
+  }
+
+  die() {
+    clearInterval(this.shotTimer);
+    this.live = false;
+    this.canClear = true;
   }
 }

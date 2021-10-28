@@ -1,4 +1,5 @@
 import { Position, Size } from "../../../../../interfaces";
+import Bullet from "../../../bullets/Bullet";
 import { BOARD_WIDTH } from "../../../constants";
 import Enemy from "../../Enemy";
 import CoinSection from "./CoinSection";
@@ -16,8 +17,8 @@ const initPositions: Position[] = [
 export default class Coin extends Enemy {
   static sectionCount = 6;
 
-  constructor(pos: Position, deathCallback: () => void) {
-    super(pos, deathCallback);
+  constructor(pos: Position, deathCallback: () => void, bulletsRef: Bullet[]) {
+    super(pos, deathCallback, bulletsRef);
   }
 
   initSections() {

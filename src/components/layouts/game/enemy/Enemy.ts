@@ -1,4 +1,5 @@
 import { Position, Renderable, Size } from "../../../interfaces";
+import Bullet from "../bullets/Bullet";
 import EnemySection from "./EnemySection";
 
 export default abstract class Enemy implements Renderable {
@@ -7,8 +8,13 @@ export default abstract class Enemy implements Renderable {
   static sectionCount: number;
   sections: EnemySection[];
   deathCallback: () => void;
+  bulletsRef: Bullet[];
 
-  constructor(startPos: Position, deathCallback: () => void) {
+  constructor(
+    startPos: Position,
+    deathCallback: () => void,
+    bulletsRef: Bullet[]
+  ) {
     // prepare section and delegate child to populate
     this.sections = [];
     this.initSections();
@@ -16,6 +22,11 @@ export default abstract class Enemy implements Renderable {
     // init positions
     this.initPositions(startPos);
     this.deathCallback = deathCallback;
+
+    // connect bullets array
+    for (const sec of this.sections) {
+      sec.bullets = bulletsRef;
+    }
   }
 
   abstract initSections(): void;
@@ -37,6 +48,12 @@ export default abstract class Enemy implements Renderable {
     }
   }
 
+  clear() {
+    for (const sec of this.sections) {
+      sec.die();
+    }
+  }
+
   checkSectionClear(section: EnemySection) {
     if (section.position.x < -section.size.width - 50 || section.canClear) {
       this.clearSection(section);
@@ -45,6 +62,7 @@ export default abstract class Enemy implements Renderable {
 
   clearSection(section: EnemySection) {
     const secIdx = this.sections.findIndex((s) => s == section);
+    this.sections[secIdx].die();
     this.sections.splice(secIdx, 1);
 
     if (this.sections.length <= 1) this.deathCallback();
