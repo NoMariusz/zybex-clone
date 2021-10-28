@@ -95,6 +95,8 @@ export default class Player implements Renderable {
     this.immortality = true;
     this.locked = true;
 
+    this.shotManager.stopShot();
+
     if (this.lives < 0) {
       this.immortality = true;
       this.onDie();
@@ -108,6 +110,7 @@ export default class Player implements Renderable {
         x: 0,
         y: BOARD_HEIGHT / 2,
       };
+      this.shotManager.startShot();
 
       this.animator.endAnim("death");
       this.locked = false;
