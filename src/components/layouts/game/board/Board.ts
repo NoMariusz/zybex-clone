@@ -9,6 +9,7 @@ import PlayfieldManager from "./PlayfieldManager";
 import CollidableCollider from "./CollidableCollider";
 import Enemy from "../enemy/Enemy";
 import EnemySection from "../enemy/EnemySection";
+import Bullet from "../bullets/Bullet";
 
 export default class Board implements Renderable {
   /* Manage all board actions, like managing player or enemies */
@@ -91,12 +92,18 @@ export default class Board implements Renderable {
         );
         if (collide) {
           if (enemyCollidable instanceof EnemySection)
-            enemyCollidable.takeDamage(bullet.damage);
+            this.onEnemyCollide(enemyCollidable, bullet);
 
           bullet.destroy();
           break;
         }
       }
     }
+  }
+
+  onEnemyCollide(enemySection: EnemySection, bullet: Bullet) {
+    enemySection.takeDamage(bullet.damage);
+    // detect if enemy died after got shoot
+    if (!enemySection.live) this.player.onEnemyDie();
   }
 }

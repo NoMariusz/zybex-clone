@@ -4,6 +4,7 @@ import {
   BOARD_HEIGHT,
   BOARD_Y,
   PLAYER_IMMORTALITY_TIME,
+  SCORE_FOR_ENEMY,
   Weapons,
 } from "../constants";
 import { translateToCanvasPos } from "../utils";
@@ -122,6 +123,10 @@ export default class Player implements Renderable {
   onDie() {
     this.shotManager.stopShot();
     this.dieCallbak();
+  }
+
+  onEnemyDie() {
+    this.points += SCORE_FOR_ENEMY;
   }
 
   startImmortalityAnim() {

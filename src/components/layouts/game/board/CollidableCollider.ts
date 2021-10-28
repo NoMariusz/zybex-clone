@@ -12,7 +12,7 @@ export default class CollidableCollider {
 
     if (!this.validateElements(element1, element2))
       throw new Error(
-        "Element1 should be smaller that element2 to detect collisions correct!"
+        "Element1 should be not so much bigger that element2 to detect collisions correct!"
       );
 
     const { x: x1, y: y1 } = element1.position;
