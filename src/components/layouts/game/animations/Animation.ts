@@ -1,14 +1,15 @@
-import AvatarElement from "../AvatarElement";
+import { CanvasElement } from "../../../rendering/interfaces";
+import { AnimationName } from "./animationNames";
 
 export default interface Animation {
-  name: string;
+  name: AnimationName;
   active: boolean;
 
   tickIntervalTime: number;
 
   interval: NodeJS.Timer;
 
-  avatar: AvatarElement;
+  element: CanvasElement;
 
   tick: () => void;
   start: () => void;

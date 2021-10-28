@@ -10,8 +10,9 @@ import {
 import { translateToCanvasPos } from "../utils";
 import Avatar from "./AvatarElement";
 import Weapon from "../weapons/Weapon";
-import PlayerAnimator from "./animations/PlayerAnimator";
+import PlayerAnimator from "../animations/Animator";
 import ShotManager from "./ShotManager";
+import { AnimationName } from "../animations/animationNames";
 
 export default class Player implements Renderable {
   /* Describe player in game */
@@ -104,7 +105,7 @@ export default class Player implements Renderable {
     }
 
     //play die animation
-    this.animator.startAnim("death");
+    const time = this.animator.startAnim(AnimationName.PlayerDeath);
     setTimeout(() => {
       // after anim make next actions
       this.position = {
@@ -113,11 +114,11 @@ export default class Player implements Renderable {
       };
       this.shotManager.startShot();
 
-      this.animator.endAnim("death");
+      this.animator.endAnim(AnimationName.PlayerDeath);
       this.locked = false;
 
       this.startImmortalityAnim();
-    }, 200 * 7);
+    }, time);
   }
 
   onDie() {
@@ -130,7 +131,7 @@ export default class Player implements Renderable {
   }
 
   startImmortalityAnim() {
-    this.animator.startAnim("immortality");
+    this.animator.startAnim(AnimationName.Immortality);
     setTimeout(() => {
       this.endImmortality();
     }, PLAYER_IMMORTALITY_TIME);
@@ -138,6 +139,6 @@ export default class Player implements Renderable {
 
   endImmortality() {
     this.immortality = false;
-    this.animator.endAnim("immortality");
+    this.animator.endAnim(AnimationName.Immortality);
   }
 }

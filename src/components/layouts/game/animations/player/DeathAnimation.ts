@@ -1,16 +1,16 @@
-import { AVATAR_COLORS } from "../../../../../constants";
 import { Position } from "../../../../interfaces";
-import AvatarElement from "../AvatarElement";
-import Animation from "./Animation";
+import { CanvasElement } from "../../../../rendering/interfaces";
+import { AnimationName } from "../animationNames";
+import FrameAnimation from "../FrameAnimation";
 
-export default class DeathAnimation implements Animation {
+export default class DeathAnimation extends FrameAnimation {
   active = false;
-  name = "death";
+  name = AnimationName.PlayerDeath;
 
   tickIntervalTime = 200;
   interval: NodeJS.Timer;
 
-  avatar: AvatarElement;
+  element: CanvasElement;
   baseTexture: Position;
 
   textures: Position[] = [
@@ -45,17 +45,18 @@ export default class DeathAnimation implements Animation {
   ];
   actualTextureIdx = 0;
 
-  constructor(avatar: AvatarElement) {
-    this.avatar = avatar;
+  constructor(element: CanvasElement) {
+    super();
+    this.element = element;
   }
 
   start() {
-    this.baseTexture = this.avatar.texture_offset;
+    this.baseTexture = this.element.texture_offset;
     this.actualTextureIdx = 0;
   }
 
   end() {
-    this.avatar.texture_offset = this.baseTexture;
+    this.element.texture_offset = this.baseTexture;
   }
 
   tick() {
@@ -63,7 +64,7 @@ export default class DeathAnimation implements Animation {
       return;
     }
     const tex = this.textures[this.actualTextureIdx];
-    this.avatar.texture_offset = tex;
+    this.element.texture_offset = tex;
     this.actualTextureIdx++;
   }
 }

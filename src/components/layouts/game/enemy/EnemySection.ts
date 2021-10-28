@@ -5,12 +5,16 @@ import { BASE_ENEMY_HP } from "../constants";
 import { translateToCanvasPos } from "../utils";
 import Bullet from "../bullets/Bullet";
 import BulletFactory from "../bullets/BulletFactory";
+import Animator from "../animations/Animator";
+import { AnimationName } from "../animations/animationNames";
 
 export default abstract class EnemySection implements Renderable, Collidable {
   /* Describe one part of enemy or enemy group  */
 
   shotTimer: NodeJS.Timer;
   abstract shotTimerMs: number;
+
+  animator: Animator;
 
   element: CanvasElement;
   private hp: number;
@@ -36,6 +40,10 @@ export default abstract class EnemySection implements Renderable, Collidable {
     this.live = true;
     this.canBeCleared = false;
     this.bulletFactory = new BulletFactory();
+  }
+
+  initAnimator() {
+    this.animator = new Animator(this.element);
   }
 
   render() {

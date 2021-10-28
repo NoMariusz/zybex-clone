@@ -14,6 +14,7 @@ export default class CoinSection extends EnemySection {
     this.element = new CoinElement();
     this.size = this.element.size;
     this.shotTimerMs = 2500;
+    this.initAnimator();
   }
 
   move() {
