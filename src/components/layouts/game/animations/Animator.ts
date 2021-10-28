@@ -4,6 +4,7 @@ import DeathAnimation from "./player/DeathAnimation";
 import { CanvasElement } from "../../../rendering/interfaces";
 import FrameAnimation from "./FrameAnimation";
 import { AnimationName } from "./animationNames";
+import CoinIddleAnimation from "./enemies/CoinIddleAnimation";
 
 export default class Animator {
   /* Handle starting and ending animations and protect animations from overlaping */
@@ -18,6 +19,7 @@ export default class Animator {
     this.animations = [
       new DeathAnimation(this.element),
       new ImmortalityAnimation(this.element),
+      new CoinIddleAnimation(this.element),
     ];
   }
 
@@ -46,8 +48,10 @@ export default class Animator {
     const anim = this.getAnimByName(name);
     if (!anim) return;
 
-    anim.end();
-    anim.active = false;
+    if (anim.active) {
+      anim.end();
+      anim.active = false;
+    }
 
     clearInterval(anim.interval);
   }

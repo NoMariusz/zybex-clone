@@ -3,7 +3,7 @@ import { Renderable } from "../interfaces";
 import { Layout, Layouts } from "./interfaces";
 import LevelAnnounce from "./level_announce/LevelAnnounce";
 import Menu from "./menu/Menu";
-import Game from "./game/Game"
+import Game from "./game/Game";
 
 export default class LayoutManager implements Renderable {
   /* Manage swaps between layouts and controlling them */
@@ -27,7 +27,7 @@ export default class LayoutManager implements Renderable {
       [Layouts.GAME]: new Game(
         (name: Layouts) => this.changeLayout(name),
         this.keyListener
-      )
+      ),
     };
 
     this.activeLayout = this.layouts[Layouts.MENU];
@@ -41,6 +41,7 @@ export default class LayoutManager implements Renderable {
   changeLayout(name: Layouts) {
     this.activeLayout.onHide();
     this.activeLayout = this.layouts[name];
+
     this.activeLayout.onShow();
   }
 }

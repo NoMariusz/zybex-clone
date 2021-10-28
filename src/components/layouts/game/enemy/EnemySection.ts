@@ -80,9 +80,8 @@ export default abstract class EnemySection implements Renderable, Collidable {
   }
 
   clear() {
-    if (this.canBeCleared) return;
-
     clearInterval(this.shotTimer);
+    this.animator.clearAnims();
     this.canBeCleared = true;
   }
 }

@@ -31,6 +31,7 @@ export default class Player implements Renderable {
   size: Size;
 
   dieCallbak: () => void;
+  timeouts: NodeJS.Timeout[] = [];
 
   // make real position private to set pos only by setter
   // that updates position in other subclassses
@@ -73,9 +74,29 @@ export default class Player implements Renderable {
     this.updateAvatar();
   }
 
+  //lifecycle
+
   onStart() {
     this.avatar.loadColor();
     this.shotManager.startShot();
+  }
+
+  clear() {
+    // clear not ended timeouts
+    for (const timeout of this.timeouts) {
+      clearTimeout(timeout);
+    }
+
+    this.shotManager.stopShot();
+    this.animator.clearAnims();
+  }
+
+  onDie() {
+    this.dieCallbak();
+  }
+
+  onEnemyDie() {
+    this.points += SCORE_FOR_ENEMY;
   }
 
   render() {
@@ -102,11 +123,12 @@ export default class Player implements Renderable {
     if (this.lives < 0) {
       this.immortality = true;
       this.onDie();
+      return;
     }
 
     //play die animation
     const time = this.animator.startAnim(AnimationName.PlayerDeath);
-    setTimeout(() => {
+    this.makeSafeTimeout(() => {
       // after anim make next actions
       this.position = {
         x: 0,
@@ -121,18 +143,9 @@ export default class Player implements Renderable {
     }, time);
   }
 
-  onDie() {
-    this.shotManager.stopShot();
-    this.dieCallbak();
-  }
-
-  onEnemyDie() {
-    this.points += SCORE_FOR_ENEMY;
-  }
-
   startImmortalityAnim() {
     this.animator.startAnim(AnimationName.Immortality);
-    setTimeout(() => {
+    this.makeSafeTimeout(() => {
       this.endImmortality();
     }, PLAYER_IMMORTALITY_TIME);
   }
@@ -140,5 +153,16 @@ export default class Player implements Renderable {
   endImmortality() {
     this.immortality = false;
     this.animator.endAnim(AnimationName.Immortality);
+  }
+
+  //utils
+
+  makeSafeTimeout(fun: () => void, timeoutMs: number | undefined) {
+    const t = setTimeout(() => {
+      fun();
+      const idx = this.timeouts.findIndex((timeout) => timeout == t);
+      this.timeouts.splice(idx, 1);
+    }, timeoutMs);
+    this.timeouts.push(t);
   }
 }

@@ -60,13 +60,12 @@ export default class Game implements Layout {
     this.enemyManager.start();
   }
   onHide() {
-    this.player.animator.clearAnims();
+    this.player.clear();
     this.enemyManager.clear();
-    this.player.shotManager.stopShot();
   }
 
   gameOver() {
-    console.log("Game Over");
+    console.log("Game Over, changing layout");
     this.changeLayout(Layouts.MENU);
   }
 }

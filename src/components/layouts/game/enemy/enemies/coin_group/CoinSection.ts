@@ -1,3 +1,4 @@
+import { AnimationName } from "../../../animations/animationNames";
 import {
   BOARD_HEIGHT,
   BOARD_SCROLL_SPEED,
@@ -15,6 +16,7 @@ export default class CoinSection extends EnemySection {
     this.size = this.element.size;
     this.shotTimerMs = 2500;
     this.initAnimator();
+    this.animator.startAnim(AnimationName.CoinIddle);
   }
 
   move() {
