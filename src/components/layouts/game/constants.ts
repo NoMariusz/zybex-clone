@@ -32,9 +32,9 @@ export const SCORE_FOR_ENEMY = 50;
 
 export enum Weapons {
   Orbit,
-  Pulse,
   EightWay,
   RGun,
+  Pulse,
 }
 
 // ui stuff

@@ -48,7 +48,7 @@ export default class Game implements Layout {
 
   handleKeys(key: string) {
     if (key == Keys.ACTION) {
-      this.gameOver();
+      this.player.changeWeapon();
     }
   }
 

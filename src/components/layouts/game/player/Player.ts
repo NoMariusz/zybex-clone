@@ -73,6 +73,7 @@ export default class Player implements Renderable {
 
     this.weapon = this.weaponFactory.create(Weapons.Orbit);
     this.weapons = [this.weapon];
+    this.sortWeapons();
 
     this.size = this.avatar.size;
     this.updateAvatar();
@@ -108,9 +109,7 @@ export default class Player implements Renderable {
     this.shotManager.render();
   }
 
-  updateAvatar() {
-    this.avatar.position = translateToCanvasPos(this.position);
-  }
+  // taking damage
 
   takeDamage() {
     if (this.immortality) {
@@ -159,7 +158,24 @@ export default class Player implements Renderable {
     this.animator.endAnim(AnimationName.Immortality);
   }
 
+  // weapons
+
+  sortWeapons() {
+    this.weapons = this.weapons.sort((w1, w2) => w1.type - w2.type);
+  }
+
+  changeWeapon() {
+    const actualWeaponIDx = this.weapons.findIndex((w) => w == this.weapon);
+    const newWeaponIDx =
+      actualWeaponIDx >= this.weapons.length - 1 ? 0 : actualWeaponIDx + 1;
+    this.weapon = this.weapons[newWeaponIDx];
+  }
+
   //utils
+
+  updateAvatar() {
+    this.avatar.position = translateToCanvasPos(this.position);
+  }
 
   makeSafeTimeout(fun: () => void, timeoutMs: number | undefined) {
     const t = setTimeout(() => {

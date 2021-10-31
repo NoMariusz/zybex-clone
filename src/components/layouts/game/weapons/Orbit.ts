@@ -8,7 +8,7 @@ export default class Orbit extends Weapon {
 
   handleShot1() {
     // change next shot timeout
-    this.nextShotTimeout = this.nextShotTimeout == 500 ? 50 : 500;
+    this.nextShotTimeout = this.nextShotTimeout == 500 ? 200 : 500;
 
     return this.makeBaseBullet();
   }
