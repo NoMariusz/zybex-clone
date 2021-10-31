@@ -7,6 +7,7 @@ import Bullet from "../bullets/Bullet";
 import BulletFactory from "../bullets/BulletFactory";
 import Animator from "../animations/Animator";
 import { AnimationName } from "../animations/animationNames";
+import { BulletType } from "../bullets/bulletsData";
 
 export default abstract class EnemySection implements Renderable, Collidable {
   /* Describe one part of enemy or enemy group  */
@@ -52,7 +53,7 @@ export default abstract class EnemySection implements Renderable, Collidable {
 
   shot() {
     if (!this.live) return;
-    const bullet = this.bulletFactory.makeBullet(this);
+    const bullet = this.bulletFactory.makeBullet(BulletType.Enemy);
     bullet.position = {
       ...this.position,
       y: this.position.y + this.size.height / 2 - bullet.size.height / 2,

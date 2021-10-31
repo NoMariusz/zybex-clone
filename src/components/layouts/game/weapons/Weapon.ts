@@ -17,6 +17,8 @@ export default abstract class Weapon {
     switch (this.level) {
       case 1:
         return this.handleShot1();
+      case 2:
+        return this.handleShot2();
 
       default:
         break;
@@ -25,4 +27,5 @@ export default abstract class Weapon {
   }
 
   abstract handleShot1(): Bullet[];
+  abstract handleShot2(): Bullet[];
 }

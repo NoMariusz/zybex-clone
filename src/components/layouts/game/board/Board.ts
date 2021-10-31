@@ -84,6 +84,8 @@ export default class Board implements Renderable {
     if (this.enemyManager.activeEnemy == null) return;
 
     for (const bullet of this.player.shotManager.bullets) {
+      let destroyBullet = false;
+
       for (const enemyCollidable of this.enemyManager
         .collidablesWithPlayerBullets) {
         const collide = this.collidableCollider.checkCollision(
@@ -93,10 +95,13 @@ export default class Board implements Renderable {
         if (collide) {
           if (enemyCollidable instanceof EnemySection)
             this.onEnemyCollide(enemyCollidable, bullet);
-
-          bullet.destroy();
-          break;
+          destroyBullet = true;
         }
+      }
+      // destroy bullet after check collisions with all collidables
+      // so bullet can hit simultaneously many enemy sections
+      if (destroyBullet) {
+        bullet.destroy();
       }
     }
   }

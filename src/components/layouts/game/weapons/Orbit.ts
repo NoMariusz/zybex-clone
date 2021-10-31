@@ -1,3 +1,4 @@
+import { BulletType } from "../bullets/bulletsData";
 import { Weapons } from "../constants";
 import Weapon from "./Weapon";
 
@@ -6,12 +7,21 @@ export default class Orbit extends Weapon {
   nextShotTimeout = 500;
 
   handleShot1() {
-    this.changeTimeout();
-    const bullet = this.bulletFactory.makeBullet(this);
-    return [bullet];
+    // change next shot timeout
+    this.nextShotTimeout = this.nextShotTimeout == 500 ? 50 : 500;
+
+    return this.makeBaseBullet();
   }
 
-  changeTimeout() {
-    this.nextShotTimeout = this.nextShotTimeout == 500 ? 50 : 500;
+  handleShot2() {
+    // change next shot timeout
+    this.nextShotTimeout = 300;
+
+    return this.makeBaseBullet();
+  }
+
+  makeBaseBullet() {
+    const bullet = this.bulletFactory.makeBullet(BulletType.Orbit);
+    return [bullet];
   }
 }
