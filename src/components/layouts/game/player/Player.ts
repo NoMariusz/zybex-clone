@@ -117,6 +117,7 @@ export default class Player implements Renderable {
     this.locked = true;
 
     this.shotManager.stopShot();
+    this.weaponManager.loseWeapon();
 
     if (this.lives < 0) {
       this.immortality = true;

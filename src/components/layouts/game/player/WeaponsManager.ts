@@ -53,10 +53,25 @@ export default class WeaponManager {
 
   addNewWeapon(type: Weapons) {
     const weapon = this.weaponFactory.create(type);
-    console.log(weapon);
 
     this.weapons.push(weapon);
     this.sortWeapons();
+  }
+
+  loseWeapon() {
+    // if level greater than 1, only level down weapon
+    if (this.weapon.level > 1) {
+      this.weapon.level--;
+      return;
+    }
+    // can not remove Orbit weapon
+    if (this.weapon.type == Weapons.Orbit) return;
+
+    // remove weapon
+    const weaponIdx = this.weapons.findIndex((w) => w == this.weapon);
+    this.weapons.splice(weaponIdx, 1);
+    // change actual weapon to first of weapons - orbit
+    this.weapon = this.weapons[0];
   }
 
   // utils
