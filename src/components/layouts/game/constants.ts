@@ -1,6 +1,7 @@
 // overall things
 
 import { AVATAR_COLORS, CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
+import { Position } from "../../interfaces";
 
 export const BOARD_Y = 105;
 export const BOARD_HEIGHT = CANVAS_HEIGHT - BOARD_Y * 2;
@@ -67,21 +68,29 @@ export const SCORE_ELEMENTS_OFFSET = 130;
 export const BOTTOM_UI_POS_Y = BOARD_Y + BOARD_HEIGHT + 45;
 export const TOP_UI_POS_Y = 45;
 
-// weapons
+// weapons ui stuff
 
-export const WEAPON_TO_NAME_TEXTURE = {
-  [Weapons.Orbit]: { x: 0, y: 300 },
-  [Weapons.Pulse]: { x: 300, y: 300 },
+interface WeaponUiData {
+  nameTexture: Position;
+  texture: Position;
+  uiXPosition: number;
+}
+
+type WeaponUiDataList = {
+  [key in Weapons]: WeaponUiData;
 };
 
-export const WEAPON_TO_TEXTURE = {
-  [Weapons.Orbit]: { x: 0, y: 100 },
-  [Weapons.Pulse]: { x: 300, y: 100 },
-};
-
-export const WEAPON_TO_X_POSITION = {
-  [Weapons.Orbit]: 250,
-  [Weapons.Pulse]: 800,
+export const WEAPON_UI_DATA: WeaponUiDataList = {
+  [Weapons.Orbit]: {
+    nameTexture: { x: 0, y: 300 },
+    texture: { x: 0, y: 100 },
+    uiXPosition: 250,
+  },
+  [Weapons.Pulse]: {
+    nameTexture: { x: 300, y: 300 },
+    texture: { x: 300, y: 100 },
+    uiXPosition: 800,
+  },
 };
 
 export const WEAPON_LEVELS_TEXTURES = [

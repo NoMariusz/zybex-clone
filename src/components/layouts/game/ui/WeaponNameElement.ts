@@ -1,8 +1,8 @@
 import { CanvasElement } from "../../../rendering/interfaces";
-import { BOTTOM_UI_POS_Y, Weapons, WEAPON_TO_NAME_TEXTURE } from "../constants";
+import { BOTTOM_UI_POS_Y, Weapons, WEAPON_UI_DATA } from "../constants";
 
 export default class WeaponNameElement implements CanvasElement {
-  texture_offset = WEAPON_TO_NAME_TEXTURE[Weapons.Orbit];
+  texture_offset = WEAPON_UI_DATA[Weapons.Orbit].nameTexture;
 
   position = {
     x: 0,
@@ -17,6 +17,6 @@ export default class WeaponNameElement implements CanvasElement {
   texture = "game_sprite";
 
   change(weapon: Weapons) {
-    this.texture_offset = WEAPON_TO_NAME_TEXTURE[weapon];
+    this.texture_offset = WEAPON_UI_DATA[weapon].nameTexture;
   }
 }
