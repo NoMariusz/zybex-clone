@@ -34,6 +34,7 @@ export enum Weapons {
   Orbit,
   Pulse,
   EightWay,
+  RGun,
 }
 
 // ui stuff
@@ -96,6 +97,11 @@ export const WEAPON_UI_DATA: WeaponUiDataList = {
     nameTexture: { x: 300, y: 250 },
     texture: { x: 450, y: 100 },
     uiXPosition: 430,
+  },
+  [Weapons.RGun]: {
+    nameTexture: { x: 300, y: 350 },
+    texture: { x: 150, y: 100 },
+    uiXPosition: 610,
   },
 };
 

@@ -2,6 +2,7 @@ import { Weapons } from "../constants";
 import Orbit from "./Orbit";
 import Pulse from "./Pulse";
 import EightWay from "./EightWay";
+import RGun from "./RGun";
 
 export default class WeaponsFactory {
   create(weaponType: Weapons) {
@@ -12,6 +13,8 @@ export default class WeaponsFactory {
         return new Pulse();
       case Weapons.EightWay:
         return new EightWay();
+      case Weapons.RGun:
+        return new RGun();
       default:
         break;
     }

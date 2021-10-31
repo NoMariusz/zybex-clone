@@ -10,12 +10,12 @@ export default class BulletFactory {
     bullet.size = data.size;
     bullet.damage = data.damage;
 
-    this.loadVelocity(bullet, bulletType);
+    this.loadFeatures(bullet, bulletType);
 
     return bullet;
   }
 
-  loadVelocity(bullet: Bullet, type: BulletType) {
+  loadFeatures(bullet: Bullet, type: BulletType) {
     switch (type) {
       case BulletType.Enemy:
         bullet.velocity.x = -1;
@@ -32,7 +32,10 @@ export default class BulletFactory {
           y: -1,
         };
         break;
-
+      case BulletType.RGun1:
+      case BulletType.RGun2:
+        bullet.destroyable = false;
+        break;
       default:
         break;
     }

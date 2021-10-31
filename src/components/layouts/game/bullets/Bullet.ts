@@ -5,6 +5,7 @@ import BulletElement from "./BulletElement";
 import Renderer from "../../../rendering/Renderer";
 
 export default class Bullet implements Collidable, Renderable {
+  destroyable: boolean = true;
   element: BulletElement;
   private _size: Size;
   velocity: Position = {
@@ -55,6 +56,7 @@ export default class Bullet implements Collidable, Renderable {
   }
 
   destroy() {
+    if (!this.destroyable) return;
     this.active = false;
   }
 }

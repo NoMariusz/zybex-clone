@@ -13,6 +13,8 @@ export enum BulletType {
   Pulse2,
   EightWayUp,
   EightWayDown,
+  RGun1,
+  RGun2,
 }
 
 const bulletData: { [key in BulletType]: BulletData } = {
@@ -81,6 +83,28 @@ const bulletData: { [key in BulletType]: BulletData } = {
       height: 32,
     },
     damage: 15,
+  },
+  [BulletType.RGun1]: {
+    texture_offset: {
+      x: 150,
+      y: 200,
+    },
+    size: {
+      width: 57,
+      height: 31,
+    },
+    damage: 130,
+  },
+  [BulletType.RGun2]: {
+    texture_offset: {
+      x: 225,
+      y: 200,
+    },
+    size: {
+      width: 119,
+      height: 29,
+    },
+    damage: 130,
   },
 };
 
