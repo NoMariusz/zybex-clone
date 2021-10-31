@@ -2,7 +2,6 @@ import { MAX_IPLEMENTED_WEAPON_LEVEL, Weapons } from "../constants";
 import Weapon from "../weapons/Weapon";
 import ShotManager from "./ShotManager";
 import WeaponsFactory from "../weapons/WeaponsFactory";
-import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 
 export default class WeaponManager {
   weaponFactory: WeaponsFactory;
