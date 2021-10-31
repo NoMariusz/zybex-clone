@@ -30,6 +30,9 @@ export const SCORE_FOR_ENEMY = 50;
 
 export const MAX_ATTACK_SPEED_MULTIPLIER = 2.5;
 
+// in scale 0 to 10, 0 - no chance, 10 - certain
+export const PICKUP_CHANCE = 8;
+
 // weapons
 
 export enum Weapons {
@@ -37,6 +40,16 @@ export enum Weapons {
   EightWay,
   RGun,
   Pulse,
+}
+
+// pickups
+
+export enum Pickups {
+  // Orbit,
+  // EightWay,
+  // RGun,
+  // Pulse,
+  Fuel,
 }
 
 // ui stuff

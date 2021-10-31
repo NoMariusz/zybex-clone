@@ -12,7 +12,7 @@ import EnemyManager from "../enemy/EnemyManager";
 import Player from "../player/Player";
 import PlayfieldManager from "./PlayfieldManager";
 import CollidableCollider from "./CollidableCollider";
-import Enemy from "../enemy/Enemy";
+import PickupsManager from "../pickups/PickupsManager";
 import EnemySection from "../enemy/EnemySection";
 import Bullet from "../bullets/Bullet";
 
@@ -24,17 +24,20 @@ export default class Board implements Renderable {
   playfieldManager: PlayfieldManager;
   enemyManager: EnemyManager;
   collidableCollider: CollidableCollider;
+  pickupsManager: PickupsManager;
 
   constructor(player: Player, enemyManager: EnemyManager) {
     this.player = player;
     this.playfieldManager = new PlayfieldManager(player);
     this.enemyManager = enemyManager;
     this.collidableCollider = new CollidableCollider();
+    this.pickupsManager = new PickupsManager();
   }
 
   render() {
     this.movePlayer();
     this.playfieldManager.render();
+    this.pickupsManager.render();
     this.collidePlayer();
     this.collideEnemies();
     this.modifyAttackSpeed();
@@ -78,12 +81,30 @@ export default class Board implements Renderable {
   // not playfield collisions
 
   collidePlayer() {
+    this.collidePlayerWithEnemies();
+    this.collidePlayerWithPickups();
+  }
+
+  collidePlayerWithEnemies() {
     for (const enemyColl of this.enemyManager.collidablesWithPlayer) {
       const collide = this.collidableCollider.checkCollision(
         enemyColl,
         this.player
       );
       if (collide) this.player.takeDamage();
+    }
+  }
+
+  collidePlayerWithPickups() {
+    for (const pickup of this.pickupsManager.pickups) {
+      const collide = this.collidableCollider.checkCollision(
+        pickup,
+        this.player
+      );
+      if (collide) {
+        this.player.points++;
+        this.pickupsManager.clearPickup(pickup);
+      }
     }
   }
 
@@ -116,7 +137,10 @@ export default class Board implements Renderable {
   onEnemyCollide(enemySection: EnemySection, bullet: Bullet) {
     enemySection.takeDamage(bullet.damage);
     // detect if enemy died after got shoot
-    if (!enemySection.live) this.player.onEnemyDie();
+    if (!enemySection.live) {
+      this.player.onEnemyDie();
+      this.pickupsManager.onEnemyDie(enemySection.position);
+    }
   }
 
   // calculating attack speed multiplier
