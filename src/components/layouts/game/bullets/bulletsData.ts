@@ -11,6 +11,8 @@ export enum BulletType {
   Orbit,
   Pulse1,
   Pulse2,
+  EightWayUp,
+  EightWayDown,
 }
 
 const bulletData: { [key in BulletType]: BulletData } = {
@@ -57,6 +59,28 @@ const bulletData: { [key in BulletType]: BulletData } = {
       height: 112,
     },
     damage: 20,
+  },
+  [BulletType.EightWayDown]: {
+    texture_offset: {
+      x: 225,
+      y: 250,
+    },
+    size: {
+      width: 18,
+      height: 32,
+    },
+    damage: 15,
+  },
+  [BulletType.EightWayUp]: {
+    texture_offset: {
+      x: 250,
+      y: 250,
+    },
+    size: {
+      width: 18,
+      height: 32,
+    },
+    damage: 15,
   },
 };
 

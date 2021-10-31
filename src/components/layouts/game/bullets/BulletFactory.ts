@@ -1,8 +1,5 @@
-import Weapon from "../weapons/Weapon";
-import EnemySection from "../enemy/EnemySection";
 import Bullet from "./Bullet";
 import bulletData, { BulletType } from "./bulletsData";
-import { Weapons } from "../constants";
 
 export default class BulletFactory {
   makeBullet(bulletType: BulletType) {
@@ -13,8 +10,31 @@ export default class BulletFactory {
     bullet.size = data.size;
     bullet.damage = data.damage;
 
-    if (bulletType == BulletType.Enemy) bullet.velocity = -1;
+    this.loadVelocity(bullet, bulletType);
 
     return bullet;
+  }
+
+  loadVelocity(bullet: Bullet, type: BulletType) {
+    switch (type) {
+      case BulletType.Enemy:
+        bullet.velocity.x = -1;
+        break;
+      case BulletType.EightWayDown:
+        bullet.velocity = {
+          x: 0,
+          y: 1,
+        };
+        break;
+      case BulletType.EightWayUp:
+        bullet.velocity = {
+          x: 0,
+          y: -1,
+        };
+        break;
+
+      default:
+        break;
+    }
   }
 }

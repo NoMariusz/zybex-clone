@@ -33,6 +33,7 @@ export const SCORE_FOR_ENEMY = 50;
 export enum Weapons {
   Orbit,
   Pulse,
+  EightWay,
 }
 
 // ui stuff
@@ -90,6 +91,11 @@ export const WEAPON_UI_DATA: WeaponUiDataList = {
     nameTexture: { x: 300, y: 300 },
     texture: { x: 300, y: 100 },
     uiXPosition: 800,
+  },
+  [Weapons.EightWay]: {
+    nameTexture: { x: 300, y: 250 },
+    texture: { x: 450, y: 100 },
+    uiXPosition: 430,
   },
 };
 
