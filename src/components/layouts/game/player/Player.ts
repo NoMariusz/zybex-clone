@@ -2,7 +2,6 @@ import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
   BOARD_HEIGHT,
-  BOARD_Y,
   PLAYER_IMMORTALITY_TIME,
   SCORE_FOR_ENEMY,
   Weapons,
@@ -14,6 +13,9 @@ import PlayerAnimator from "../animations/Animator";
 import ShotManager from "./ShotManager";
 import { AnimationName } from "../animations/animationNames";
 import WeaponsFactory from "../weapons/WeaponsFactory";
+import WeaponsManager from "./WeaponsManager";
+import PickUp from "../pickups/Pickup";
+import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 
 export default class Player implements Renderable {
   /* Describe player in game */
@@ -22,9 +24,9 @@ export default class Player implements Renderable {
   animator: PlayerAnimator;
   shotManager: ShotManager;
   weaponFactory: WeaponsFactory;
+  private weaponManager: WeaponsManager;
 
   // properties in game
-  weapons: Weapon[];
   lives: number = 7;
   points: number = 0;
   immortality = false;
@@ -50,14 +52,12 @@ export default class Player implements Renderable {
     this.shotManager.position = newPos;
   }
 
-  // make real weapon private to update at setter weapon in shotManager too
-  private _weapon: Weapon;
+  // get values from managers
   get weapon() {
-    return this._weapon;
+    return this.weaponManager.weapon;
   }
-  set weapon(val: Weapon) {
-    this._weapon = val;
-    this.shotManager.weapon = val;
+  get weapons() {
+    return this.weaponManager.weapons;
   }
 
   constructor(dieCallbak: () => void = () => {}) {
@@ -68,12 +68,7 @@ export default class Player implements Renderable {
     this.dieCallbak = dieCallbak;
 
     this.shotManager = new ShotManager(this._position);
-
-    this.weaponFactory = new WeaponsFactory();
-
-    this.weapon = this.weaponFactory.create(Weapons.Orbit);
-    this.weapons = [this.weapon];
-    this.sortWeapons();
+    this.weaponManager = new WeaponsManager(this.shotManager);
 
     this.size = this.avatar.size;
     this.updateAvatar();
@@ -158,17 +153,22 @@ export default class Player implements Renderable {
     this.animator.endAnim(AnimationName.Immortality);
   }
 
-  // weapons
-
-  sortWeapons() {
-    this.weapons = this.weapons.sort((w1, w2) => w1.type - w2.type);
+  changeWeapon() {
+    this.weaponManager.changeWeapon();
   }
 
-  changeWeapon() {
-    const actualWeaponIDx = this.weapons.findIndex((w) => w == this.weapon);
-    const newWeaponIDx =
-      actualWeaponIDx >= this.weapons.length - 1 ? 0 : actualWeaponIDx + 1;
-    this.weapon = this.weapons[newWeaponIDx];
+  // pickups
+
+  onPickup(pickup: PickUp) {
+    // check if that is normal pickup or weapon
+    if (pickup.type == Pickups.Fuel) {
+      this.points++;
+      return;
+    }
+    if (pickup.type in PICKUP_TO_WEAPON) {
+      const weapon = PICKUP_TO_WEAPON[pickup.type];
+      this.weaponManager.onWeaponPickup(weapon);
+    }
   }
 
   //utils

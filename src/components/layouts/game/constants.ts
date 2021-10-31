@@ -42,15 +42,7 @@ export enum Weapons {
   Pulse,
 }
 
-// pickups
-
-export enum Pickups {
-  // Orbit,
-  // EightWay,
-  // RGun,
-  // Pulse,
-  Fuel,
-}
+export const MAX_IPLEMENTED_WEAPON_LEVEL = 2;
 
 // ui stuff
 

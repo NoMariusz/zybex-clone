@@ -1,15 +1,16 @@
 import { Collidable, Position, Renderable, Size } from "../../../interfaces";
 import { CanvasElement } from "../../../rendering/interfaces";
 import Renderer from "../../../rendering/Renderer";
-import { BOARD_SCROLL_SPEED, Pickups } from "../constants";
+import { BOARD_SCROLL_SPEED } from "../constants";
 import { translateToCanvasPos } from "../utils";
 import PickupElement from "./PickupElement";
-import { PICKUP_DATA } from "./pickupsData";
+import { Pickups, PICKUP_DATA } from "./pickupsData";
 
 export default class PickUp implements Renderable, Collidable {
   element: PickupElement;
   private _position: Position;
   size: Size;
+  type: Pickups;
 
   get position() {
     return this._position;
@@ -21,8 +22,9 @@ export default class PickUp implements Renderable, Collidable {
   }
 
   constructor(type: Pickups, position: Position) {
+    this.type = type;
     this.element = new PickupElement();
-    this.initStaticData(type);
+    this.initStaticData();
     this.position = position;
   }
 
@@ -31,8 +33,8 @@ export default class PickUp implements Renderable, Collidable {
     this.move();
   }
 
-  initStaticData(type: Pickups) {
-    const data = PICKUP_DATA[type];
+  initStaticData() {
+    const data = PICKUP_DATA[this.type];
     this.element.texture_offset = data.texture_offset;
     this.size = data.size;
     this.element.size = data.size;

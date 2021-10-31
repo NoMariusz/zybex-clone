@@ -1,8 +1,9 @@
 import { Position, Renderable } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
-import { Pickups, PICKUP_CHANCE } from "../constants";
+import { PICKUP_CHANCE } from "../constants";
 import { randomEnum } from "../utils";
 import PickUp from "./Pickup";
+import { Pickups } from "./pickupsData";
 
 export default class PickupsManager implements Renderable {
   /* store, handle adding and collisions for pickups */

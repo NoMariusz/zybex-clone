@@ -102,7 +102,7 @@ export default class Board implements Renderable {
         this.player
       );
       if (collide) {
-        this.player.points++;
+        this.player.onPickup(pickup);
         this.pickupsManager.clearPickup(pickup);
       }
     }

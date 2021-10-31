@@ -55,7 +55,7 @@ export default class PlayerUi implements Renderable {
     this.weaponName = new WeaponNameElement();
     this.weaponName.position.x = this.getBottomUiOffset() + 420;
 
-    this.initOnlyP1Elements();
+    if (this.playerNum == 1) this.initOnlyP1Elements();
   }
 
   initScoreElements() {
