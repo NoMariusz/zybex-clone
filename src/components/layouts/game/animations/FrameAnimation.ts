@@ -13,12 +13,28 @@ export default abstract class FrameAnimation implements Animation {
 
   abstract element: CanvasElement;
   abstract textures: Position[];
+  abstract baseTexture: Position;
+  actualTextureIdx = 0;
 
   get animTime() {
     return this.tickIntervalTime * this.textures.length;
   }
 
-  abstract tick(): void;
-  abstract start(): void;
-  abstract end(): void;
+  start() {
+    this.baseTexture = this.element.texture_offset;
+    this.actualTextureIdx = 0;
+  }
+
+  end() {
+    this.element.texture_offset = this.baseTexture;
+  }
+
+  tick() {
+    if (this.actualTextureIdx >= this.textures.length) {
+      this.actualTextureIdx = 0;
+    }
+    const tex = this.textures[this.actualTextureIdx];
+    this.element.texture_offset = tex;
+    this.actualTextureIdx++;
+  }
 }

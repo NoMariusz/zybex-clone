@@ -5,6 +5,7 @@ import { CanvasElement } from "../../../rendering/interfaces";
 import FrameAnimation from "./FrameAnimation";
 import { AnimationName } from "./animationNames";
 import CoinIddleAnimation from "./enemies/CoinIddleAnimation";
+import EnemyDeathAnimation from "./enemies/EnemyDeathAnimation";
 
 export default class Animator {
   /* Handle starting and ending animations and protect animations from overlaping */
@@ -19,6 +20,7 @@ export default class Animator {
     this.animations = [
       new DeathAnimation(this.element),
       new ImmortalityAnimation(this.element),
+      new EnemyDeathAnimation(this.element),
       new CoinIddleAnimation(this.element),
     ];
   }

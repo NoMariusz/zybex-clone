@@ -26,6 +26,11 @@ export default class CoinSection extends EnemySection {
     };
   }
 
+  die() {
+    super.die();
+    this.animator.endAnim(AnimationName.CoinIddle);
+  }
+
   render() {
     super.render();
   }

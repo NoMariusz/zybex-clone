@@ -76,7 +76,10 @@ export default abstract class EnemySection implements Renderable, Collidable {
 
   die() {
     this.live = false;
-    this.clear();
+    const time = this.animator.startAnim(AnimationName.EnemyDeath);
+    setTimeout(() => {
+      this.clear();
+    }, time);
   }
 
   clear() {

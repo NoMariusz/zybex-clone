@@ -22,22 +22,4 @@ export default class CoinIddleAnimation extends FrameAnimation {
     super();
     this.element = element;
   }
-
-  start() {
-    this.baseTexture = this.element.texture_offset;
-    this.actualTextureIdx = 0;
-  }
-
-  end() {
-    this.element.texture_offset = this.baseTexture;
-  }
-
-  tick() {
-    if (this.actualTextureIdx >= this.textures.length) {
-      this.actualTextureIdx = 0;
-    }
-    const tex = this.textures[this.actualTextureIdx];
-    this.element.texture_offset = tex;
-    this.actualTextureIdx++;
-  }
 }
