@@ -2,7 +2,12 @@ import { Keys } from "../../../controls/constants";
 import pressedKeys from "../../../controls/pressedKeys";
 import { Position, Renderable } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
-import { BOARD_HEIGHT, BOARD_WIDTH, PLAYER_SPEED } from "../constants";
+import {
+  BOARD_HEIGHT,
+  BOARD_WIDTH,
+  MAX_ATTACK_SPEED_MULTIPLIER,
+  PLAYER_SPEED,
+} from "../constants";
 import EnemyManager from "../enemy/EnemyManager";
 import Player from "../player/Player";
 import PlayfieldManager from "./PlayfieldManager";
@@ -12,7 +17,8 @@ import EnemySection from "../enemy/EnemySection";
 import Bullet from "../bullets/Bullet";
 
 export default class Board implements Renderable {
-  /* Manage all board actions, like managing player or enemies */
+  /* Handle board placed things, relations between enemy and player,
+  like collisions, or calculating shot attack speed */
   player: Player;
 
   playfieldManager: PlayfieldManager;
@@ -31,6 +37,7 @@ export default class Board implements Renderable {
     this.playfieldManager.render();
     this.collidePlayer();
     this.collideEnemies();
+    this.modifyAttackSpeed();
   }
 
   //player moves
@@ -110,5 +117,44 @@ export default class Board implements Renderable {
     enemySection.takeDamage(bullet.damage);
     // detect if enemy died after got shoot
     if (!enemySection.live) this.player.onEnemyDie();
+  }
+
+  // calculating attack speed multiplier
+
+  modifyAttackSpeed() {
+    const enemiesOnLine = this.getEnemiesOnLine();
+    if (enemiesOnLine.length <= 0) {
+      this.player.shotManager.shotSpeedMultiplier = 1;
+      return;
+    }
+
+    const s = this.calcAttackSpeed(enemiesOnLine);
+    this.player.shotManager.shotSpeedMultiplier = s;
+  }
+
+  private getEnemiesOnLine() {
+    return this.enemyManager.activeSections.filter(
+      (e) =>
+        Math.abs(
+          e.position.y +
+            e.size.height / 2 -
+            (this.player.position.y + this.player.size.height / 2)
+        ) < 25
+    );
+  }
+
+  private calcAttackSpeed(enemiesOnLine: EnemySection[]) {
+    const minDistance = enemiesOnLine.reduce(
+      (prev, current) =>
+        prev <= this.calcDistance(current) ? prev : this.calcDistance(current),
+      Infinity
+    );
+    const speedMultiplier =
+      minDistance == Infinity ? 1 : Math.sqrt(BOARD_WIDTH / minDistance);
+    return Math.min(speedMultiplier, MAX_ATTACK_SPEED_MULTIPLIER);
+  }
+
+  private calcDistance(enemy: EnemySection) {
+    return Math.abs(enemy.position.x - this.player.position.x);
   }
 }

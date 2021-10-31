@@ -44,7 +44,7 @@ export default class ShotManager extends BulletClearer implements Renderable {
     this.shotTimeout = setTimeout(() => {
       this.shot();
       this.shotLoop(token);
-    }, this.shotTimeoutMs * this.shotSpeedMultiplier);
+    }, this.shotTimeoutMs / this.shotSpeedMultiplier);
   }
 
   shot() {

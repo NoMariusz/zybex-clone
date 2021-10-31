@@ -28,6 +28,8 @@ export const BASE_ENEMY_HP = 100;
 
 export const SCORE_FOR_ENEMY = 50;
 
+export const MAX_ATTACK_SPEED_MULTIPLIER = 2.5;
+
 // weapons
 
 export enum Weapons {

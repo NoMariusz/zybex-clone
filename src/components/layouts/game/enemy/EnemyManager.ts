@@ -2,6 +2,7 @@ import { Collidable, Renderable } from "../../../interfaces";
 import Bullet from "../bullets/Bullet";
 import BulletClearer from "../bullets/BulletClearer";
 import Enemy from "./Enemy";
+import EnemySection from "./EnemySection";
 import spawnData from "./spawnData";
 
 export default class EnemyManager extends BulletClearer implements Renderable {
@@ -10,15 +11,18 @@ export default class EnemyManager extends BulletClearer implements Renderable {
   activeEnemy: Enemy | null;
   bullets: Bullet[];
 
-  get collidablesWithPlayer(): Collidable[] {
-    return this.activeEnemy == null
-      ? []
-      : [...this.activeEnemy.sections.filter((s) => s.live), ...this.bullets];
-  }
-  get collidablesWithPlayerBullets(): Collidable[] {
+  get activeSections(): EnemySection[] {
     return this.activeEnemy == null
       ? []
       : [...this.activeEnemy.sections.filter((s) => s.live)];
+  }
+  get collidablesWithPlayer(): Collidable[] {
+    return this.activeEnemy == null
+      ? []
+      : [...this.activeSections, ...this.bullets];
+  }
+  get collidablesWithPlayerBullets(): Collidable[] {
+    return this.activeEnemy == null ? [] : [...this.activeSections];
   }
 
   start() {
