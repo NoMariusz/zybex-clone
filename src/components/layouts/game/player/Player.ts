@@ -13,6 +13,7 @@ import Weapon from "../weapons/Weapon";
 import PlayerAnimator from "../animations/Animator";
 import ShotManager from "./ShotManager";
 import { AnimationName } from "../animations/animationNames";
+import WeaponsFactory from "../weapons/WeaponsFactory";
 
 export default class Player implements Renderable {
   /* Describe player in game */
@@ -20,6 +21,7 @@ export default class Player implements Renderable {
   avatar: Avatar;
   animator: PlayerAnimator;
   shotManager: ShotManager;
+  weaponFactory: WeaponsFactory;
 
   // properties in game
   weapons: Weapon[];
@@ -67,7 +69,9 @@ export default class Player implements Renderable {
 
     this.shotManager = new ShotManager(this._position);
 
-    this.weapon = new Weapon(Weapons.Orbit);
+    this.weaponFactory = new WeaponsFactory();
+
+    this.weapon = this.weaponFactory.create(Weapons.Orbit);
     this.weapons = [this.weapon];
 
     this.size = this.avatar.size;

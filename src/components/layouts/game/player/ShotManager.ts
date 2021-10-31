@@ -8,12 +8,15 @@ export default class ShotManager extends BulletClearer implements Renderable {
   position: Position;
 
   shotTimeout: NodeJS.Timeout;
-  shotBurstMultiplier = 1;
-  shotTimeoutMs = 400;
+  shotSpeedMultiplier = 1;
   // token restricting shot loops to work only when they started with actual token
   private loopToken = 0;
 
   bullets: Bullet[] = [];
+
+  get shotTimeoutMs() {
+    return this.weapon.nextShotTimeout ?? 500;
+  }
 
   constructor(position: Position) {
     super();
@@ -41,17 +44,19 @@ export default class ShotManager extends BulletClearer implements Renderable {
     this.shotTimeout = setTimeout(() => {
       this.shot();
       this.shotLoop(token);
-    }, this.shotTimeoutMs * this.shotBurstMultiplier);
+    }, this.shotTimeoutMs * this.shotSpeedMultiplier);
   }
 
   shot() {
-    const bullet = this.weapon.shot();
-    this.bullets.push(bullet);
-    bullet.position = {
-      ...this.position,
-      y: this.position.y + 25,
-    };
-    this.shotBurstMultiplier = this.shotBurstMultiplier == 1 ? 2 : 1;
+    const bullets = this.weapon.shot();
+    this.bullets.push(...bullets);
+    bullets.forEach(
+      (b) =>
+        (b.position = {
+          ...this.position,
+          y: this.position.y + 25,
+        })
+    );
   }
 
   stopShot() {
