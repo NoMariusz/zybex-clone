@@ -10,6 +10,9 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 
 // game configuration
 
+// disable player loosing hp for testing purpouses
+export const PLAYER_IMMORTAL = false;
+
 export const PLAYER_SPEED = 8;
 
 export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
@@ -25,6 +28,7 @@ export const BOARD_SCROLL_SPEED = PLAYFIELD_SCROLL_SPEED / LEVEL_TEXTURE_SCALE;
 export const PLAYFIELD_COLLIDE_TOLERANCY = 255 * 3;
 
 export const BASE_ENEMY_HP = 100;
+export const COIN_WALL_HP = 250;
 
 export const SCORE_FOR_ENEMY = 50;
 

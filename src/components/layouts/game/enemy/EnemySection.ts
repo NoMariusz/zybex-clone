@@ -18,7 +18,7 @@ export default abstract class EnemySection implements Renderable, Collidable {
   animator: Animator;
 
   element: CanvasElement;
-  private hp: number;
+  protected hp: number;
   live: boolean;
   canBeCleared: boolean;
   private _position: Position;

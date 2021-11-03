@@ -2,6 +2,7 @@ import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
   BOARD_HEIGHT,
+  PLAYER_IMMORTAL,
   PLAYER_IMMORTALITY_TIME,
   SCORE_FOR_ENEMY,
   Weapons,
@@ -107,7 +108,7 @@ export default class Player implements Renderable {
   // taking damage
 
   takeDamage() {
-    if (this.immortality) {
+    if (this.immortality || PLAYER_IMMORTAL) {
       return;
     }
 
