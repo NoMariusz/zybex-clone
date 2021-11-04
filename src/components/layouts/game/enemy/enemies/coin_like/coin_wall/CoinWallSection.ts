@@ -10,9 +10,8 @@ export default class CoinWallSection extends EnemySection {
     super();
     this.hp = COIN_WALL_HP;
     this.element = new CoinWallElement();
-    this.size = this.element.size;
+    this.initAfterElementPresent();
     this.shotTimerMs = 2500;
-    this.initAnimator();
   }
 
   move() {

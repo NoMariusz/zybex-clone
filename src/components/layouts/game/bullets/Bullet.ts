@@ -13,7 +13,7 @@ export default class Bullet implements Collidable, Renderable {
     y: 0,
   };
 
-  speed = BOARD_SCROLL_SPEED * 4;
+  speed = BOARD_SCROLL_SPEED * 5;
   damage: number = 35;
 
   active = true;

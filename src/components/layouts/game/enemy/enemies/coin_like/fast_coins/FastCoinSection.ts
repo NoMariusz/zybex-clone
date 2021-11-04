@@ -14,8 +14,8 @@ export default class FastCoinSection extends EnemySection {
     this.speedBonus = speed
     // prepare element and make element needed stuff
     this.element = new CoinElement();
-    this.size = this.element.size;
-    this.initAnimator();
+    this.initAfterElementPresent();
+    
     this.animator.startAnim(AnimationName.CoinIddle);
   }
 

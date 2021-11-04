@@ -13,9 +13,9 @@ export default class CoinSection extends EnemySection {
   constructor() {
     super();
     this.element = new CoinElement();
-    this.size = this.element.size;
+    this.initAfterElementPresent();
+    
     this.shotTimerMs = 2500;
-    this.initAnimator();
     this.animator.startAnim(AnimationName.CoinIddle);
   }
 

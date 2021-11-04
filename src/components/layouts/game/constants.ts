@@ -29,6 +29,7 @@ export const PLAYFIELD_COLLIDE_TOLERANCY = 255 * 3;
 
 export const BASE_ENEMY_HP = 100;
 export const COIN_WALL_HP = 250;
+export const WORM_HP = 200;
 
 export const SCORE_FOR_ENEMY = 50;
 
