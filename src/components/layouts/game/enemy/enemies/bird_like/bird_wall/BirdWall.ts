@@ -22,10 +22,10 @@ export default class BirdWall extends Enemy {
             const section = new BirdWallSection();
             this.sections.push(section);
 
-            setTimeout(() => {
+            this.makeSafeTimeout(() => {
                 section.startMoving();
             }, moveOffsets[i]);
-            setTimeout(() => {
+            this.makeSafeTimeout(() => {
                 section.startShotTimer();
             }, moveOffsets[i] * 3);
         }
