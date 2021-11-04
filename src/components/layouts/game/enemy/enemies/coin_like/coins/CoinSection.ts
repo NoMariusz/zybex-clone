@@ -1,11 +1,11 @@
-import { AnimationName } from "../../../animations/animationNames";
+import { AnimationName } from "../../../../animations/animationNames";
 import {
   BOARD_HEIGHT,
   BOARD_SCROLL_SPEED,
   BOARD_WIDTH,
-} from "../../../constants";
-import EnemySection from "../../EnemySection";
-import CoinElement from "./CoinElement";
+} from "../../../../constants";
+import EnemySection from "../../../EnemySection";
+import CoinElement from "../CoinElement";
 
 export default class CoinSection extends EnemySection {
   shotTimerMs: number;

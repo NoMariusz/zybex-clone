@@ -1,5 +1,5 @@
-import { BOARD_SCROLL_SPEED, COIN_WALL_HP } from "../../../constants";
-import EnemySection from "../../EnemySection";
+import { BOARD_SCROLL_SPEED, COIN_WALL_HP } from "../../../../constants";
+import EnemySection from "../../../EnemySection";
 import CoinWallElement from "./CoinWallElement";
 
 export default class CoinWallSection extends EnemySection {

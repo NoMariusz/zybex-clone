@@ -1,7 +1,7 @@
-import { Position, Size } from "../../../../../interfaces";
-import Bullet from "../../../bullets/Bullet";
-import { BOARD_WIDTH } from "../../../constants";
-import Enemy from "../../Enemy";
+import { Position, Size } from "../../../../../../interfaces";
+import Bullet from "../../../../bullets/Bullet";
+import { BOARD_WIDTH } from "../../../../constants";
+import Enemy from "../../../Enemy";
 import CoinSection from "./CoinSection";
 
 const shotOffsets = [0, 600, 900, 1100, 1200, 1400];

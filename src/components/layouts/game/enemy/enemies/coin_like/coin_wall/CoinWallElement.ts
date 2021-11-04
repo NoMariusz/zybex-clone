@@ -1,5 +1,5 @@
-import { Position } from "../../../../../interfaces";
-import { CanvasElement } from "../../../../../rendering/interfaces";
+import { Position } from "../../../../../../interfaces";
+import { CanvasElement } from "../../../../../../rendering/interfaces";
 
 const stageToTexture = [
   { x: 0, y: 700 },
