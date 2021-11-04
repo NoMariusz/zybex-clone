@@ -1,6 +1,7 @@
 export enum AnimationName {
-  PlayerDeath,
-  Immortality,
-  CoinIddle,
-  EnemyDeath,
+    PlayerDeath,
+    Immortality,
+    CoinIddle,
+    EnemyDeath,
+    BirdIddle,
 }
