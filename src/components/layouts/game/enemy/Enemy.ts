@@ -1,5 +1,6 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Bullet from "../bullets/Bullet";
+import Player from "../player/Player";
 import { SafeTimeoutable } from "../utils";
 import EnemySection from "./EnemySection";
 
@@ -14,12 +15,16 @@ export default abstract class Enemy
     deathCallback: () => void;
     bulletsRef: Bullet[];
 
+    protected player: Player | undefined;
+
     constructor(
         startPos: Position,
         deathCallback: () => void,
-        bulletsRef: Bullet[]
+        bulletsRef: Bullet[],
+        player?: Player
     ) {
         super();
+        this.player = player;
         // prepare section and delegate child to populate
         this.sections = [];
         this.initSections();

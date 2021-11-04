@@ -6,36 +6,40 @@ import CoinSection from "./CoinSection";
 
 const shotOffsets = [0, 600, 900, 1100, 1200, 1400];
 const initPositions: Position[] = [
-  { x: 0, y: 30 },
-  { x: 75, y: 120 },
-  { x: 140, y: 80 },
-  { x: 195, y: 180 },
-  { x: 210, y: 0 },
-  { x: 270, y: 110 },
+    { x: 0, y: 30 },
+    { x: 75, y: 120 },
+    { x: 140, y: 80 },
+    { x: 195, y: 180 },
+    { x: 210, y: 0 },
+    { x: 270, y: 110 },
 ];
 
 export default class Coin extends Enemy {
-  static sectionCount = 6;
+    static sectionCount = 6;
 
-  constructor(pos: Position, deathCallback: () => void, bulletsRef: Bullet[]) {
-    super(pos, deathCallback, bulletsRef);
-  }
-
-  initSections() {
-    for (let i = 0; i < Coin.sectionCount; i++) {
-      const section = new CoinSection();
-      this.sections.push(section);
-
-      setTimeout(() => {
-        section.startShotTimer();
-      }, shotOffsets[i]);
+    constructor(
+        pos: Position,
+        deathCallback: () => void,
+        bulletsRef: Bullet[]
+    ) {
+        super(pos, deathCallback, bulletsRef);
     }
-  }
 
-  calcInitPosition(pos: Position, idx: number) {
-    return {
-      x: pos.x + BOARD_WIDTH + initPositions[idx].x,
-      y: pos.y + initPositions[idx].y,
-    };
-  }
+    initSections() {
+        for (let i = 0; i < Coin.sectionCount; i++) {
+            const section = new CoinSection();
+            this.sections.push(section);
+
+            setTimeout(() => {
+                section.startShotTimer();
+            }, shotOffsets[i]);
+        }
+    }
+
+    calcInitPosition(pos: Position, idx: number) {
+        return {
+            x: pos.x + BOARD_WIDTH + initPositions[idx].x,
+            y: pos.y + initPositions[idx].y,
+        };
+    }
 }

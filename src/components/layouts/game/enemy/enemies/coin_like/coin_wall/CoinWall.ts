@@ -7,27 +7,31 @@ import CoinWallSection from "./CoinWallSection";
 const shotOffsets = [400, 800, 1200, 800, 400, 0];
 
 export default class CoinWall extends Enemy {
-  static sectionCount = 6;
+    static sectionCount = 6;
 
-  constructor(pos: Position, deathCallback: () => void, bulletsRef: Bullet[]) {
-    super(pos, deathCallback, bulletsRef);
-  }
-
-  initSections() {
-    for (let i = 0; i < CoinWall.sectionCount; i++) {
-      const section = new CoinWallSection();
-      this.sections.push(section);
-
-      setTimeout(() => {
-        section.startShotTimer();
-      }, shotOffsets[i]);
+    constructor(
+        pos: Position,
+        deathCallback: () => void,
+        bulletsRef: Bullet[]
+    ) {
+        super(pos, deathCallback, bulletsRef);
     }
-  }
 
-  calcInitPosition(pos: Position, idx: number) {
-    return {
-      x: pos.x + BOARD_WIDTH,
-      y: pos.y + idx * 80,
-    };
-  }
+    initSections() {
+        for (let i = 0; i < CoinWall.sectionCount; i++) {
+            const section = new CoinWallSection();
+            this.sections.push(section);
+
+            setTimeout(() => {
+                section.startShotTimer();
+            }, shotOffsets[i]);
+        }
+    }
+
+    calcInitPosition(pos: Position, idx: number) {
+        return {
+            x: pos.x + BOARD_WIDTH,
+            y: pos.y + idx * 80,
+        };
+    }
 }

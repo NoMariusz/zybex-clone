@@ -36,6 +36,7 @@ export const PLAYFIELD_COLLIDE_TOLERANCY = 255 * 3;
 export const BASE_ENEMY_HP = 100;
 export const COIN_WALL_HP = 250;
 export const WORM_HP = 200;
+export const TARGETED_BIRD_HP = 30;
 
 export const BIRD_WALL_WAIT_TIME = 2500;
 
