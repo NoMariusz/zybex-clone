@@ -5,6 +5,8 @@ import TargetedBird from "./enemies/bird_like/targetet_bird/TargetedBird";
 import Coins from "./enemies/coin_like/coins/Coins";
 import CoinWall from "./enemies/coin_like/coin_wall/CoinWall";
 import FastCoins from "./enemies/coin_like/fast_coins/FastCoins";
+import DiagonalDragonflyDown from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyDown";
+import DiagonalDragonflyUp from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyUp";
 import Worm from "./enemies/worm/Worm";
 
 interface SpawnData {
@@ -14,11 +16,21 @@ interface SpawnData {
         | typeof Worm
         | typeof BirdWall
         | typeof FastCoins
-        | typeof TargetedBird;
+        | typeof TargetedBird
+        | typeof DiagonalDragonflyUp
+        | typeof DiagonalDragonflyDown;
     initialPosition: Position;
 }
 
 const spawnData: SpawnData[] = [
+    {
+        class: DiagonalDragonflyDown,
+        initialPosition: { x: 0, y: BOARD_HEIGHT / 4 },
+    },
+    {
+        class: DiagonalDragonflyUp,
+        initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
+    },
     { class: Coins, initialPosition: { x: 0, y: 100 } },
     { class: CoinWall, initialPosition: { x: 0, y: 80 } },
     { class: Worm, initialPosition: { x: 0, y: BOARD_HEIGHT / 4 } },

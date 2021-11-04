@@ -7,6 +7,7 @@ import { AnimationName } from "./animationNames";
 import CoinIddleAnimation from "./enemies/CoinIddleAnimation";
 import EnemyDeathAnimation from "./enemies/EnemyDeathAnimation";
 import BirdIddleAnimation from "./enemies/BirdIddleAnimation";
+import DragonflyIddleAnimation from "./enemies/DragonflyIddleAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -24,6 +25,7 @@ export default class Animator {
             new EnemyDeathAnimation(this.element),
             new CoinIddleAnimation(this.element),
             new BirdIddleAnimation(this.element),
+            new DragonflyIddleAnimation(this.element),
         ];
     }
 

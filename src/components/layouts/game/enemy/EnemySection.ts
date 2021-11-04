@@ -60,8 +60,11 @@ export default abstract class EnemySection implements Renderable, Collidable {
     // init stuff
 
     initAfterElementPresent() {
-        if(this.element == undefined) throw new Error("This functioncan't work correctly when this.element is undefined");
-        
+        if (this.element == undefined)
+            throw new Error(
+                "This functioncan't work correctly when this.element is undefined"
+            );
+
         this.size = this.element.size;
         this.initAnimator();
     }
@@ -74,12 +77,17 @@ export default abstract class EnemySection implements Renderable, Collidable {
 
     shot() {
         if (!this.live) return;
-        const bullet = this.bulletFactory.makeBullet(BulletType.Enemy);
+        const bullet = this.makeBullet();
         bullet.position = {
             ...this.position,
             y: this.position.y + this.size.height / 2 - bullet.size.height / 2,
         };
         this.bullets.push(bullet);
+    }
+
+    makeBullet() {
+        /* created mainly to override for child if they need other bullet type */
+        return this.bulletFactory.makeBullet(BulletType.Enemy);
     }
 
     startShotTimer() {
