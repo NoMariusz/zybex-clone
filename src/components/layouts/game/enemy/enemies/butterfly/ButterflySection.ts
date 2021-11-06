@@ -1,18 +1,19 @@
 import { AnimationName } from "../../../animations/animationNames";
 import { BOARD_HEIGHT, BOARD_SCROLL_SPEED } from "../../../constants";
 import EnemySection from "../../EnemySection";
+import { DoubleRowEnemyParts } from "../../utils";
 import Butterfly from "./Butterfly";
-import { ButterflyParts, BUTTERFLY_Y_FUNCTIONS } from "./butterflyData";
 import ButterflyElement from "./ButterflyElement";
 
 export default class ButterflySection extends EnemySection {
     shotTimerMs: number;
     moveIterator: number;
-    part: ButterflyParts;
+    part: DoubleRowEnemyParts;
 
     constructor(index: number) {
         super();
-        this.part = index >= 3 ? ButterflyParts.Up : ButterflyParts.Down;
+        this.part =
+            index >= 3 ? DoubleRowEnemyParts.Up : DoubleRowEnemyParts.Down;
         this.moveIterator =
             -(Math.PI / 6) * (index % (Butterfly.sectionCount / 2));
 
@@ -26,10 +27,20 @@ export default class ButterflySection extends EnemySection {
 
     move() {
         this.position = {
-            y: BUTTERFLY_Y_FUNCTIONS[this.part](this.moveIterator),
+            y: this.calcYPosition(),
             x: this.position.x - BOARD_SCROLL_SPEED * 3,
         };
         this.moveIterator += Math.PI / 30;
+    }
+
+    calcYPosition() {
+        return (
+            ((Math.sin(this.moveIterator) * 2 - 1) *
+                (this.part == DoubleRowEnemyParts.Up ? -1 : 1) *
+                BOARD_HEIGHT) /
+                8 +
+            BOARD_HEIGHT / 2
+        );
     }
 
     die() {

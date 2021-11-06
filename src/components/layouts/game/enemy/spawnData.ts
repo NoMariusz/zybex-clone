@@ -9,7 +9,8 @@ import FastCoins from "./enemies/coin_like/fast_coins/FastCoins";
 import DiagonalDragonflyDown from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyDown";
 import DiagonalDragonflyUp from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyUp";
 import SquareDragonfly from "./enemies/dragonfly_like/sqare_dragonfly/SquareDragonfly";
-import WAvingFiver from "./enemies/fiver_like/waving_fiver/WavingFiver";
+import BouncingFiver from "./enemies/fiver_like/bouncing_fiver/BouncingFiver";
+import WavingFiver from "./enemies/fiver_like/waving_fiver/WavingFiver";
 import Worm from "./enemies/worm/Worm";
 
 interface SpawnData {
@@ -24,12 +25,12 @@ interface SpawnData {
         | typeof DiagonalDragonflyDown
         | typeof SquareDragonfly
         | typeof Butterfly
-        | typeof WAvingFiver;
+        | typeof WavingFiver
+        | typeof BouncingFiver;
     initialPosition: Position;
 }
 
 const spawnData: SpawnData[] = [
-    { class: WAvingFiver, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
     { class: Coins, initialPosition: { x: 0, y: 100 } },
     { class: CoinWall, initialPosition: { x: 0, y: 80 } },
     { class: Worm, initialPosition: { x: 0, y: BOARD_HEIGHT / 4 } },
@@ -46,10 +47,12 @@ const spawnData: SpawnData[] = [
         class: SquareDragonfly,
         initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
     },
+    { class: WavingFiver, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
     { class: BirdWall, initialPosition: { x: 0, y: 120 } },
     { class: TargetedBird, initialPosition: { x: 0, y: 120 } },
     { class: Butterfly, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
     { class: FastCoins, initialPosition: { x: 0, y: 100 } },
+    { class: BouncingFiver, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
 ];
 
 export default spawnData;

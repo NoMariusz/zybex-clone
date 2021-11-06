@@ -2,9 +2,9 @@ import { Position, Size } from "../../../../../../interfaces";
 import Bullet from "../../../../bullets/Bullet";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "../../../../constants";
 import Enemy from "../../../Enemy";
-import WavingFiverSection from "./WavingFiverSection";
+import BouncingFiverSection from "./BouncingFiverSection";
 
-export default class WavingFiver extends Enemy {
+export default class BouncingFiver extends Enemy {
     static sectionCount = 6;
 
     constructor(
@@ -16,15 +16,15 @@ export default class WavingFiver extends Enemy {
     }
 
     initSections() {
-        for (let i = 0; i < WavingFiver.sectionCount; i++) {
-            const section = new WavingFiverSection(i);
+        for (let i = 0; i < BouncingFiver.sectionCount; i++) {
+            const section = new BouncingFiverSection(i);
             this.sections.push(section);
         }
     }
 
     calcInitPosition(pos: Position, idx: number) {
         return {
-            x: pos.x + BOARD_WIDTH + idx * 75,
+            x: pos.x + BOARD_WIDTH + (idx % 3) * 75,
             y: pos.y,
         };
     }
