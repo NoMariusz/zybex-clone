@@ -11,6 +11,7 @@ import DiagonalDragonflyUp from "./enemies/dragonfly_like/diagonal_dragonfly/Dia
 import SquareDragonfly from "./enemies/dragonfly_like/sqare_dragonfly/SquareDragonfly";
 import BouncingFiver from "./enemies/fiver_like/bouncing_fiver/BouncingFiver";
 import WavingFiver from "./enemies/fiver_like/waving_fiver/WavingFiver";
+import DownPhantom from "./enemies/phantom/down_phantom/DownPhantom";
 import Worm from "./enemies/worm/Worm";
 
 interface SpawnData {
@@ -26,11 +27,13 @@ interface SpawnData {
         | typeof SquareDragonfly
         | typeof Butterfly
         | typeof WavingFiver
-        | typeof BouncingFiver;
+        | typeof BouncingFiver
+        | typeof DownPhantom;
     initialPosition: Position;
 }
 
 const spawnData: SpawnData[] = [
+    { class: DownPhantom, initialPosition: { x: 0, y: 0 } },
     { class: Coins, initialPosition: { x: 0, y: 100 } },
     { class: CoinWall, initialPosition: { x: 0, y: 80 } },
     { class: Worm, initialPosition: { x: 0, y: BOARD_HEIGHT / 4 } },

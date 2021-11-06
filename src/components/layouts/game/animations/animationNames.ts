@@ -7,4 +7,5 @@ export enum AnimationName {
     DragonflyIddle,
     ButterflyIddle,
     FiverIddle,
+    PhantomIddle,
 }

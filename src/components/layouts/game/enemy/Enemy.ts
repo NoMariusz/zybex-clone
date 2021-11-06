@@ -1,5 +1,6 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Bullet from "../bullets/Bullet";
+import { BOARD_HEIGHT } from "../constants";
 import Player from "../player/Player";
 import { SafeTimeoutable } from "../utils";
 import EnemySection from "./EnemySection";
@@ -69,6 +70,8 @@ export default abstract class Enemy
     checkSectionClear(section: EnemySection) {
         if (
             section.position.x < -section.size.width - 50 ||
+            section.position.y < -section.size.height - 50 ||
+            section.position.y > BOARD_HEIGHT + 50 ||
             section.canBeCleared
         ) {
             this.clearSection(section);
