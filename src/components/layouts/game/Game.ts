@@ -38,7 +38,9 @@ export default class Game implements Layout {
         this.playerUi = new PlayerUi(this.player, 1);
         this.player2Ui = new PlayerUi(new Player(), 2);
 
-        this.enemyManager = new EnemyManager(this.player);
+        this.enemyManager = new EnemyManager(this.player, () =>
+            this.onAllEnemiesDies()
+        );
         this.board = new Board(this.player, this.enemyManager);
     }
 
@@ -71,6 +73,17 @@ export default class Game implements Layout {
 
     gameOver() {
         console.log("Game Over, changing layout");
+        this.changeLayout(Layouts.MENU);
+    }
+
+    onAllEnemiesDies() {
+        // here is place for playing player end level animation
+        this.levelCompleted();
+    }
+
+    levelCompleted() {
+        alert(`Level Completed\n your score: ${this.player.points}`);
+        console.log("Level Completed, changing layout");
         this.changeLayout(Layouts.MENU);
     }
 }

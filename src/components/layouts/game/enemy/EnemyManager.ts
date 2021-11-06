@@ -13,6 +13,8 @@ export default class EnemyManager extends BulletClearer implements Renderable {
     bullets: Bullet[];
     player: Player;
 
+    enemiesEndedCallback: () => void;
+
     get activeSections(): EnemySection[] {
         return this.activeEnemy == null
             ? []
@@ -27,9 +29,10 @@ export default class EnemyManager extends BulletClearer implements Renderable {
         return this.activeEnemy == null ? [] : [...this.activeSections];
     }
 
-    constructor(player: Player) {
+    constructor(player: Player, enemiesEndedCallback: () => void) {
         super();
         this.player = player;
+        this.enemiesEndedCallback = enemiesEndedCallback;
     }
 
     start() {
@@ -59,8 +62,8 @@ export default class EnemyManager extends BulletClearer implements Renderable {
         // check if can init new enemies
         if (this.spawnDataIndex >= spawnData.length) {
             this.enemiesEnded();
-            // // return break enemies spawn loop
-            // return;
+            // return break enemies spawn loop
+            return;
         }
         // get next enemy data
         const spawnInfo = spawnData[this.spawnDataIndex];
@@ -84,7 +87,6 @@ export default class EnemyManager extends BulletClearer implements Renderable {
     }
 
     enemiesEnded() {
-        // to temporary loop enemies
-        this.spawnDataIndex = 0;
+        this.enemiesEndedCallback();
     }
 }
