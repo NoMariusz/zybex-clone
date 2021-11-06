@@ -73,7 +73,7 @@ export default class Game implements Layout {
 
     gameOver() {
         console.log("Game Over, changing layout");
-        this.changeLayout(Layouts.MENU);
+        this.changeLayout(Layouts.GAME_OVER);
     }
 
     onAllEnemiesDies() {
@@ -82,8 +82,7 @@ export default class Game implements Layout {
     }
 
     levelCompleted() {
-        alert(`Level Completed\n your score: ${this.player.points}`);
         console.log("Level Completed, changing layout");
-        this.changeLayout(Layouts.MENU);
+        this.changeLayout(Layouts.LEVEL_SUMMARY);
     }
 }
