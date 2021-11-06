@@ -2,14 +2,17 @@ import { Collidable, Position, Renderable, Size } from "../../../interfaces";
 import { CanvasElement } from "../../../rendering/interfaces";
 import Renderer from "../../../rendering/Renderer";
 import { BASE_ENEMY_HP } from "../constants";
-import { translateToCanvasPos } from "../utils";
+import { SafeTimeoutable, translateToCanvasPos } from "../utils";
 import Bullet from "../bullets/Bullet";
 import BulletFactory from "../bullets/BulletFactory";
 import Animator from "../animations/Animator";
 import { AnimationName } from "../animations/animationNames";
 import { BulletType } from "../bullets/bulletsData";
 
-export default abstract class EnemySection implements Renderable, Collidable {
+export default abstract class EnemySection
+    extends SafeTimeoutable
+    implements Renderable, Collidable
+{
     /* Describe one part of enemy or enemy group  */
 
     shotTimer: NodeJS.Timer;
@@ -37,6 +40,7 @@ export default abstract class EnemySection implements Renderable, Collidable {
     }
 
     constructor() {
+        super();
         this.hp = BASE_ENEMY_HP;
         this.live = true;
         this.canBeCleared = false;

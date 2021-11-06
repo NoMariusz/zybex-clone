@@ -19,7 +19,9 @@ export default class ButterflySection extends EnemySection {
         // prepare element and make element needed stuff
         this.element = new ButterflyElement();
         this.initAfterElementPresent();
-        this.animator.startAnim(AnimationName.ButterflyIddle);
+        this.makeSafeTimeout(() => {
+            this.animator.startAnim(AnimationName.ButterflyIddle);
+        }, 100 * index);
     }
 
     move() {

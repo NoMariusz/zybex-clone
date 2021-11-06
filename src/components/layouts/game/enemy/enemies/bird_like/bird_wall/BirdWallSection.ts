@@ -30,12 +30,12 @@ export default class BirdWallSection extends EnemySection {
         this.moveStatus = MovingStatuses.InitialStop;
 
         this.shotTimerMs = 5000;
-        this.animator.startAnim(AnimationName.BirdIddle);
     }
 
     startMoving() {
         this.moveStatus = MovingStatuses.Moving;
         this.speed = BOARD_SCROLL_SPEED * 4;
+        this.animator.startAnim(AnimationName.BirdIddle);
     }
 
     startWaiting() {
