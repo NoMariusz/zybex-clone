@@ -2,6 +2,7 @@ import { Position } from "../../../interfaces";
 import { BOARD_HEIGHT } from "../constants";
 import BirdWall from "./enemies/bird_like/bird_wall/BirdWall";
 import TargetedBird from "./enemies/bird_like/targetet_bird/TargetedBird";
+import Butterfly from "./enemies/butterfly/Butterfly";
 import Coins from "./enemies/coin_like/coins/Coins";
 import CoinWall from "./enemies/coin_like/coin_wall/CoinWall";
 import FastCoins from "./enemies/coin_like/fast_coins/FastCoins";
@@ -20,18 +21,16 @@ interface SpawnData {
         | typeof TargetedBird
         | typeof DiagonalDragonflyUp
         | typeof DiagonalDragonflyDown
-        | typeof SquareDragonfly;
+        | typeof SquareDragonfly
+        | typeof Butterfly;
     initialPosition: Position;
 }
 
 const spawnData: SpawnData[] = [
-    {
-        class: SquareDragonfly,
-        initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
-    },
     { class: Coins, initialPosition: { x: 0, y: 100 } },
     { class: CoinWall, initialPosition: { x: 0, y: 80 } },
     { class: Worm, initialPosition: { x: 0, y: BOARD_HEIGHT / 4 } },
+    { class: Coins, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
     {
         class: DiagonalDragonflyDown,
         initialPosition: { x: 0, y: BOARD_HEIGHT / 4 },
@@ -40,10 +39,14 @@ const spawnData: SpawnData[] = [
         class: DiagonalDragonflyUp,
         initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
     },
-    { class: Coins, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
+    {
+        class: SquareDragonfly,
+        initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
+    },
     { class: BirdWall, initialPosition: { x: 0, y: 120 } },
-    { class: FastCoins, initialPosition: { x: 0, y: 100 } },
     { class: TargetedBird, initialPosition: { x: 0, y: 120 } },
+    { class: Butterfly, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
+    { class: FastCoins, initialPosition: { x: 0, y: 100 } },
 ];
 
 export default spawnData;
