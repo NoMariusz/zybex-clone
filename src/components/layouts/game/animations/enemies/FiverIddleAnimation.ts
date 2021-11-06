@@ -3,9 +3,9 @@ import { CanvasElement } from "../../../../rendering/interfaces";
 import { AnimationName } from "../animationNames";
 import FrameAnimation from "../FrameAnimation";
 
-export default class BirdIddleAnimation extends FrameAnimation {
+export default class FiverIddleAnimation extends FrameAnimation {
     active = false;
-    name = AnimationName.BirdIddle;
+    name = AnimationName.FiverIddle;
 
     tickIntervalTime = 150;
     interval: NodeJS.Timer;
@@ -15,7 +15,7 @@ export default class BirdIddleAnimation extends FrameAnimation {
 
     textures: Position[] = Array(6)
         .fill(null)
-        .map((e, i) => ({ x: 375 + 75 * i, y: 800 }));
+        .map((e, i) => ({ x: 825 + 75 * i, y: 800 }));
     actualTextureIdx = 0;
 
     constructor(element: CanvasElement) {
