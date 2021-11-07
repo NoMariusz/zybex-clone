@@ -7,6 +7,7 @@ import Player from "./player/Player";
 import EnemyManager from "./enemy/EnemyManager";
 import Background from "./background/Background";
 import ShipManager from "./ship/ShipManager";
+import store from "../store";
 
 export default class Game implements Layout {
     changeLayout: (layName: Layouts) => void;
@@ -83,6 +84,9 @@ export default class Game implements Layout {
     onAllEnemiesDies() {
         // playing end level animation and change layout
         this.shipManager.startScene(() => this.levelCompleted());
+        // save level statistics
+        store.levelScore = this.player.points;
+        store.livesAfterLevel = this.player.lives;
     }
 
     levelCompleted() {

@@ -4,6 +4,7 @@ import {
     BOARD_SCROLL_SPEED,
     BOARD_WIDTH,
     PLAYER_SHIP_DISTANCE,
+    PLAYER_SHIP_SPEED,
 } from "../constants";
 import Player from "../player/Player";
 import { translateToCanvasPos } from "../utils";
@@ -75,14 +76,14 @@ export default class ShipManager implements Renderable {
     moveShip() {
         this.position = {
             ...this.position,
-            x: this.position.x + BOARD_SCROLL_SPEED,
+            x: this.position.x + PLAYER_SHIP_SPEED,
         };
     }
 
     movePlayer() {
         this.player.position = {
             ...this.player.position,
-            x: this.player.position.x + BOARD_SCROLL_SPEED,
+            x: this.player.position.x + PLAYER_SHIP_SPEED,
         };
     }
 

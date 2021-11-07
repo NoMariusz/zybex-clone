@@ -138,3 +138,4 @@ export const WEAPON_LEVELS_TEXTURES = [
 // level compleeted ship animation
 
 export const PLAYER_SHIP_DISTANCE = 90;
+export const PLAYER_SHIP_SPEED = BOARD_SCROLL_SPEED;
