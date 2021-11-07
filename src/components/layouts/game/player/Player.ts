@@ -2,6 +2,7 @@ import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
     BOARD_HEIGHT,
+    PlayerStatuses,
     PLAYER_IMMORTAL,
     PLAYER_IMMORTALITY_TIME,
     SCORE_FOR_ENEMY,
@@ -31,7 +32,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     lives: number = 7;
     points: number = 0;
     immortality = false;
-    locked = false;
+    status: PlayerStatuses;
 
     size: Size;
 
@@ -102,17 +103,23 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.shotManager.render();
     }
 
+    lock() {
+        this.immortality = true;
+        this.status = PlayerStatuses.HardLocked;
+        this.shotManager.stopShot();
+    }
+
     // taking damage
 
     takeDamage() {
-        if (this.immortality || PLAYER_IMMORTAL) {
+        if (this.immortality || PLAYER_IMMORTAL || this.locked) {
             return;
         }
 
         // change properties
         this.lives--;
         this.immortality = true;
-        this.locked = true;
+        this.status = PlayerStatuses.TempLocked;
 
         this.shotManager.stopShot();
         this.weaponManager.loseWeapon();
@@ -126,16 +133,18 @@ export default class Player extends SafeTimeoutable implements Renderable {
         //play die animation
         const time = this.animator.startAnim(AnimationName.PlayerDeath);
         this.makeSafeTimeout(() => {
+            this.animator.endAnim(AnimationName.PlayerDeath);
+
+            // check if someone doesn't hard lock player
+            if (this.status == PlayerStatuses.HardLocked) return;
+
             // after anim make next actions
             this.position = {
                 x: 0,
                 y: BOARD_HEIGHT / 2,
             };
             this.shotManager.startShot();
-
-            this.animator.endAnim(AnimationName.PlayerDeath);
-            this.locked = false;
-
+            this.status = PlayerStatuses.Playing;
             this.startImmortalityAnim();
         }, time);
     }
@@ -174,5 +183,12 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     updateAvatar() {
         this.avatar.position = translateToCanvasPos(this.position);
+    }
+
+    get locked() {
+        return (
+            this.status == PlayerStatuses.HardLocked ||
+            this.status == PlayerStatuses.TempLocked
+        );
     }
 }

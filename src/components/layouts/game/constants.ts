@@ -12,6 +12,12 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 
 // player
 
+export enum PlayerStatuses {
+    Playing,
+    TempLocked,
+    HardLocked,
+}
+
 // disable player loosing hp for testing purpouses
 export const PLAYER_IMMORTAL = false;
 export const PLAYER_SPEED = 8;
@@ -128,3 +134,7 @@ export const WEAPON_LEVELS_TEXTURES = [
     { x: 0, y: 0 },
     { x: 150, y: 0 },
 ];
+
+// level compleeted ship animation
+
+export const PLAYER_SHIP_DISTANCE = 90;

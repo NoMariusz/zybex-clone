@@ -6,6 +6,7 @@ import PlayerUi from "./ui/PlayerUi";
 import Player from "./player/Player";
 import EnemyManager from "./enemy/EnemyManager";
 import Background from "./background/Background";
+import ShipManager from "./ship/ShipManager";
 
 export default class Game implements Layout {
     changeLayout: (layName: Layouts) => void;
@@ -14,6 +15,7 @@ export default class Game implements Layout {
     //items
     board: Board;
     enemyManager: EnemyManager;
+    shipManager: ShipManager;
     background: Background;
 
     playerUi: PlayerUi;
@@ -42,6 +44,7 @@ export default class Game implements Layout {
             this.onAllEnemiesDies()
         );
         this.board = new Board(this.player, this.enemyManager);
+        this.shipManager = new ShipManager(this.player);
     }
 
     render() {
@@ -51,6 +54,7 @@ export default class Game implements Layout {
         this.background.render();
         this.playerUi.render();
         this.player2Ui.render();
+        this.shipManager.render();
     }
 
     handleKeys(key: string) {
@@ -77,8 +81,8 @@ export default class Game implements Layout {
     }
 
     onAllEnemiesDies() {
-        // here is place for playing player end level animation
-        this.levelCompleted();
+        // playing end level animation and change layout
+        this.shipManager.startScene(() => this.levelCompleted());
     }
 
     levelCompleted() {
