@@ -11,6 +11,7 @@ import DragonflyIddleAnimation from "./enemies/DragonflyIddleAnimation";
 import ButterflyIddleAnimation from "./enemies/ButterflyIddle";
 import FiverIddleAnimation from "./enemies/FiverIddleAnimation";
 import PhantomIddleAnimation from "./enemies/PhantomIddleAnimation";
+import PlayerIddleAnimation from "./player/PlayerIddleAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -32,6 +33,7 @@ export default class Animator {
             new ButterflyIddleAnimation(this.element),
             new FiverIddleAnimation(this.element),
             new PhantomIddleAnimation(this.element),
+            new PlayerIddleAnimation(this.element),
         ];
     }
 

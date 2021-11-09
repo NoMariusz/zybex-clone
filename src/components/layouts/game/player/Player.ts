@@ -81,6 +81,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     onStart() {
         this.avatar.loadColor();
         this.shotManager.startShot();
+        this.animator.startAnim(AnimationName.PlayerIddle);
     }
 
     clear() {
