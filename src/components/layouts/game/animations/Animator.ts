@@ -13,6 +13,7 @@ import FiverIddleAnimation from "./enemies/FiverIddleAnimation";
 import PhantomIddleAnimation from "./enemies/PhantomIddleAnimation";
 import PlayerIddleAnimation from "./player/PlayerIddleAnimation";
 import MoveUpAnimation from "./player/MoveUpAnimation";
+import MoveDownAnimation from "./player/MoveDownAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -35,6 +36,7 @@ export default class Animator {
             new FiverIddleAnimation(this.element),
             new PhantomIddleAnimation(this.element),
             new MoveUpAnimation(this.element),
+            new MoveDownAnimation(this.element),
             new PlayerIddleAnimation(this.element),
         ];
     }

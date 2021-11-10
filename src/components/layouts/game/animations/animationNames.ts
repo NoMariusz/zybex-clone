@@ -10,4 +10,5 @@ export enum AnimationName {
     PhantomIddle,
     PlayerIddle,
     PlayerMoveUp,
+    PlayerMoveDown,
 }
