@@ -15,6 +15,7 @@ import PlayerIddleAnimation from "./player/PlayerIddleAnimation";
 import MoveUpAnimation from "./player/MoveUpAnimation";
 import MoveDownAnimation from "./player/MoveDownAnimation";
 import MoveForwardAnimation from "./player/MoveForwardAnimation";
+import MoveBackwardAnimation from "./player/MoveBackwardAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -39,6 +40,7 @@ export default class Animator {
             new MoveUpAnimation(this.element),
             new MoveDownAnimation(this.element),
             new MoveForwardAnimation(this.element),
+            new MoveBackwardAnimation(this.element),
             new PlayerIddleAnimation(this.element),
         ];
     }

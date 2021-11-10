@@ -12,4 +12,5 @@ export enum AnimationName {
     PlayerMoveUp,
     PlayerMoveDown,
     PlayerMoveForward,
+    PlayerMoveBackward,
 }

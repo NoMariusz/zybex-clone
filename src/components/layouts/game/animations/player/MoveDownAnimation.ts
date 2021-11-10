@@ -6,5 +6,5 @@ export default class MoveDownAnimation extends PlayerFrameAnimation {
     name = AnimationName.PlayerMoveDown;
     tickIntervalTime = 300;
 
-    texturesX: number[] = [PlayerFrames.Down];
+    texturesX: number[] = [PlayerFrames.Curled];
 }
