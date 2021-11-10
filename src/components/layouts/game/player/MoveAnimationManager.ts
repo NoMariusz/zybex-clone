@@ -7,6 +7,7 @@ import Animator from "../animations/Animator";
 const KEY_TO_ANIM: { [key in Keys]?: AnimationName } = {
     [Keys.UP]: AnimationName.PlayerMoveUp,
     [Keys.DOWN]: AnimationName.PlayerMoveDown,
+    [Keys.RIGHT]: AnimationName.PlayerMoveForward,
 };
 
 export default class MoveAnimationManager implements Renderable {

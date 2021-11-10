@@ -5,4 +5,8 @@ export enum PlayerFrames {
     Fly2 = 1200,
     Fly3 = 1275,
     Down = 975,
+    ForwardStart1 = 750,
+    ForwardStart2 = 825,
+    ForwardMain1 = 900,
+    ForwardMain2 = 1350,
 }
