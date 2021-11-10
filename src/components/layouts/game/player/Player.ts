@@ -18,6 +18,7 @@ import WeaponsFactory from "../weapons/WeaponsFactory";
 import WeaponsManager from "./WeaponsManager";
 import PickUp from "../pickups/Pickup";
 import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
+import MoveAnimationManager from "./MoveAnimationManager";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */
@@ -27,6 +28,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     shotManager: ShotManager;
     weaponFactory: WeaponsFactory;
     private weaponManager: WeaponsManager;
+    moveAnimationManager: MoveAnimationManager;
 
     // properties in game
     lives: number = 7;
@@ -71,6 +73,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
         this.shotManager = new ShotManager(this._position);
         this.weaponManager = new WeaponsManager(this.shotManager);
+        this.moveAnimationManager = new MoveAnimationManager(this.animator);
 
         this.size = this.avatar.size;
         this.updateAvatar();
@@ -102,6 +105,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     render() {
         Renderer.render(this.avatar);
         this.shotManager.render();
+        this.moveAnimationManager.render();
     }
 
     lock() {

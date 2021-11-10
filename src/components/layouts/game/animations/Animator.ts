@@ -12,6 +12,7 @@ import ButterflyIddleAnimation from "./enemies/ButterflyIddle";
 import FiverIddleAnimation from "./enemies/FiverIddleAnimation";
 import PhantomIddleAnimation from "./enemies/PhantomIddleAnimation";
 import PlayerIddleAnimation from "./player/PlayerIddleAnimation";
+import MoveUpAnimation from "./player/MoveUpAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -33,6 +34,7 @@ export default class Animator {
             new ButterflyIddleAnimation(this.element),
             new FiverIddleAnimation(this.element),
             new PhantomIddleAnimation(this.element),
+            new MoveUpAnimation(this.element),
             new PlayerIddleAnimation(this.element),
         ];
     }
@@ -41,13 +43,10 @@ export default class Animator {
         return this.animations.find((a) => a.name == name);
     }
 
-    startAnim(name: AnimationName) {
+    private playAnim(anim: Animation) {
         /**
          * @returns number - animation playtime
          */
-        const anim = this.getAnimByName(name);
-        if (!anim) return;
-
         anim.start();
         anim.active = true;
 
@@ -56,6 +55,26 @@ export default class Animator {
         }, anim.tickIntervalTime);
 
         return this.getAnimTime(anim);
+    }
+
+    startAnim(name: AnimationName) {
+        /**
+         * Start animation in normal mode
+         */
+        const anim = this.getAnimByName(name);
+        if (!anim) return;
+
+        return this.playAnim(anim);
+    }
+
+    safeStartAnim(name: AnimationName) {
+        /**
+         * Start animation only if is not active
+         */
+        const anim = this.getAnimByName(name);
+        if (!anim || anim.active) return;
+
+        return this.playAnim(anim);
     }
 
     endAnim(name: AnimationName) {
