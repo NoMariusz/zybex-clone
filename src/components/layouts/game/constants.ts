@@ -24,6 +24,7 @@ export const PLAYER_SPEED = 8;
 export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
 
 export const MAX_ATTACK_SPEED_MULTIPLIER = 2.5;
+export const MIN_WEAPON_SHOT_TIMEOUT = 150;
 
 // level/board
 
