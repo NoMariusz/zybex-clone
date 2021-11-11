@@ -44,6 +44,16 @@ export default class Orbit extends Weapon {
         ];
     }
 
+    handleShot4() {
+        this.bulletsInSerie = 6;
+        this.levelSpeedBonus = 2;
+
+        return [
+            ...this.handleBaseShot(),
+            this.makeBullet(BulletType.OrbitRotate),
+        ];
+    }
+
     makeBullet(type: BulletType) {
         return this.bulletFactory.makeBullet(type);
     }

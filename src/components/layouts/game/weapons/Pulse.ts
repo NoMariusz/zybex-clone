@@ -20,7 +20,7 @@ export default class Pulse extends Weapon {
     }
 
     handleShot3() {
-        this.nextShotTimeout = 300;
+        this.nextShotTimeout = 500;
 
         const bullets = [];
 
@@ -31,6 +31,27 @@ export default class Pulse extends Weapon {
         if (this.shotIter % 3 >= 2)
             bullets.push(this.bulletFactory.makeBullet(BulletType.Pulse2));
         bullets.push(this.bulletFactory.makeBullet(BulletType.PulseBallUp));
+
+        this.shotIter++;
+        return bullets;
+    }
+
+    handleShot4() {
+        this.nextShotTimeout = 400;
+
+        const bullets = [];
+
+        if (this.shotIter % 3 >= 1)
+            bullets.push(
+                this.bulletFactory.makeBullet(BulletType.PulseBallDown),
+                this.bulletFactory.makeBullet(BulletType.TearDown)
+            );
+        if (this.shotIter % 3 >= 2)
+            bullets.push(this.bulletFactory.makeBullet(BulletType.Pulse2));
+        bullets.push(
+            this.bulletFactory.makeBullet(BulletType.PulseBallUp),
+            this.bulletFactory.makeBullet(BulletType.TearUp)
+        );
 
         this.shotIter++;
         return bullets;

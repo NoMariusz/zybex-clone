@@ -61,6 +61,30 @@ export default class BulletFactory {
                     y: -0.7071,
                 };
                 break;
+            case BulletType.TearDown:
+                bullet.velocity = {
+                    x: 0.866,
+                    y: 0.5,
+                };
+                break;
+            case BulletType.TearUp:
+                bullet.velocity = {
+                    x: 0.866,
+                    y: -0.5,
+                };
+                break;
+            case BulletType.TearBackDown:
+                bullet.velocity = {
+                    x: -0.866,
+                    y: 0.5,
+                };
+                break;
+            case BulletType.TearBackUp:
+                bullet.velocity = {
+                    x: -0.866,
+                    y: -0.5,
+                };
+                break;
             default:
                 break;
         }

@@ -21,6 +21,8 @@ export default abstract class Weapon {
                 return this.handleShot2();
             case 3:
                 return this.handleShot3();
+            case 4:
+                return this.handleShot4();
 
             default:
                 break;
@@ -31,4 +33,5 @@ export default abstract class Weapon {
     abstract handleShot1(): Bullet[];
     abstract handleShot2(): Bullet[];
     abstract handleShot3(): Bullet[];
+    abstract handleShot4(): Bullet[];
 }

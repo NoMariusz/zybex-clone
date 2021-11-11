@@ -15,8 +15,15 @@ export enum BulletType {
     EnemyDown,
     EnemyUp,
     Orbit,
+    OrbitRotate,
     Pulse1,
     Pulse2,
+    PulseBallUp,
+    PulseBallDown,
+    TearDown,
+    TearUp,
+    TearBackDown,
+    TearBackUp,
     EightWayUp,
     EightWayDown,
     EightWayRight,
@@ -24,9 +31,6 @@ export enum BulletType {
     RGun1,
     RGun2,
     RGun3,
-    OrbitRotate,
-    PulseBallUp,
-    PulseBallDown,
 }
 
 const bulletData: { [key in BulletType]: BulletData } = {
@@ -203,6 +207,50 @@ const bulletData: { [key in BulletType]: BulletData } = {
         size: {
             width: 33,
             height: 33,
+        },
+        damage: PULSE_DAMAGE,
+    },
+    [BulletType.TearDown]: {
+        texture_offset: {
+            x: 525,
+            y: 200,
+        },
+        size: {
+            width: 35,
+            height: 35,
+        },
+        damage: PULSE_DAMAGE,
+    },
+    [BulletType.TearUp]: {
+        texture_offset: {
+            x: 525,
+            y: 250,
+        },
+        size: {
+            width: 35,
+            height: 35,
+        },
+        damage: PULSE_DAMAGE,
+    },
+    [BulletType.TearBackDown]: {
+        texture_offset: {
+            x: 525,
+            y: 350,
+        },
+        size: {
+            width: 35,
+            height: 35,
+        },
+        damage: PULSE_DAMAGE,
+    },
+    [BulletType.TearBackUp]: {
+        texture_offset: {
+            x: 525,
+            y: 300,
+        },
+        size: {
+            width: 35,
+            height: 35,
         },
         damage: PULSE_DAMAGE,
     },
