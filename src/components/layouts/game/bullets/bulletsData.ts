@@ -6,6 +6,10 @@ interface BulletData {
     damage: number;
 }
 
+const EIGHT_WAY_DAMAGE = 23;
+const PULSE_DAMAGE = 20;
+const RGUN_DAMAGE = 30;
+
 export enum BulletType {
     Enemy,
     EnemyDown,
@@ -15,8 +19,14 @@ export enum BulletType {
     Pulse2,
     EightWayUp,
     EightWayDown,
+    EightWayRight,
+    EightWayLeft,
     RGun1,
     RGun2,
+    RGun3,
+    OrbitRotate,
+    PulseBallUp,
+    PulseBallDown,
 }
 
 const bulletData: { [key in BulletType]: BulletData } = {
@@ -73,7 +83,7 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 27,
             height: 66,
         },
-        damage: 20,
+        damage: PULSE_DAMAGE,
     },
     [BulletType.Pulse2]: {
         texture_offset: {
@@ -84,7 +94,7 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 30,
             height: 112,
         },
-        damage: 20,
+        damage: PULSE_DAMAGE,
     },
     [BulletType.EightWayDown]: {
         texture_offset: {
@@ -95,7 +105,7 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 18,
             height: 32,
         },
-        damage: 15,
+        damage: EIGHT_WAY_DAMAGE,
     },
     [BulletType.EightWayUp]: {
         texture_offset: {
@@ -106,7 +116,29 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 18,
             height: 32,
         },
-        damage: 15,
+        damage: EIGHT_WAY_DAMAGE,
+    },
+    [BulletType.EightWayRight]: {
+        texture_offset: {
+            x: 225,
+            y: 300,
+        },
+        size: {
+            width: 32,
+            height: 18,
+        },
+        damage: EIGHT_WAY_DAMAGE,
+    },
+    [BulletType.EightWayLeft]: {
+        texture_offset: {
+            x: 260,
+            y: 300,
+        },
+        size: {
+            width: 32,
+            height: 18,
+        },
+        damage: EIGHT_WAY_DAMAGE,
     },
     [BulletType.RGun1]: {
         texture_offset: {
@@ -117,18 +149,62 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 57,
             height: 31,
         },
-        damage: 130,
+        damage: RGUN_DAMAGE,
     },
     [BulletType.RGun2]: {
         texture_offset: {
-            x: 225,
+            x: 150,
             y: 200,
         },
         size: {
             width: 119,
             height: 29,
         },
-        damage: 130,
+        damage: RGUN_DAMAGE,
+    },
+    [BulletType.RGun3]: {
+        texture_offset: {
+            x: 150,
+            y: 200,
+        },
+        size: {
+            width: 195,
+            height: 29,
+        },
+        damage: RGUN_DAMAGE,
+    },
+    [BulletType.OrbitRotate]: {
+        texture_offset: {
+            x: 150,
+            y: 250,
+        },
+        size: {
+            width: 33,
+            height: 33,
+        },
+        damage: 50,
+    },
+    [BulletType.PulseBallUp]: {
+        texture_offset: {
+            x: 150,
+            y: 250,
+        },
+        size: {
+            width: 33,
+            height: 33,
+        },
+        damage: PULSE_DAMAGE,
+    },
+    [BulletType.PulseBallDown]: {
+        texture_offset: {
+            x: 150,
+            y: 250,
+        },
+        size: {
+            width: 33,
+            height: 33,
+        },
+        damage: PULSE_DAMAGE,
     },
 };
 

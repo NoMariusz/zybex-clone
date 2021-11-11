@@ -19,25 +19,32 @@ export default class Orbit extends Weapon {
             this.nextShotTimeout = TIMEOUTS[0] / this.levelSpeedBonus;
         }
         this.shotIter++;
-        return this.makeBaseBullet();
+        return [this.makeBullet(BulletType.Orbit)];
     }
 
     handleShot1() {
         this.bulletsInSerie = 2;
         this.levelSpeedBonus = 1;
-        // change next shot timeout
         return this.handleBaseShot();
     }
 
     handleShot2() {
-        this.bulletsInSerie = 4;
+        this.bulletsInSerie = 3;
         this.levelSpeedBonus = 1.3;
-        // change next shot timeout
         return this.handleBaseShot();
     }
 
-    makeBaseBullet() {
-        const bullet = this.bulletFactory.makeBullet(BulletType.Orbit);
-        return [bullet];
+    handleShot3() {
+        this.bulletsInSerie = 4;
+        this.levelSpeedBonus = 1.5;
+
+        return [
+            ...this.handleBaseShot(),
+            this.makeBullet(BulletType.OrbitRotate),
+        ];
+    }
+
+    makeBullet(type: BulletType) {
+        return this.bulletFactory.makeBullet(type);
     }
 }

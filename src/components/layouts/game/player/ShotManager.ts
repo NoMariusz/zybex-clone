@@ -2,7 +2,12 @@ import { Position, Renderable } from "../../../interfaces";
 import BulletClearer from "../bullets/BulletClearer";
 import Bullet from "../bullets/Bullet";
 import Weapon from "../weapons/Weapon";
-import { MIN_WEAPON_SHOT_TIMEOUT } from "../constants";
+import {
+    MIN_WEAPON_SHOT_TIMEOUT,
+    ROTATE_BULLET_DISTANCE,
+    Weapons,
+} from "../constants";
+import { BulletType } from "../bullets/bulletsData";
 
 export default class ShotManager extends BulletClearer implements Renderable {
     weapon: Weapon;
@@ -24,6 +29,10 @@ export default class ShotManager extends BulletClearer implements Renderable {
         );
     }
 
+    get rotateBullet() {
+        return this.bullets.find((b) => b.type == BulletType.OrbitRotate);
+    }
+
     constructor(position: Position) {
         super();
         this.position = position;
@@ -33,6 +42,7 @@ export default class ShotManager extends BulletClearer implements Renderable {
         for (const bullet of this.bullets) {
             bullet.render();
         }
+        this.renderRotateBullet();
         this.checkBullets();
     }
 
@@ -55,7 +65,13 @@ export default class ShotManager extends BulletClearer implements Renderable {
 
     shot() {
         const bullets = this.weapon.shot();
-        this.bullets.push(...bullets);
+        for (const bullet of bullets) {
+            if (bullet.type == BulletType.OrbitRotate) {
+                this.addRotateBullet(bullet);
+                continue;
+            }
+            this.bullets.push(bullet);
+        }
         bullets.forEach(
             (b) =>
                 (b.position = {
@@ -67,5 +83,33 @@ export default class ShotManager extends BulletClearer implements Renderable {
 
     stopShot() {
         this.loopToken++;
+    }
+
+    // rotate bullet
+
+    addRotateBullet(bullet: Bullet) {
+        if (this.rotateBullet) return;
+
+        this.bullets.push(bullet);
+    }
+
+    renderRotateBullet() {
+        const rBullet = this.rotateBullet;
+        if (rBullet == undefined) return;
+
+        // check if should clear eBullet
+        if (this.weapon.type != Weapons.Orbit || this.weapon.level < 3) {
+            rBullet.canClear = true;
+        }
+
+        rBullet.moveProgress += (Math.PI / 360) * rBullet.speed;
+        rBullet.position = {
+            x:
+                Math.sin(rBullet.moveProgress) * ROTATE_BULLET_DISTANCE +
+                this.position.x,
+            y:
+                Math.cos(rBullet.moveProgress) * ROTATE_BULLET_DISTANCE +
+                this.position.y,
+        };
     }
 }

@@ -3,7 +3,7 @@ import bulletData, { BulletType } from "./bulletsData";
 
 export default class BulletFactory {
     makeBullet(bulletType: BulletType) {
-        const bullet = new Bullet();
+        const bullet = new Bullet(bulletType);
 
         const data = bulletData[bulletType];
         bullet.element.texture_offset = data.texture_offset;
@@ -17,6 +17,7 @@ export default class BulletFactory {
 
     loadFeatures(bullet: Bullet, type: BulletType) {
         switch (type) {
+            case BulletType.EightWayLeft:
             case BulletType.Enemy:
                 bullet.velocity.x = -1;
                 break;
@@ -42,7 +43,23 @@ export default class BulletFactory {
                 break;
             case BulletType.RGun1:
             case BulletType.RGun2:
+            case BulletType.RGun3:
                 bullet.destroyable = false;
+                break;
+            case BulletType.OrbitRotate:
+                bullet.moveProgress = 0;
+                break;
+            case BulletType.PulseBallDown:
+                bullet.velocity = {
+                    x: 0.7071,
+                    y: 0.7071,
+                };
+                break;
+            case BulletType.PulseBallUp:
+                bullet.velocity = {
+                    x: 0.7071,
+                    y: -0.7071,
+                };
                 break;
             default:
                 break;

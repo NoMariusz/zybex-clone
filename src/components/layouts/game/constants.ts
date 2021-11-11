@@ -62,7 +62,11 @@ export enum Weapons {
     Pulse,
 }
 
-export const MAX_IPLEMENTED_WEAPON_LEVEL = 2;
+export const MAX_IPLEMENTED_WEAPON_LEVEL = 3;
+
+// weapons
+
+export const ROTATE_BULLET_DISTANCE = 60;
 
 // ui stuff
 
@@ -137,9 +141,11 @@ export const WEAPON_UI_DATA: WeaponUiDataList = {
     },
 };
 
-export const WEAPON_LEVELS_TEXTURES = [
+export const WEAPON_LEVELS_TEXTURES: Position[] = [
     { x: 0, y: 0 },
     { x: 150, y: 0 },
+    { x: 300, y: 0 },
+    { x: 400, y: 0 },
 ];
 
 // level compleeted ship animation
