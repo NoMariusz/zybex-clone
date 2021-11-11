@@ -13,4 +13,8 @@ export enum AnimationName {
     PlayerMoveDown,
     PlayerMoveForward,
     PlayerMoveBackward,
+    OrbitUse,
+    PulseUse,
+    EightWayUse,
+    RGunUse,
 }

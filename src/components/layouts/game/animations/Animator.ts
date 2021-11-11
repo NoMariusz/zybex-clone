@@ -16,6 +16,10 @@ import MoveUpAnimation from "./player/MoveUpAnimation";
 import MoveDownAnimation from "./player/MoveDownAnimation";
 import MoveForwardAnimation from "./player/MoveForwardAnimation";
 import MoveBackwardAnimation from "./player/MoveBackwardAnimation";
+import OrbitUseAnimation from "./weapons/OrbitUseAnimation";
+import PulseUseAnimation from "./weapons/PulseUseAnimation";
+import EightWayUseAnimation from "./weapons/EightWayAnimation";
+import RGunUseAnimation from "./weapons/RGunUseAnimation";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -42,6 +46,10 @@ export default class Animator {
             new MoveForwardAnimation(this.element),
             new MoveBackwardAnimation(this.element),
             new PlayerIddleAnimation(this.element),
+            new OrbitUseAnimation(this.element),
+            new PulseUseAnimation(this.element),
+            new EightWayUseAnimation(this.element),
+            new RGunUseAnimation(this.element),
         ];
     }
 

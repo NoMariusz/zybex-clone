@@ -2,6 +2,7 @@
 
 import { AVATAR_COLORS, CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
 import { Position } from "../../interfaces";
+import { AnimationName } from "./animations/animationNames";
 
 export const BOARD_Y = 105;
 export const BOARD_HEIGHT = CANVAS_HEIGHT - BOARD_Y * 2;
@@ -94,7 +95,7 @@ export const PLAYER_TAGS = [
 export const SCORE_ELEMENTS_OFFSET = 130;
 
 export const BOTTOM_UI_POS_Y = BOARD_Y + BOARD_HEIGHT + 45;
-export const TOP_UI_POS_Y = 45;
+export const TOP_UI_POS_Y = 30;
 
 // weapons ui stuff
 
@@ -102,6 +103,7 @@ interface WeaponUiData {
     nameTexture: Position;
     texture: Position;
     uiXPosition: number;
+    animationName: AnimationName;
 }
 
 type WeaponUiDataList = {
@@ -113,21 +115,25 @@ export const WEAPON_UI_DATA: WeaponUiDataList = {
         nameTexture: { x: 0, y: 300 },
         texture: { x: 0, y: 100 },
         uiXPosition: 250,
+        animationName: AnimationName.OrbitUse,
     },
     [Weapons.Pulse]: {
         nameTexture: { x: 300, y: 300 },
         texture: { x: 300, y: 100 },
         uiXPosition: 800,
+        animationName: AnimationName.PulseUse,
     },
     [Weapons.EightWay]: {
         nameTexture: { x: 300, y: 250 },
         texture: { x: 450, y: 100 },
         uiXPosition: 430,
+        animationName: AnimationName.EightWayUse,
     },
     [Weapons.RGun]: {
         nameTexture: { x: 300, y: 350 },
         texture: { x: 150, y: 100 },
         uiXPosition: 610,
+        animationName: AnimationName.RGunUse,
     },
 };
 

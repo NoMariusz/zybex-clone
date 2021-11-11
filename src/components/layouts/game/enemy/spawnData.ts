@@ -35,8 +35,6 @@ interface SpawnData {
 }
 
 const spawnData: SpawnData[] = [
-    { class: DownPhantom, initialPosition: { x: 0, y: 0 } },
-    { class: UpPhantom, initialPosition: { x: 0, y: 0 } },
     { class: Coins, initialPosition: { x: 0, y: 100 } },
     { class: CoinWall, initialPosition: { x: 0, y: 80 } },
     { class: Worm, initialPosition: { x: 0, y: BOARD_HEIGHT / 4 } },
@@ -59,6 +57,8 @@ const spawnData: SpawnData[] = [
     { class: Butterfly, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
     { class: FastCoins, initialPosition: { x: 0, y: 100 } },
     { class: BouncingFiver, initialPosition: { x: 0, y: BOARD_HEIGHT / 2 } },
+    { class: DownPhantom, initialPosition: { x: 0, y: 0 } },
+    { class: UpPhantom, initialPosition: { x: 0, y: 0 } },
 ];
 
 export default spawnData;
