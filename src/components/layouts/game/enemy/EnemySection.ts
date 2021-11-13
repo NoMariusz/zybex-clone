@@ -8,6 +8,7 @@ import BulletFactory from "../bullets/BulletFactory";
 import Animator from "../animations/Animator";
 import { AnimationName } from "../animations/animationNames";
 import { BulletType } from "../bullets/bulletsData";
+import { Pickups } from "../pickups/pickupsData";
 
 export default abstract class EnemySection
     extends SafeTimeoutable
@@ -29,6 +30,8 @@ export default abstract class EnemySection
 
     bullets: Bullet[];
     bulletFactory: BulletFactory;
+
+    posiiblePickup?: Pickups = undefined;
 
     get position() {
         return this._position;

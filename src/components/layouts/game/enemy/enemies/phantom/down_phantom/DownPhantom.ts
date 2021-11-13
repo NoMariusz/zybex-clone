@@ -7,14 +7,6 @@ import PhantomSection from "./DownPhantomSection";
 export default class DownPhantom extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < DownPhantom.sectionCount; i++) {
             const section = new PhantomSection(i);

@@ -7,14 +7,6 @@ import BouncingFiverSection from "./BouncingFiverSection";
 export default class BouncingFiver extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < BouncingFiver.sectionCount; i++) {
             const section = new BouncingFiverSection(i);

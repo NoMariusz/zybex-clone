@@ -8,14 +8,6 @@ import SquareDragonflySection from "./SquareDragonflyUpSection";
 export default class SquareDragonflyUp extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < SquareDragonflyUp.sectionCount; i++) {
             const section = this.makeSection();

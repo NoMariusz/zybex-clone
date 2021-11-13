@@ -148,7 +148,10 @@ export default class Board implements Renderable {
         // detect if enemy died after got shoot
         if (!enemySection.live) {
             this.player.onEnemyDie();
-            this.pickupsManager.onEnemyDie(enemySection.position);
+            this.pickupsManager.onEnemyDie(
+                enemySection.position,
+                enemySection.posiiblePickup
+            );
         }
     }
 

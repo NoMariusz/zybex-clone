@@ -17,14 +17,6 @@ const initPositions: Position[] = [
 export default class Coin extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < Coin.sectionCount; i++) {
             const section = new CoinSection();

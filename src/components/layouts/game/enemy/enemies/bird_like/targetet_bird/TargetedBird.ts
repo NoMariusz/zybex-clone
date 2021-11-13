@@ -10,15 +10,6 @@ const moveOffsets = [1000, 200, 600, 0, 400, 800];
 export default class TargetedBird extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[],
-        player: Player
-    ) {
-        super(pos, deathCallback, bulletsRef, player);
-    }
-
     initSections() {
         for (let i = 0; i < TargetedBird.sectionCount; i++) {
             if (this.player == undefined)

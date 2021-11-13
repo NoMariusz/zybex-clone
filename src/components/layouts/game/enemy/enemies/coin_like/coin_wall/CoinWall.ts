@@ -9,14 +9,6 @@ const shotOffsets = [400, 800, 1200, 800, 400, 0];
 export default class CoinWall extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < CoinWall.sectionCount; i++) {
             const section = new CoinWallSection();

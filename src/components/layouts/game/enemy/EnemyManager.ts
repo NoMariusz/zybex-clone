@@ -72,7 +72,8 @@ export default class EnemyManager extends BulletClearer implements Renderable {
             spawnInfo.initialPosition,
             () => this.onEnemyDie(),
             this.bullets,
-            this.player
+            this.player,
+            spawnInfo.pickups
         );
         this.activeEnemy = enemy;
 

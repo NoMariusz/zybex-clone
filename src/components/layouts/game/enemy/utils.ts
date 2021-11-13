@@ -1,4 +1,4 @@
-import { Position, Renderable } from "../../../interfaces";
+import { Position } from "../../../interfaces";
 import Enemy from "./Enemy";
 
 export enum DoubleRowEnemyParts {

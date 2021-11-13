@@ -7,14 +7,6 @@ import WavingFiverSection from "./WavingFiverSection";
 export default class WavingFiver extends Enemy {
     static sectionCount = 6;
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < WavingFiver.sectionCount; i++) {
             const section = new WavingFiverSection(i);

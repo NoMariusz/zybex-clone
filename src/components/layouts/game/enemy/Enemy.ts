@@ -1,10 +1,10 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Bullet from "../bullets/Bullet";
-import { BOARD_HEIGHT } from "../constants";
+import { ALL_ENEMY_SECTIONS, BOARD_HEIGHT } from "../constants";
+import { Pickups } from "../pickups/pickupsData";
 import Player from "../player/Player";
 import { SafeTimeoutable } from "../utils";
 import EnemySection from "./EnemySection";
-import { EnemyInterface } from "./utils";
 
 export default abstract class Enemy
     extends SafeTimeoutable
@@ -23,7 +23,8 @@ export default abstract class Enemy
         startPos: Position,
         deathCallback: () => void,
         bulletsRef: Bullet[],
-        player?: Player
+        player?: Player,
+        pickups?: { [index: number]: Pickups }
     ) {
         super();
         this.player = player;
@@ -39,6 +40,8 @@ export default abstract class Enemy
         for (const sec of this.sections) {
             sec.bullets = bulletsRef;
         }
+
+        if (pickups) this.loadPickups(pickups);
     }
 
     abstract initSections(): void;
@@ -85,5 +88,13 @@ export default abstract class Enemy
         this.sections.splice(secIdx, 1);
 
         if (this.sections.length <= 0) this.deathCallback();
+    }
+
+    loadPickups(pickups: { [index: number]: Pickups }) {
+        for (let idx = 0; idx < this.sections.length; idx++) {
+            const pickup = pickups[idx] || pickups[ALL_ENEMY_SECTIONS];
+
+            this.sections[idx].posiiblePickup = pickup;
+        }
     }
 }

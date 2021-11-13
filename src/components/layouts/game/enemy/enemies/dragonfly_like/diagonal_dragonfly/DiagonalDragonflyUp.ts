@@ -29,14 +29,6 @@ export default class DiagonalDragonflyUp extends Enemy {
         },
     };
 
-    constructor(
-        pos: Position,
-        deathCallback: () => void,
-        bulletsRef: Bullet[]
-    ) {
-        super(pos, deathCallback, bulletsRef);
-    }
-
     initSections() {
         for (let i = 0; i < DiagonalDragonflyUp.sectionCount; i++) {
             const section = this.makeSection();

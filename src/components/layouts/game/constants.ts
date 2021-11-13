@@ -52,8 +52,15 @@ export const BIRD_WALL_WAIT_TIME = 2500;
 
 export const SCORE_FOR_ENEMY = 50;
 
+// const to define pickup should be for all enemy section
+export const ALL_ENEMY_SECTIONS = Infinity;
+
+// pickups
+
+export const RANDOM_PICKUPS = false;
+
 // in scale 0 to 10, 0 - no chance, 10 - certain
-export const PICKUP_CHANCE = 8;
+export const RANDOM_PICKUP_CHANCE = 8;
 
 // weapons
 
@@ -65,8 +72,6 @@ export enum Weapons {
 }
 
 export const MAX_IPLEMENTED_WEAPON_LEVEL = 4;
-
-// weapons
 
 export const ROTATE_BULLET_DISTANCE = 60;
 
