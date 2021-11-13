@@ -15,23 +15,10 @@ import WavingFiver from "./enemies/fiver_like/waving_fiver/WavingFiver";
 import DownPhantom from "./enemies/phantom/down_phantom/DownPhantom";
 import UpPhantom from "./enemies/phantom/up_phantom/UpPhantom";
 import Worm from "./enemies/worm/Worm";
+import { EnemyInterface } from "./utils";
 
 interface SpawnData {
-    class:
-        | typeof Coins
-        | typeof CoinWall
-        | typeof Worm
-        | typeof BirdWall
-        | typeof FastCoins
-        | typeof TargetedBird
-        | typeof DiagonalDragonflyUp
-        | typeof DiagonalDragonflyDown
-        | typeof SquareDragonfly
-        | typeof Butterfly
-        | typeof WavingFiver
-        | typeof BouncingFiver
-        | typeof DownPhantom
-        | typeof UpPhantom;
+    class: EnemyInterface;
     initialPosition: Position;
 }
 

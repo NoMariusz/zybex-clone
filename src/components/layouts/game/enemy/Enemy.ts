@@ -4,6 +4,7 @@ import { BOARD_HEIGHT } from "../constants";
 import Player from "../player/Player";
 import { SafeTimeoutable } from "../utils";
 import EnemySection from "./EnemySection";
+import { EnemyInterface } from "./utils";
 
 export default abstract class Enemy
     extends SafeTimeoutable
