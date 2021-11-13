@@ -84,6 +84,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
     //lifecycle
 
     onStart() {
+        this.immortality = true;
+        this.status = PlayerStatuses.TempLocked;
         this.avatar.loadColor();
         this.animator.startAnim(AnimationName.PlayerIddle);
 
