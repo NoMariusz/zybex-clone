@@ -8,7 +8,8 @@ import CoinWall from "./enemies/coin_like/coin_wall/CoinWall";
 import FastCoins from "./enemies/coin_like/fast_coins/FastCoins";
 import DiagonalDragonflyDown from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyDown";
 import DiagonalDragonflyUp from "./enemies/dragonfly_like/diagonal_dragonfly/DiagonalDragonflyUp";
-import SquareDragonfly from "./enemies/dragonfly_like/sqare_dragonfly/SquareDragonfly";
+import SquareDragonflyDown from "./enemies/dragonfly_like/sqare_dragonfly/down/SquareDragonflyDown";
+import SquareDragonfly from "./enemies/dragonfly_like/sqare_dragonfly/up/SquareDragonflyUp";
 import BouncingFiver from "./enemies/fiver_like/bouncing_fiver/BouncingFiver";
 import WavingFiver from "./enemies/fiver_like/waving_fiver/WavingFiver";
 import DownPhantom from "./enemies/phantom/down_phantom/DownPhantom";
@@ -46,6 +47,10 @@ const spawnData: SpawnData[] = [
     {
         class: DiagonalDragonflyUp,
         initialPosition: { x: 0, y: (BOARD_HEIGHT / 3) * 2 },
+    },
+    {
+        class: SquareDragonflyDown,
+        initialPosition: { x: 0, y: BOARD_HEIGHT / 3 },
     },
     {
         class: SquareDragonfly,

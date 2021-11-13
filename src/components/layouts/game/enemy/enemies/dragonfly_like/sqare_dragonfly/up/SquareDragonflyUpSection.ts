@@ -1,14 +1,14 @@
-import { Position } from "../../../../../../interfaces";
-import { AnimationName } from "../../../../animations/animationNames";
+import { Position } from "../../../../../../../interfaces";
+import { AnimationName } from "../../../../../animations/animationNames";
 import {
     BOARD_HEIGHT,
     BOARD_SCROLL_SPEED,
     BOARD_WIDTH,
-} from "../../../../constants";
-import EnemySection from "../../../EnemySection";
-import DragonFlyElement from "../DragonflyElement";
+} from "../../../../../constants";
+import EnemySection from "../../../../EnemySection";
+import DragonFlyElement from "../../DragonflyElement";
 
-export default class SquareDragonflySection extends EnemySection {
+export default class SquareDragonflyUpSection extends EnemySection {
     shotTimerMs: number;
 
     stage: number;
@@ -36,8 +36,12 @@ export default class SquareDragonflySection extends EnemySection {
 
     move() {
         this.position = {
-            y: this.position.y + this.velocity.y * SquareDragonflySection.speed,
-            x: this.position.x + this.velocity.x * SquareDragonflySection.speed,
+            y:
+                this.position.y +
+                this.velocity.y * SquareDragonflyUpSection.speed,
+            x:
+                this.position.x +
+                this.velocity.x * SquareDragonflyUpSection.speed,
         };
         this.checkStage();
     }
@@ -57,7 +61,7 @@ export default class SquareDragonflySection extends EnemySection {
     }
 
     loadVelocity() {
-        this.velocity = SquareDragonflySection.stageToVelocity[this.stage];
+        this.velocity = SquareDragonflyUpSection.stageToVelocity[this.stage];
     }
 
     die() {
