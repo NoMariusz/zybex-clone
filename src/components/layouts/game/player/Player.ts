@@ -2,6 +2,7 @@ import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
     BOARD_HEIGHT,
+    ENTRANCE_MAX_DISTANCE,
     PlayerStatuses,
     PLAYER_IMMORTAL,
     PLAYER_IMMORTALITY_TIME,
@@ -19,6 +20,7 @@ import WeaponsManager from "./WeaponsManager";
 import PickUp from "../pickups/Pickup";
 import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 import MoveAnimationManager from "./MoveAnimationManager";
+import { sleep } from "../../../utils";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */
@@ -83,8 +85,9 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     onStart() {
         this.avatar.loadColor();
-        this.shotManager.startShot();
         this.animator.startAnim(AnimationName.PlayerIddle);
+
+        this.rebirth();
     }
 
     clear() {
@@ -95,6 +98,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     }
 
     onDie() {
+        this.immortality = true;
         this.dieCallbak();
     }
 
@@ -114,7 +118,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.shotManager.stopShot();
     }
 
-    // taking damage
+    // taking damage behaviour
 
     takeDamage() {
         if (this.immortality || PLAYER_IMMORTAL || this.locked) {
@@ -130,7 +134,6 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.weaponManager.loseWeapon();
 
         if (this.lives < 0) {
-            this.immortality = true;
             this.onDie();
             return;
         }
@@ -138,33 +141,53 @@ export default class Player extends SafeTimeoutable implements Renderable {
         //play die animation
         const time = this.animator.startAnim(AnimationName.PlayerDeath);
         this.makeSafeTimeout(() => {
+            this.rebirth();
             this.animator.endAnim(AnimationName.PlayerDeath);
-
-            // check if someone doesn't hard lock player
-            if (this.status == PlayerStatuses.HardLocked) return;
-
-            // after anim make next actions
-            this.position = {
-                x: 0,
-                y: BOARD_HEIGHT / 2,
-            };
-            this.shotManager.startShot();
-            this.status = PlayerStatuses.Playing;
-            this.startImmortalityAnim();
         }, time);
     }
 
-    startImmortalityAnim() {
+    private rebirth() {
+        this.position = {
+            x: -this.size.width,
+            y: BOARD_HEIGHT / 2,
+        };
+        this.shotManager.startShot();
+
+        this.startEntrance();
+        this.startImmortalityAnim();
+    }
+
+    private async startEntrance() {
+        while (this.position.x <= ENTRANCE_MAX_DISTANCE) {
+            this.position = {
+                ...this.position,
+                x: this.position.x + 10,
+            };
+            await sleep(40);
+        }
+        this.afterEntranceEnd();
+    }
+
+    private afterEntranceEnd() {
+        // check if someone doesn't hard lock player
+        if (this.status == PlayerStatuses.HardLocked) return;
+
+        this.status = PlayerStatuses.Playing;
+    }
+
+    private startImmortalityAnim() {
         this.animator.startAnim(AnimationName.Immortality);
         this.makeSafeTimeout(() => {
-            this.endImmortality();
+            this.afterImmortalityAnimationEnd();
+            this.animator.endAnim(AnimationName.Immortality);
         }, PLAYER_IMMORTALITY_TIME);
     }
 
-    endImmortality() {
+    private afterImmortalityAnimationEnd() {
         this.immortality = false;
-        this.animator.endAnim(AnimationName.Immortality);
     }
+
+    // weapons
 
     changeWeapon() {
         this.weaponManager.changeWeapon();

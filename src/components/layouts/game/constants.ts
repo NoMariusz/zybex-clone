@@ -27,6 +27,8 @@ export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
 export const MAX_ATTACK_SPEED_MULTIPLIER = 2.5;
 export const MIN_WEAPON_SHOT_TIMEOUT = 150;
 
+export const ENTRANCE_MAX_DISTANCE = BOARD_WIDTH / 6;
+
 // level/board
 
 export const LEVEL_TEXTURE_FULL_WIDTH = 7264;
