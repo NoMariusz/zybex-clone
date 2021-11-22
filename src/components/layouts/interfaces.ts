@@ -14,4 +14,5 @@ export enum Layouts {
     GAME,
     LEVEL_SUMMARY,
     GAME_OVER,
+    SAVE_SCORE,
 }

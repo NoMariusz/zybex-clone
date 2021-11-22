@@ -6,6 +6,7 @@ import Menu from "./menu/Menu";
 import Game from "./game/Game";
 import LevelSummary from "./level_summary/LevelSummary";
 import GameOver from "./game_over/GameOver";
+import SaveScore from "./score_save/SaveScore";
 
 export default class LayoutManager implements Renderable {
     /* Manage swaps between layouts and controlling them */
@@ -35,6 +36,10 @@ export default class LayoutManager implements Renderable {
                 this.keyListener
             ),
             [Layouts.GAME_OVER]: new GameOver(
+                (name: Layouts) => this.changeLayout(name),
+                this.keyListener
+            ),
+            [Layouts.SAVE_SCORE]: new SaveScore(
                 (name: Layouts) => this.changeLayout(name),
                 this.keyListener
             ),

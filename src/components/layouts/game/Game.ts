@@ -78,19 +78,24 @@ export default class Game implements Layout {
 
     gameOver() {
         console.log("Game Over, changing layout");
+        this.saveValuesToStore();
         this.changeLayout(Layouts.GAME_OVER);
     }
 
     onAllEnemiesDies() {
         // playing end level animation and change layout
         this.shipManager.startScene(() => this.levelCompleted());
-        // save level statistics
-        store.levelScore = this.player.points;
-        store.livesAfterLevel = this.player.lives;
     }
 
     levelCompleted() {
         console.log("Level Completed, changing layout");
+        this.saveValuesToStore();
         this.changeLayout(Layouts.LEVEL_SUMMARY);
+    }
+
+    saveValuesToStore() {
+        // save level statistics
+        store.levelScore = this.player.points;
+        store.livesAfterLevel = this.player.lives;
     }
 }

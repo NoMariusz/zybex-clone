@@ -202,7 +202,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     onPickup(pickup: PickUp) {
         // check if that is normal pickup or weapon
         if (pickup.type == Pickups.Fuel) {
-            store.fuleScores++;
+            store.fuelScores++;
             return;
         }
         if (pickup.type in PICKUP_TO_WEAPON) {

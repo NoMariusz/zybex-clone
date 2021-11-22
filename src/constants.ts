@@ -13,3 +13,8 @@ export enum AVATAR_COLORS {
     green = 300,
     white = 1000,
 }
+
+export const SYMBOL_ELEMENT_WIDTH = 60;
+export const SYMBOL_ELEMENT_HEIGHT = 65;
+
+export const SCORE_ELEMENTS_COUNT = 6;

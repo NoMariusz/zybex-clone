@@ -3,15 +3,17 @@ import KeyListener from "../../controls/KeyListener";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
 import SummatyBackgroundElement from "./SummaryBackgrounElement";
-import { sleep } from "../../utils";
-import SummaryNumberElement from "./SummaryNumberElement";
+import { loadNumberToElements, sleep } from "../../utils";
 import {
     SUMMARY_LIVES_ELEMENTS_COUNT,
     SUMMARY_LIVES_X,
+    SUMMARY_NUMBERS_Y,
     SUMMARY_SCORE_ELEMENTS_COUNT,
     SUMMARY_SCORE_X,
 } from "./constans";
 import store from "../store";
+import SymbolElement from "../../rendering/helpers/SymbolElement";
+import { SYMBOL_ELEMENT_WIDTH } from "../../../constants";
 
 export default class LevelSummary implements Layout {
     changeLayout: (layName: Layouts) => void;
@@ -20,8 +22,8 @@ export default class LevelSummary implements Layout {
     score: number;
     fuelCount: number;
 
-    scoreElements: SummaryNumberElement[];
-    livesElements: SummaryNumberElement[];
+    scoreElements: SymbolElement[];
+    livesElements: SymbolElement[];
 
     //items
     background: SummatyBackgroundElement;
@@ -67,7 +69,7 @@ export default class LevelSummary implements Layout {
     goToNextLevel() {
         if (this.active) this.calcScore(true);
         store.levelScore = this.score;
-        store.fuleScores = 0;
+        store.fuelScores = 0;
         this.changeLayout(Layouts.LEVEL_ANNOUNCE);
     }
 
@@ -76,8 +78,10 @@ export default class LevelSummary implements Layout {
     initScoreElements() {
         this.scoreElements = [];
         for (let idx = 0; idx < SUMMARY_SCORE_ELEMENTS_COUNT; idx++) {
-            const el = new SummaryNumberElement();
-            el.position.x = SUMMARY_SCORE_X + idx * 65;
+            const el = new SymbolElement({
+                x: SUMMARY_SCORE_X + idx * (SYMBOL_ELEMENT_WIDTH + 5),
+                y: SUMMARY_NUMBERS_Y,
+            });
             this.scoreElements.push(el);
         }
     }
@@ -85,8 +89,10 @@ export default class LevelSummary implements Layout {
     initLivesElements() {
         this.livesElements = [];
         for (let idx = 0; idx < SUMMARY_LIVES_ELEMENTS_COUNT; idx++) {
-            const el = new SummaryNumberElement();
-            el.position.x = SUMMARY_LIVES_X + idx * 65;
+            const el = new SymbolElement({
+                x: SUMMARY_LIVES_X + idx * (SYMBOL_ELEMENT_WIDTH + 5),
+                y: SUMMARY_NUMBERS_Y,
+            });
             this.livesElements.push(el);
         }
     }
@@ -96,7 +102,7 @@ export default class LevelSummary implements Layout {
     async calcScore(force = false) {
         // load statistics from store
         this.score = store.levelScore;
-        this.fuelCount = store.fuleScores;
+        this.fuelCount = store.fuelScores;
 
         while (this.active && this.fuelCount > 0) {
             if (!force) await sleep(300);
@@ -107,33 +113,11 @@ export default class LevelSummary implements Layout {
     }
 
     refreshNumbers() {
-        this.loadFuels();
-        this.loadScore();
-    }
-
-    loadScore() {
-        for (let idx = 0; idx < SUMMARY_SCORE_ELEMENTS_COUNT; idx++) {
-            const element = this.scoreElements[idx];
-            const divider = Math.pow(
-                10,
-                SUMMARY_SCORE_ELEMENTS_COUNT - 1 - idx
-            );
-            const rest = Math.floor(this.score / divider);
-            const num = rest % 10;
-            element.changeNum(num);
-        }
-    }
-
-    loadFuels() {
-        for (let idx = 0; idx < SUMMARY_LIVES_ELEMENTS_COUNT; idx++) {
-            const element = this.livesElements[idx];
-            const divider = Math.pow(
-                10,
-                SUMMARY_LIVES_ELEMENTS_COUNT - 1 - idx
-            );
-            const rest = Math.floor(this.fuelCount / divider);
-            const num = rest % 10;
-            element.changeNum(num);
-        }
+        loadNumberToElements(this.scoreElements, this.score);
+        loadNumberToElements(
+            this.livesElements,
+            this.fuelCount,
+            SUMMARY_LIVES_ELEMENTS_COUNT
+        );
     }
 }

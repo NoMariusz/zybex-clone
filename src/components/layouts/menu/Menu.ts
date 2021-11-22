@@ -66,7 +66,7 @@ export default class Menu implements Layout {
     prepareStoreForGame() {
         store.avatarColor = this.bottomPanel.avatar1.lastColor;
         store.livesAfterLevel = BASE_PLAYER_LIVES;
-        store.fuleScores = 0;
+        store.fuelScores = 0;
         store.levelScore = 0;
     }
 }

@@ -27,7 +27,7 @@ export default class GameOver implements Layout {
 
     handleKeys(key: string) {
         if (key == Keys.ACTION) {
-            this.changeLayout(Layouts.MENU);
+            this.changeLayout(Layouts.SAVE_SCORE);
         }
     }
 
