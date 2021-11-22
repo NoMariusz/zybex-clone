@@ -5,6 +5,7 @@ import SymbolElement from "../../rendering/helpers/SymbolElement";
 import Renderer from "../../rendering/Renderer";
 import { loadNumberToElements, safeChangeIndex } from "../../utils";
 import { Layout, Layouts } from "../interfaces";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
 import store from "../store";
 import {
     NAME_START_X,
@@ -15,9 +16,7 @@ import {
 } from "./constants";
 import ScoreBackgroundElement from "./ScoreBackgroundElement";
 
-export default class SaveScore implements Layout {
-    changeLayout: (layName: Layouts) => void;
-    keyListener: KeyListener;
+export default class SaveScore extends LayoutBaseImplementation {
     activeSymbolIndex: number;
 
     background: ScoreBackgroundElement;
@@ -30,8 +29,7 @@ export default class SaveScore implements Layout {
         changeLayout: (layName: Layouts) => void,
         keyListener: KeyListener
     ) {
-        this.changeLayout = (s) => changeLayout(s);
-        this.keyListener = keyListener;
+        super(changeLayout, keyListener);
 
         this.background = new ScoreBackgroundElement();
     }

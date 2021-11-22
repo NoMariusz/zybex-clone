@@ -1,7 +1,6 @@
 /* const values configuring and defining game behaviour */
 
 export const MAX_FPS = 60;
-export const BASE_PLAYER_LIVES = 7;
 
 export const CANVAS_WIDTH = 1260;
 export const CANVAS_HEIGHT = 900;

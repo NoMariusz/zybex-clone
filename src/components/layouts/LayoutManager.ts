@@ -7,6 +7,7 @@ import Game from "./game/Game";
 import LevelSummary from "./level_summary/LevelSummary";
 import GameOver from "./game_over/GameOver";
 import SaveScore from "./score_save/SaveScore";
+import LayoutBaseImplementation from "./LayoutBaseImplementation";
 
 export default class LayoutManager implements Renderable {
     /* Manage swaps between layouts and controlling them */
@@ -19,34 +20,23 @@ export default class LayoutManager implements Renderable {
         this.keyListener = new KeyListener();
 
         this.layouts = {
-            [Layouts.MENU]: new Menu(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
-            [Layouts.LEVEL_ANNOUNCE]: new LevelAnnounce(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
-            [Layouts.GAME]: new Game(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
-            [Layouts.LEVEL_SUMMARY]: new LevelSummary(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
-            [Layouts.GAME_OVER]: new GameOver(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
-            [Layouts.SAVE_SCORE]: new SaveScore(
-                (name: Layouts) => this.changeLayout(name),
-                this.keyListener
-            ),
+            [Layouts.MENU]: this.makeLayoutInst(Menu),
+            [Layouts.LEVEL_ANNOUNCE]: this.makeLayoutInst(LevelAnnounce),
+            [Layouts.GAME]: this.makeLayoutInst(Game),
+            [Layouts.LEVEL_SUMMARY]: this.makeLayoutInst(LevelSummary),
+            [Layouts.GAME_OVER]: this.makeLayoutInst(GameOver),
+            [Layouts.SAVE_SCORE]: this.makeLayoutInst(SaveScore),
         };
 
         this.activeLayout = this.layouts[Layouts.MENU];
         this.activeLayout.onShow();
+    }
+
+    makeLayoutInst(layoutClass: typeof LayoutBaseImplementation) {
+        return new layoutClass(
+            (name: Layouts) => this.changeLayout(name),
+            this.keyListener
+        );
     }
 
     render() {

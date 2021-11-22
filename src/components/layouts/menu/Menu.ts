@@ -5,12 +5,10 @@ import BottomPanel from "./BottomPanel";
 import { CHANGE_LAYOUT_TIMEOUT } from "./constants";
 import MenuBackground from "./layout_items/MenuBackground";
 import store from "../store";
-import { BASE_PLAYER_LIVES } from "../../../constants";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
+import { BASE_PLAYER_LIVES } from "../game/constants";
 
-export default class Menu implements Layout {
-    changeLayout: (layName: Layouts) => void;
-    keyListener: KeyListener;
-
+export default class Menu extends LayoutBaseImplementation {
     actualPage: number;
     changePageInterval: NodeJS.Timer;
 
@@ -23,8 +21,7 @@ export default class Menu implements Layout {
         changeLayout: (layName: Layouts) => void,
         keyListener: KeyListener
     ) {
-        this.changeLayout = changeLayout;
-        this.keyListener = keyListener;
+        super(changeLayout, keyListener);
         this.actualPage = 0;
 
         this.bottomPanel = new BottomPanel(() => this.startGame());

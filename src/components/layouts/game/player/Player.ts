@@ -7,11 +7,9 @@ import {
     PLAYER_IMMORTAL,
     PLAYER_IMMORTALITY_TIME,
     SCORE_FOR_ENEMY,
-    Weapons,
 } from "../constants";
 import { SafeTimeoutable, translateToCanvasPos } from "../utils";
 import Avatar from "./AvatarElement";
-import Weapon from "../weapons/Weapon";
 import PlayerAnimator from "../animations/Animator";
 import ShotManager from "./ShotManager";
 import { AnimationName } from "../animations/animationNames";
@@ -22,7 +20,6 @@ import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 import MoveAnimationManager from "./MoveAnimationManager";
 import { sleep } from "../../../utils";
 import store from "../../store";
-import { BASE_PLAYER_LIVES } from "../../../../constants";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */

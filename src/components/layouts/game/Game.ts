@@ -8,12 +8,9 @@ import EnemyManager from "./enemy/EnemyManager";
 import Background from "./background/Background";
 import ShipManager from "./ship/ShipManager";
 import store from "../store";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
-export default class Game implements Layout {
-    changeLayout: (layName: Layouts) => void;
-    keyListener: KeyListener;
-
-    //items
+export default class Game extends LayoutBaseImplementation {
     board: Board;
     enemyManager: EnemyManager;
     shipManager: ShipManager;
@@ -28,8 +25,7 @@ export default class Game implements Layout {
         changeLayout: (layName: Layouts) => void,
         keyListener: KeyListener
     ) {
-        this.changeLayout = (s) => changeLayout(s);
-        this.keyListener = keyListener;
+        super(changeLayout, keyListener);
 
         this.background = new Background();
 

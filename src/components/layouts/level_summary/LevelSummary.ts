@@ -14,10 +14,9 @@ import {
 import store from "../store";
 import SymbolElement from "../../rendering/helpers/SymbolElement";
 import { SYMBOL_ELEMENT_WIDTH } from "../../../constants";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
-export default class LevelSummary implements Layout {
-    changeLayout: (layName: Layouts) => void;
-    keyListener: KeyListener;
+export default class LevelSummary extends LayoutBaseImplementation {
     active = false;
     score: number;
     fuelCount: number;
@@ -32,8 +31,7 @@ export default class LevelSummary implements Layout {
         changeLayout: (layName: Layouts) => void,
         keyListener: KeyListener
     ) {
-        this.changeLayout = (s) => changeLayout(s);
-        this.keyListener = keyListener;
+        super(changeLayout, keyListener);
 
         this.background = new SummatyBackgroundElement();
         this.initLivesElements();

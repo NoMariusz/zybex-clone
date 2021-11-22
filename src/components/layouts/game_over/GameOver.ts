@@ -3,20 +3,16 @@ import KeyListener from "../../controls/KeyListener";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
 import GameOverElement from "./GameOverElement";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
-export default class GameOver implements Layout {
-    changeLayout: (layName: Layouts) => void;
-    keyListener: KeyListener;
-
-    //items
+export default class GameOver extends LayoutBaseImplementation {
     background: GameOverElement;
 
     constructor(
         changeLayout: (layName: Layouts) => void,
         keyListener: KeyListener
     ) {
-        this.changeLayout = (s) => changeLayout(s);
-        this.keyListener = keyListener;
+        super(changeLayout, keyListener);
 
         this.background = new GameOverElement();
     }

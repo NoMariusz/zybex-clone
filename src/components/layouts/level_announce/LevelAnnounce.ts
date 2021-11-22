@@ -1,38 +1,34 @@
-import { Layout, Layouts } from "../interfaces";
+import { Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
 import AnnounceBackground from "./AnnounceElement";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
+import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
-export default class LevelAnnounce implements Layout {
-  changeLayout: (layName: Layouts) => void;
-  keyListener: KeyListener;
+export default class LevelAnnounce extends LayoutBaseImplementation {
+    announceBackground: AnnounceBackground;
 
-  //items
-  announceBackground: AnnounceBackground;
+    constructor(
+        changeLayout: (layName: Layouts) => void,
+        keyListener: KeyListener
+    ) {
+        super(changeLayout, keyListener);
 
-  constructor(
-    changeLayout: (layName: Layouts) => void,
-    keyListener: KeyListener
-  ) {
-    this.changeLayout = (s) => changeLayout(s);
-    this.keyListener = keyListener;
-
-    this.announceBackground = new AnnounceBackground();
-  }
-
-  render() {
-    Renderer.render(this.announceBackground);
-  }
-
-  handleKeys(key: string) {
-    if (key == Keys.ACTION) {
-      this.changeLayout(Layouts.GAME);
+        this.announceBackground = new AnnounceBackground();
     }
-  }
 
-  onShow() {
-    this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
-  }
-  onHide() {}
+    render() {
+        Renderer.render(this.announceBackground);
+    }
+
+    handleKeys(key: string) {
+        if (key == Keys.ACTION) {
+            this.changeLayout(Layouts.GAME);
+        }
+    }
+
+    onShow() {
+        this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
+    }
+    onHide() {}
 }
