@@ -21,6 +21,8 @@ import PickUp from "../pickups/Pickup";
 import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 import MoveAnimationManager from "./MoveAnimationManager";
 import { sleep } from "../../../utils";
+import store from "../../store";
+import { BASE_PLAYER_LIVES } from "../../../../constants";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */
@@ -33,7 +35,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     moveAnimationManager: MoveAnimationManager;
 
     // properties in game
-    lives: number = 7;
+    lives: number = BASE_PLAYER_LIVES;
     points: number = 0;
     immortality = false;
     status: PlayerStatuses;
@@ -200,7 +202,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     onPickup(pickup: PickUp) {
         // check if that is normal pickup or weapon
         if (pickup.type == Pickups.Fuel) {
-            this.points++;
+            store.fuleScores++;
             return;
         }
         if (pickup.type in PICKUP_TO_WEAPON) {

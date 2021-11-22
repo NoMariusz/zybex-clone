@@ -5,4 +5,5 @@ export default {
     avatarColor: AVATAR_COLORS.red,
     levelScore: 0,
     livesAfterLevel: 0,
+    fuleScores: 0,
 };

@@ -18,7 +18,7 @@ export default class LevelSummary implements Layout {
     keyListener: KeyListener;
     active = false;
     score: number;
-    lives: number;
+    fuelCount: number;
 
     scoreElements: SummaryNumberElement[];
     livesElements: SummaryNumberElement[];
@@ -89,18 +89,18 @@ export default class LevelSummary implements Layout {
     async calcScore() {
         // load statistics from store
         this.score = store.levelScore;
-        this.lives = store.livesAfterLevel;
+        this.fuelCount = store.fuleScores;
 
-        while (this.active && this.lives > 0) {
+        while (this.active && this.fuelCount > 0) {
             await sleep(300);
-            this.lives--;
+            this.fuelCount--;
             this.score += 100;
         }
         this.active = false;
     }
 
     refreshNumbers() {
-        this.loadLives();
+        this.loadFuels();
         this.loadScore();
     }
 
@@ -117,14 +117,14 @@ export default class LevelSummary implements Layout {
         }
     }
 
-    loadLives() {
+    loadFuels() {
         for (let idx = 0; idx < SUMMARY_LIVES_ELEMENTS_COUNT; idx++) {
             const element = this.livesElements[idx];
             const divider = Math.pow(
                 10,
                 SUMMARY_LIVES_ELEMENTS_COUNT - 1 - idx
             );
-            const rest = Math.floor(this.lives / divider);
+            const rest = Math.floor(this.fuelCount / divider);
             const num = rest % 10;
             element.changeNum(num);
         }
