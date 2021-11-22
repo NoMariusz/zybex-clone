@@ -1,13 +1,23 @@
-import { CANVAS_WIDTH } from "../../../../constants";
+import {
+    CANVAS_WIDTH,
+    NumberTypes,
+    SMALL_SYMBOL_SIZE,
+} from "../../../../constants";
 import { Renderable } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
-import { SCORE_ELEMENTS_OFFSET, Weapons, WEAPON_UI_DATA } from "../constants";
+import {
+    BOTTOM_UI_POS_Y,
+    SCORE_ELEMENTS_OFFSET,
+    Weapons,
+    WEAPON_UI_DATA,
+} from "../constants";
 import Player from "../player/Player";
-import NumberElement from "./NumberElement";
 import PlayerTagElement from "./PlayerTagElement";
 import WeaponLevelElement from "./WeaponLevelElement";
 import WeaponNameElement from "./WeaponNameElement";
 import WeaponIcoElement from "./WeaponIcoElement";
+import SymbolElement from "../../../rendering/helpers/SymbolElement";
+import { loadNumberToElements } from "../../../utils";
 
 export default class PlayerUi implements Renderable {
     /* Display player status informations on game ui */
@@ -17,8 +27,8 @@ export default class PlayerUi implements Renderable {
 
     //elements
     playerTag: PlayerTagElement;
-    scoreElements: NumberElement[] = [];
-    hpNumber: NumberElement;
+    scoreElements: SymbolElement[] = [];
+    hpNumber: SymbolElement;
     weaponName: WeaponNameElement;
     weaponLevel: WeaponLevelElement;
     weaponIcos: WeaponIcoElement[] = [];
@@ -51,8 +61,13 @@ export default class PlayerUi implements Renderable {
     initElements() {
         this.playerTag = new PlayerTagElement(this.playerNum);
         this.playerTag.position.x = this.getBottomUiOffset() + 50;
-        this.hpNumber = new NumberElement();
-        this.hpNumber.position.x = this.getBottomUiOffset() + 370;
+        this.hpNumber = new SymbolElement(
+            {
+                x: this.getBottomUiOffset() + 370,
+                y: BOTTOM_UI_POS_Y,
+            },
+            NumberTypes.SmallWhite
+        );
         this.initScoreElements();
         this.weaponName = new WeaponNameElement();
         this.weaponName.position.x = this.getBottomUiOffset() + 420;
@@ -62,11 +77,16 @@ export default class PlayerUi implements Renderable {
 
     initScoreElements() {
         for (let idx = 0; idx < 6; idx++) {
-            const element = new NumberElement();
-            element.position.x =
-                this.getBottomUiOffset() +
-                SCORE_ELEMENTS_OFFSET +
-                element.size.width * idx;
+            const element = new SymbolElement(
+                {
+                    x:
+                        this.getBottomUiOffset() +
+                        SCORE_ELEMENTS_OFFSET +
+                        SMALL_SYMBOL_SIZE * idx,
+                    y: BOTTOM_UI_POS_Y,
+                },
+                NumberTypes.SmallWhite
+            );
             this.scoreElements.push(element);
         }
     }
@@ -88,21 +108,11 @@ export default class PlayerUi implements Renderable {
     }
 
     updateUiData() {
-        this.hpNumber.changeNum(this.player.lives);
-        this.loadScoreToUi(this.player.points);
+        this.hpNumber.changeSymbol(this.player.lives);
+        loadNumberToElements(this.scoreElements, this.player.points);
         this.weaponName.change(this.player.weapon.type);
         this.weaponLevel?.change(this.player.weapon.level);
         this.updateWeaponsIcos();
-    }
-
-    loadScoreToUi(score: number) {
-        for (let idx = 0; idx < 6; idx++) {
-            const element = this.scoreElements[idx];
-            const divider = Math.pow(10, 5 - idx);
-            const rest = Math.floor(score / divider);
-            const num = rest % 10;
-            element.changeNum(num);
-        }
     }
 
     updateWeaponsIcos() {

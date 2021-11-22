@@ -16,5 +16,11 @@ export enum AVATAR_COLORS {
 
 export const SYMBOL_ELEMENT_WIDTH = 60;
 export const SYMBOL_ELEMENT_HEIGHT = 65;
+export const SMALL_SYMBOL_SIZE = 35;
 
 export const SCORE_ELEMENTS_COUNT = 6;
+
+export enum NumberTypes {
+    SmallWhite,
+    BigGreen,
+}

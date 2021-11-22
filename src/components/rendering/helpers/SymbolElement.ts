@@ -1,8 +1,11 @@
 import {
+    NumberTypes,
+    SMALL_SYMBOL_SIZE,
     SYMBOL_ELEMENT_HEIGHT,
     SYMBOL_ELEMENT_WIDTH,
 } from "../../../constants";
 import { Position } from "../../interfaces";
+import { NUMBER_OFF } from "../../layouts/game/constants";
 import { CanvasElement } from "../interfaces";
 import symbolTextureData from "./symbolTextureData";
 
@@ -22,8 +25,22 @@ export default class SymbolElement implements CanvasElement {
         height: SYMBOL_ELEMENT_HEIGHT,
     };
 
-    constructor(pos: Position) {
+    numberType: NumberTypes;
+
+    constructor(pos: Position, numberType: NumberTypes = NumberTypes.BigGreen) {
         this.position = pos;
+        this.numberType = numberType;
+        this.loadNumberType();
+    }
+
+    loadNumberType() {
+        if (this.numberType == NumberTypes.SmallWhite) {
+            this.size = {
+                width: SMALL_SYMBOL_SIZE,
+                height: SMALL_SYMBOL_SIZE,
+            };
+            this.texture = "game_sprite";
+        }
     }
 
     texture = "screens_sprite";
@@ -42,7 +59,18 @@ export default class SymbolElement implements CanvasElement {
         if (number < 0 || number > 9) {
             return;
         }
-        this.texture_offset = { x: number * SYMBOL_ELEMENT_WIDTH, y: 2700 };
+
+        switch (this.numberType) {
+            case NumberTypes.BigGreen:
+                this.texture_offset = {
+                    x: number * SYMBOL_ELEMENT_WIDTH,
+                    y: 2700,
+                };
+                break;
+            case NumberTypes.SmallWhite:
+                this.texture_offset = NUMBER_OFF[number];
+                break;
+        }
     }
 
     private setStringValue(val: string) {
