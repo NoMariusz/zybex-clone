@@ -35,8 +35,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
     moveAnimationManager: MoveAnimationManager;
 
     // properties in game
-    lives: number = BASE_PLAYER_LIVES;
-    points: number = 0;
+    lives: number = store.livesAfterLevel;
+    points: number = store.levelScore;
     immortality = false;
     status: PlayerStatuses;
 

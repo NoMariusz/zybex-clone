@@ -60,8 +60,15 @@ export default class LevelSummary implements Layout {
 
     handleKeys(key: string) {
         if (key == Keys.ACTION) {
-            this.changeLayout(Layouts.MENU);
+            this.goToNextLevel();
         }
+    }
+
+    goToNextLevel() {
+        if (this.active) this.calcScore(true);
+        store.levelScore = this.score;
+        store.fuleScores = 0;
+        this.changeLayout(Layouts.LEVEL_ANNOUNCE);
     }
 
     // initializing
@@ -86,13 +93,13 @@ export default class LevelSummary implements Layout {
 
     // score calculating animation
 
-    async calcScore() {
+    async calcScore(force = false) {
         // load statistics from store
         this.score = store.levelScore;
         this.fuelCount = store.fuleScores;
 
         while (this.active && this.fuelCount > 0) {
-            await sleep(300);
+            if (!force) await sleep(300);
             this.fuelCount--;
             this.score += 100;
         }
