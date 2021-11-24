@@ -35,7 +35,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     lives: number = store.livesAfterLevel;
     points: number = store.levelScore;
     immortality = false;
-    status: PlayerStatuses;
+    private status: PlayerStatuses;
 
     size: Size;
 
@@ -84,7 +84,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     onStart() {
         this.immortality = true;
-        this.status = PlayerStatuses.TempLocked;
+        this.tempLock();
         this.avatar.loadColor();
         this.animator.startAnim(AnimationName.PlayerIddle);
 
@@ -113,10 +113,35 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.moveAnimationManager.render();
     }
 
+    // locks
+
+    get locked() {
+        return (
+            this.status == PlayerStatuses.HardLocked ||
+            this.status == PlayerStatuses.TempLocked
+        );
+    }
+
     lock() {
+        /* Hard lock player that can't shot, move from keyboard and collide*/
         this.immortality = true;
         this.status = PlayerStatuses.HardLocked;
+        this.moveAnimationManager.locked = true;
         this.shotManager.stopShot();
+    }
+
+    tempLock() {
+        /* Temp lock player that can't move from keyboard and collide*/
+        this.status = PlayerStatuses.TempLocked;
+        this.moveAnimationManager.locked = true;
+    }
+
+    unlockTemp() {
+        // check if someone doesn't hard lock player
+        if (this.status == PlayerStatuses.HardLocked) return;
+
+        this.status = PlayerStatuses.Playing;
+        this.moveAnimationManager.locked = false;
     }
 
     // taking damage behaviour
@@ -129,7 +154,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
         // change properties
         this.lives--;
         this.immortality = true;
-        this.status = PlayerStatuses.TempLocked;
+        this.tempLock();
 
         this.shotManager.stopShot();
         this.weaponManager.loseWeapon();
@@ -166,14 +191,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
             };
             await sleep(40);
         }
-        this.afterEntranceEnd();
-    }
-
-    private afterEntranceEnd() {
-        // check if someone doesn't hard lock player
-        if (this.status == PlayerStatuses.HardLocked) return;
-
-        this.status = PlayerStatuses.Playing;
+        this.unlockTemp();
     }
 
     private startImmortalityAnim() {
@@ -212,12 +230,5 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     updateAvatar() {
         this.avatar.position = translateToCanvasPos(this.position);
-    }
-
-    get locked() {
-        return (
-            this.status == PlayerStatuses.HardLocked ||
-            this.status == PlayerStatuses.TempLocked
-        );
     }
 }

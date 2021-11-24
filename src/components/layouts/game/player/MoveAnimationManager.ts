@@ -13,6 +13,7 @@ const KEY_TO_ANIM: { [key in Keys]?: AnimationName } = {
 
 export default class MoveAnimationManager implements Renderable {
     animator: Animator;
+    locked: boolean = false;
 
     constructor(animator: Animator) {
         this.animator = animator;
@@ -25,7 +26,7 @@ export default class MoveAnimationManager implements Renderable {
 
             if (!animName) continue;
 
-            if (pressedKeys[mappedKey]) {
+            if (pressedKeys[mappedKey] && !this.locked) {
                 this.animator.safeStartAnim(animName);
             } else {
                 this.animator.endAnim(animName);
