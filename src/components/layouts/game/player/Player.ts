@@ -28,7 +28,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     animator: PlayerAnimator;
     shotManager: ShotManager;
     weaponFactory: WeaponsFactory;
-    private weaponManager: WeaponsManager;
+    weaponManager: WeaponsManager;
     moveAnimationManager: MoveAnimationManager;
 
     // properties in game

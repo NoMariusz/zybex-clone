@@ -93,5 +93,7 @@ export default class Game extends LayoutBaseImplementation {
         // save level statistics
         store.levelScore = this.player.points;
         store.livesAfterLevel = this.player.lives;
+        // save weapons for the next level
+        this.player.weaponManager.saveWeapons();
     }
 }

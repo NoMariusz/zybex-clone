@@ -65,5 +65,6 @@ export default class Menu extends LayoutBaseImplementation {
         store.livesAfterLevel = BASE_PLAYER_LIVES;
         store.fuelScores = 0;
         store.levelScore = 0;
+        store.weaponsData = {};
     }
 }
