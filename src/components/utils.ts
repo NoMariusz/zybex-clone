@@ -1,5 +1,5 @@
 import { SCORE_ELEMENTS_COUNT } from "../constants";
-import SymbolElement from "./rendering/helpers/SymbolElement";
+import SymbolElement from "./rendering/utils/SymbolElement";
 
 export const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));

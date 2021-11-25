@@ -1,7 +1,7 @@
 import { SCORE_ELEMENTS_COUNT, SYMBOL_ELEMENT_WIDTH } from "../../../constants";
 import { Keys } from "../../controls/constants";
 import KeyListener from "../../controls/KeyListener";
-import SymbolElement from "../../rendering/helpers/SymbolElement";
+import SymbolElement from "../../rendering/utils/SymbolElement";
 import Renderer from "../../rendering/Renderer";
 import { loadNumberToElements, safeChangeIndex } from "../../utils";
 import { Layout, Layouts } from "../interfaces";

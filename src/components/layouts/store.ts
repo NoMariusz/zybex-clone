@@ -2,7 +2,7 @@ import { AVATAR_COLORS } from "../../constants";
 import { Weapons } from "./game/constants";
 
 interface storeData {
-    avatarColor: number;
+    avatarColor: AVATAR_COLORS;
     levelScore: number;
     livesAfterLevel: number;
     fuelScores: number;

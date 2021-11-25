@@ -16,7 +16,7 @@ import PlayerTagElement from "./PlayerTagElement";
 import WeaponLevelElement from "./WeaponLevelElement";
 import WeaponNameElement from "./WeaponNameElement";
 import WeaponIcoElement from "./WeaponIcoElement";
-import SymbolElement from "../../../rendering/helpers/SymbolElement";
+import SymbolElement from "../../../rendering/utils/SymbolElement";
 import { loadNumberToElements } from "../../../utils";
 
 export default class PlayerUi implements Renderable {

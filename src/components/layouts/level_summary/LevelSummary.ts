@@ -12,7 +12,7 @@ import {
     SUMMARY_SCORE_X,
 } from "./constans";
 import store from "../store";
-import SymbolElement from "../../rendering/helpers/SymbolElement";
+import SymbolElement from "../../rendering/utils/SymbolElement";
 import { SYMBOL_ELEMENT_WIDTH } from "../../../constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
