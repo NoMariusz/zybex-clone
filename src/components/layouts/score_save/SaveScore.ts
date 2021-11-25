@@ -15,6 +15,7 @@ import {
     SUPPORTED_SYMBOLS,
 } from "./constants";
 import ScoreBackgroundElement from "./ScoreBackgroundElement";
+import HighscoreManager from "../../highscores/HighscoreManager";
 
 export default class SaveScore extends LayoutBaseImplementation {
     activeSymbolIndex: number;
@@ -102,7 +103,7 @@ export default class SaveScore extends LayoutBaseImplementation {
     handleAction() {
         this.activeSymbolIndex++;
         if (this.activeSymbolIndex == NAME_SYMBOLS_COUNT) {
-            this.changeLayout(Layouts.MENU);
+            this.endWork();
         }
     }
 
@@ -119,5 +120,20 @@ export default class SaveScore extends LayoutBaseImplementation {
         const newSymbol = SUPPORTED_SYMBOLS[newi];
         element.changeSymbol(newSymbol);
         this.symbolsData[this.activeSymbolIndex].value = newSymbol;
+    }
+
+    // ending layout work
+
+    saveScore() {
+        const name = this.symbolsData.map((e) => e.value).join("");
+        HighscoreManager.saveHighscore({
+            playerName: name,
+            score: store.levelScore,
+        });
+    }
+
+    endWork() {
+        this.saveScore();
+        this.changeLayout(Layouts.MENU);
     }
 }

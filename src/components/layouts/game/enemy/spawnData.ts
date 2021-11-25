@@ -33,7 +33,12 @@ const spawnData: SpawnData[] = [
     {
         class: Coins,
         initialPosition: { x: 100, y: BOARD_HEIGHT / 3 },
-        pickups: { 4: Pickups.Pulse, 5: Pickups.EightWay },
+        pickups: {
+            4: Pickups.Pulse,
+            5: Pickups.EightWay,
+            1: Pickups.Fuel,
+            2: Pickups.Fuel,
+        },
     },
     {
         class: Coins,
