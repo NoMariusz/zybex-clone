@@ -1,4 +1,3 @@
-import { SCORE_ELEMENTS_COUNT } from "../constants";
 import SymbolElement from "./rendering/utils/SymbolElement";
 
 export const sleep = (ms: number) =>
@@ -19,9 +18,10 @@ export const safeChangeIndex = (
 
 export const loadNumberToElements = (
     elements: SymbolElement[],
-    value: number,
-    elementsCount: number = SCORE_ELEMENTS_COUNT
+    value: number
+    // elementsCount: number = SCORE_ELEMENTS_COUNT
 ) => {
+    const elementsCount = elements.length;
     for (let idx = 0; idx < elementsCount; idx++) {
         const element = elements[idx];
         const divider = Math.pow(10, elementsCount - 1 - idx);

@@ -8,12 +8,11 @@ import {
     SUMMARY_LIVES_ELEMENTS_COUNT,
     SUMMARY_LIVES_X,
     SUMMARY_NUMBERS_Y,
-    SUMMARY_SCORE_ELEMENTS_COUNT,
     SUMMARY_SCORE_X,
 } from "./constans";
 import store from "../store";
 import SymbolElement from "../../rendering/utils/SymbolElement";
-import { SYMBOL_ELEMENT_WIDTH } from "../../../constants";
+import { SCORE_ELEMENTS_COUNT, SYMBOL_ELEMENT_WIDTH } from "../../../constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
 
 export default class LevelSummary extends LayoutBaseImplementation {
@@ -75,7 +74,7 @@ export default class LevelSummary extends LayoutBaseImplementation {
 
     initScoreElements() {
         this.scoreElements = [];
-        for (let idx = 0; idx < SUMMARY_SCORE_ELEMENTS_COUNT; idx++) {
+        for (let idx = 0; idx < SCORE_ELEMENTS_COUNT; idx++) {
             const el = new SymbolElement({
                 x: SUMMARY_SCORE_X + idx * (SYMBOL_ELEMENT_WIDTH + 5),
                 y: SUMMARY_NUMBERS_Y,
@@ -112,10 +111,6 @@ export default class LevelSummary extends LayoutBaseImplementation {
 
     refreshNumbers() {
         loadNumberToElements(this.scoreElements, this.score);
-        loadNumberToElements(
-            this.livesElements,
-            this.fuelCount,
-            SUMMARY_LIVES_ELEMENTS_COUNT
-        );
+        loadNumberToElements(this.livesElements, this.fuelCount);
     }
 }

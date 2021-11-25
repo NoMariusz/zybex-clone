@@ -10,3 +10,14 @@ export const BOTTOM_ANIM_STEP = 5;
 export const BOTTOM_ANIM_MAX_OFFSET = 120;
 
 export const FOCUS_ANIM_MS = 600;
+
+export enum Pages {
+    Main,
+    Highscores,
+}
+
+export const HIGHSCORES_SCORE_LEFT_OFFSET = 350;
+export const HIGHSCORES_NAME_LEFT_OFFSET = 850;
+export const HIGHSCORES_TOP_OFFSET = 240;
+export const HIGHSCORE_WIDTH = 90;
+export const HIGHSCORE_ELEMENT_GAP = 1;

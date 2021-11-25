@@ -9,8 +9,4 @@ export const DEFAULT_HIGHSCORES: Highscores = [
     { playerName: "aba", score: 600 },
     { playerName: "abb", score: 500 },
     { playerName: "abc", score: 400 },
-    { playerName: "aca", score: 300 },
-    { playerName: "acb", score: 200 },
-    { playerName: "acc", score: 100 },
-    { playerName: "baa", score: 0 },
 ];
