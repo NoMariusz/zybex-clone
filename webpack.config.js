@@ -21,11 +21,16 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
-                  {
-                    loader: 'url-loader?mimetype=image/png',
-                  },
+                    {
+                        loader: "url-loader?mimetype=image/png",
+                    },
                 ],
-              },
+            },
+            {
+                test: /\.mp3$/,
+                // include: SRC,
+                loader: "file-loader",
+            },
         ],
     },
     resolve: {
