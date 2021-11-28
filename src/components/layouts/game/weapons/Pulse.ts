@@ -1,3 +1,5 @@
+import { Sound } from "../../../sounds/constants";
+import SoundPlayer from "../../../sounds/SoundPlayer";
 import { BulletType } from "../bullets/bulletsData";
 import { Weapons } from "../constants";
 import Weapon from "./Weapon";
@@ -55,5 +57,9 @@ export default class Pulse extends Weapon {
 
         this.shotIter++;
         return bullets;
+    }
+
+    playShotSound() {
+        SoundPlayer.play(Sound.PulseShot);
     }
 }

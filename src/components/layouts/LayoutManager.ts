@@ -8,6 +8,7 @@ import LevelSummary from "./level_summary/LevelSummary";
 import GameOver from "./game_over/GameOver";
 import SaveScore from "./score_save/SaveScore";
 import LayoutBaseImplementation from "./LayoutBaseImplementation";
+import SoundPlayer from "../sounds/SoundPlayer";
 
 export default class LayoutManager implements Renderable {
     /* Manage swaps between layouts and controlling them */
@@ -45,6 +46,9 @@ export default class LayoutManager implements Renderable {
 
     changeLayout(name: Layouts) {
         this.activeLayout.onHide();
+        // to isolate sounds between layouts
+        SoundPlayer.clearAllSounds();
+
         this.activeLayout = this.layouts[name];
 
         this.activeLayout.onShow();

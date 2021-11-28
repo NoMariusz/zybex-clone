@@ -32,4 +32,6 @@ export default class RGun extends Weapon {
 
         return [this.bulletFactory.makeBullet(BulletType.RGun2)];
     }
+
+    playShotSound() {}
 }

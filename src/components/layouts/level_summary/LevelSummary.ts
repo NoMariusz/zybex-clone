@@ -14,6 +14,8 @@ import store from "../store";
 import SymbolElement from "../../rendering/utils/SymbolElement";
 import { SCORE_ELEMENTS_COUNT, SYMBOL_ELEMENT_WIDTH } from "../../../constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class LevelSummary extends LayoutBaseImplementation {
     active = false;
@@ -105,8 +107,10 @@ export default class LevelSummary extends LayoutBaseImplementation {
             if (!force) await sleep(300);
             this.fuelCount--;
             this.score += 100;
+            SoundPlayer.play(Sound.CalculatePoints);
         }
         this.active = false;
+        SoundPlayer.play(Sound.CalculatePointsEnd);
     }
 
     refreshNumbers() {

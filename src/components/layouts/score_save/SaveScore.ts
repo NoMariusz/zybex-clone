@@ -16,6 +16,8 @@ import {
 } from "./constants";
 import ScoreBackgroundElement from "./ScoreBackgroundElement";
 import HighscoreManager from "../../highscores/HighscoreManager";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class SaveScore extends LayoutBaseImplementation {
     activeSymbolIndex: number;
@@ -42,6 +44,8 @@ export default class SaveScore extends LayoutBaseImplementation {
         this.activeSymbolIndex = 0;
         this.initNameSymbols();
         this.initScoreElements();
+
+        SoundPlayer.play(Sound.ScoreSave, true);
     }
 
     render() {

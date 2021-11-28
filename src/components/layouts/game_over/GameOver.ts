@@ -4,6 +4,8 @@ import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
 import GameOverElement from "./GameOverElement";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class GameOver extends LayoutBaseImplementation {
     background: GameOverElement;
@@ -29,6 +31,7 @@ export default class GameOver extends LayoutBaseImplementation {
 
     onShow() {
         this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
+        SoundPlayer.play(Sound.GamOver);
     }
     onHide() {}
 }

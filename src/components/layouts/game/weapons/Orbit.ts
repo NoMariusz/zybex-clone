@@ -1,3 +1,5 @@
+import { Sound } from "../../../sounds/constants";
+import SoundPlayer from "../../../sounds/SoundPlayer";
 import { BulletType } from "../bullets/bulletsData";
 import { Weapons } from "../constants";
 import Weapon from "./Weapon";
@@ -56,5 +58,9 @@ export default class Orbit extends Weapon {
 
     makeBullet(type: BulletType) {
         return this.bulletFactory.makeBullet(type);
+    }
+
+    playShotSound() {
+        SoundPlayer.play(Sound.OrbitShot);
     }
 }

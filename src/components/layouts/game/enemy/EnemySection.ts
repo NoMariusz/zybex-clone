@@ -9,6 +9,8 @@ import Animator from "../animations/Animator";
 import { AnimationName } from "../animations/animationNames";
 import { BulletType } from "../bullets/bulletsData";
 import { Pickups } from "../pickups/pickupsData";
+import SoundPlayer from "../../../sounds/SoundPlayer";
+import { Sound } from "../../../sounds/constants";
 
 export default abstract class EnemySection
     extends SafeTimeoutable
@@ -89,6 +91,9 @@ export default abstract class EnemySection
             ...this.position,
             y: this.position.y + this.size.height / 2 - bullet.size.height / 2,
         };
+
+        SoundPlayer.play(Sound.EnemyShot);
+
         this.bullets.push(bullet);
     }
 
@@ -117,5 +122,7 @@ export default abstract class EnemySection
         setTimeout(() => {
             this.clear();
         }, time);
+
+        SoundPlayer.play(Sound.EnemyDeath);
     }
 }

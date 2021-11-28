@@ -14,6 +14,8 @@ export default abstract class Weapon {
     }
 
     shot() {
+        this.playShotSound();
+
         switch (this.level) {
             case 1:
                 return this.handleShot1();
@@ -34,4 +36,6 @@ export default abstract class Weapon {
     abstract handleShot2(): Bullet[];
     abstract handleShot3(): Bullet[];
     abstract handleShot4(): Bullet[];
+
+    abstract playShotSound(): void;
 }

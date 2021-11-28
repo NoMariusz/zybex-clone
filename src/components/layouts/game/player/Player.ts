@@ -7,6 +7,7 @@ import {
     PLAYER_IMMORTAL,
     PLAYER_IMMORTALITY_TIME,
     SCORE_FOR_ENEMY,
+    Weapons,
 } from "../constants";
 import { SafeTimeoutable, translateToCanvasPos } from "../utils";
 import Avatar from "./AvatarElement";
@@ -20,6 +21,9 @@ import { Pickups, PICKUP_TO_WEAPON } from "../pickups/pickupsData";
 import MoveAnimationManager from "./MoveAnimationManager";
 import { sleep } from "../../../utils";
 import store from "../../store";
+import SoundPlayer from "../../../sounds/SoundPlayer";
+import { Sound } from "../../../sounds/constants";
+import Weapon from "../weapons/Weapon";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */
@@ -164,6 +168,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
             return;
         }
 
+        SoundPlayer.play(Sound.PlayerDeath);
+
         //play die animation
         const time = this.animator.startAnim(AnimationName.PlayerDeath);
         this.makeSafeTimeout(() => {
@@ -217,13 +223,22 @@ export default class Player extends SafeTimeoutable implements Renderable {
     onPickup(pickup: PickUp) {
         // check if that is normal pickup or weapon
         if (pickup.type == Pickups.Fuel) {
-            store.fuelScores++;
+            this.onFuelPickup();
             return;
         }
         if (pickup.type in PICKUP_TO_WEAPON) {
-            const weapon = PICKUP_TO_WEAPON[pickup.type];
-            this.weaponManager.onWeaponPickup(weapon);
+            this.onWeaponPickup(PICKUP_TO_WEAPON[pickup.type]);
         }
+    }
+
+    private onFuelPickup() {
+        store.fuelScores++;
+        SoundPlayer.play(Sound.Pickup);
+    }
+
+    private onWeaponPickup(weaponType: Weapons) {
+        this.weaponManager.onWeaponPickup(weaponType);
+        SoundPlayer.play(Sound.WeaponPickup);
     }
 
     //utils

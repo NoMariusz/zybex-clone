@@ -7,6 +7,8 @@ import LayoutBaseImplementation from "../LayoutBaseImplementation";
 import { BASE_PLAYER_LIVES } from "../game/constants";
 import MainPage from "./main_page/MainPage";
 import HighscoresPage from "./highscores_page/HighscoresPage";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class Menu extends LayoutBaseImplementation {
     actualPage: Pages;
@@ -53,6 +55,8 @@ export default class Menu extends LayoutBaseImplementation {
 
         // update scores in highscores
         this.highscoresPage.loadHighscore();
+
+        SoundPlayer.play(Sound.MainTheme, true);
     }
 
     onHide() {

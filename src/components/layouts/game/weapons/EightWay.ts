@@ -49,4 +49,6 @@ export default class EightWay extends Weapon {
             this.bulletFactory.makeBullet(BulletType.TearBackUp),
         ];
     }
+
+    playShotSound() {}
 }

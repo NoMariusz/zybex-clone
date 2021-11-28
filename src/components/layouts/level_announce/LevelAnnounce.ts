@@ -4,6 +4,8 @@ import AnnounceBackground from "./AnnounceElement";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class LevelAnnounce extends LayoutBaseImplementation {
     announceBackground: AnnounceBackground;
@@ -29,6 +31,8 @@ export default class LevelAnnounce extends LayoutBaseImplementation {
 
     onShow() {
         this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
+
+        SoundPlayer.play(Sound.LevelAnnounce);
     }
     onHide() {}
 }

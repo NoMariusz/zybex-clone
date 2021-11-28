@@ -9,6 +9,8 @@ import Background from "./background/Background";
 import ShipManager from "./ship/ShipManager";
 import store from "../store";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
+import SoundPlayer from "../../sounds/SoundPlayer";
+import { Sound } from "../../sounds/constants";
 
 export default class Game extends LayoutBaseImplementation {
     board: Board;
@@ -81,6 +83,8 @@ export default class Game extends LayoutBaseImplementation {
     onAllEnemiesDies() {
         // playing end level animation and change layout
         this.shipManager.startScene(() => this.levelCompleted());
+
+        SoundPlayer.play(Sound.LevelEnd);
     }
 
     levelCompleted() {
