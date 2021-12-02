@@ -9,7 +9,11 @@ import {
     SCORE_FOR_ENEMY,
     Weapons,
 } from "../constants";
-import { SafeTimeoutable, translateToCanvasPos } from "../utils";
+import {
+    SafeTimeoutable,
+    translateToCanvasPos,
+    whenPlayerNotHardLocked,
+} from "../utils";
 import Avatar from "./AvatarElement";
 import PlayerAnimator from "../animations/Animator";
 import ShotManager from "./ShotManager";
@@ -126,6 +130,10 @@ export default class Player extends SafeTimeoutable implements Renderable {
         );
     }
 
+    get hardLocked() {
+        return this.status == PlayerStatuses.HardLocked;
+    }
+
     lock() {
         /* Hard lock player that can't shot, move from keyboard and collide*/
         this.immortality = true;
@@ -140,10 +148,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.moveAnimationManager.locked = true;
     }
 
+    @whenPlayerNotHardLocked
     unlockTemp() {
-        // check if someone doesn't hard lock player
-        if (this.status == PlayerStatuses.HardLocked) return;
-
         this.status = PlayerStatuses.Playing;
         this.moveAnimationManager.locked = false;
     }
@@ -173,16 +179,18 @@ export default class Player extends SafeTimeoutable implements Renderable {
         //play die animation
         const time = this.animator.startAnim(AnimationName.PlayerDeath);
         this.makeSafeTimeout(() => {
-            this.rebirth();
             this.animator.endAnim(AnimationName.PlayerDeath);
+            this.rebirth();
         }, time);
     }
 
-    private rebirth() {
+    @whenPlayerNotHardLocked
+    private async rebirth() {
         this.position = {
             x: -this.size.width,
             y: BOARD_HEIGHT / 2,
         };
+
         this.shotManager.startShot();
 
         this.startEntrance();
@@ -202,12 +210,15 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     private startImmortalityAnim() {
         this.animator.startAnim(AnimationName.Immortality);
+
         this.makeSafeTimeout(() => {
-            this.afterImmortalityAnimationEnd();
             this.animator.endAnim(AnimationName.Immortality);
+
+            this.afterImmortalityAnimationEnd();
         }, PLAYER_IMMORTALITY_TIME);
     }
 
+    @whenPlayerNotHardLocked
     private afterImmortalityAnimationEnd() {
         this.immortality = false;
     }
@@ -220,6 +231,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     // pickups
 
+    @whenPlayerNotHardLocked
     onPickup(pickup: PickUp) {
         // check if that is normal pickup or weapon
         if (pickup.type == Pickups.Fuel) {

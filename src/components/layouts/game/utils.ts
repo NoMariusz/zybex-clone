@@ -1,5 +1,6 @@
 import { Position } from "../../interfaces";
 import { BOARD_Y } from "./constants";
+import Player from "./player/Player";
 
 export const translateToCanvasPos = (boardPos: Position) => {
     return {
@@ -36,3 +37,23 @@ export abstract class SafeTimeoutable {
         }
     }
 }
+
+export const whenPlayerNotHardLocked = (
+    target: Player,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+) => {
+    const original = descriptor.value;
+
+    descriptor.value = function (...args: any[]) {
+        // check if someone doesn't hard lock player
+        const allow = !this.hardLocked;
+
+        if (allow) {
+            const result = original.apply(this, args);
+            return result;
+        } else {
+            return null;
+        }
+    };
+};

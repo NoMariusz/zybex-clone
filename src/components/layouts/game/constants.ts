@@ -14,9 +14,9 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 // player
 
 export enum PlayerStatuses {
-    Playing,
-    TempLocked,
-    HardLocked,
+    Playing, // player is controling a player
+    TempLocked, // player lock player controls
+    HardLocked, // other systems lock player to monipulate him
 }
 
 // disable player loosing hp for testing purpouses
