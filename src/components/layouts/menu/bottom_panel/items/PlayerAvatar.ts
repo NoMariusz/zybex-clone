@@ -1,11 +1,12 @@
 import { Focusable } from "../../../../interfaces";
 import { AVATAR_COLORS } from "../../../../../constants";
 import BottomPanelEl from "./BottomPanelElement";
+import { MENU_SECTION_TEXTURE_Y_OFFSET } from "../../constants";
 
 export default class PlayerAvatar extends BottomPanelEl implements Focusable {
     texture_offset = {
         x: 1260,
-        y: AVATAR_COLORS.red,
+        y: AVATAR_COLORS.red + MENU_SECTION_TEXTURE_Y_OFFSET,
     };
 
     lastColor: AVATAR_COLORS = AVATAR_COLORS.red;
@@ -18,12 +19,16 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
     flip: boolean;
 
     changeFocus(value: boolean) {
-        this.texture_offset.y = value ? AVATAR_COLORS.white : this.lastColor;
+        this.texture_offset.y = this.getMenuAvatarTextureYOffset(
+            value ? AVATAR_COLORS.white : this.lastColor
+        );
     }
 
     startFocus() {}
     endFocus() {
-        this.texture_offset.y = this.lastColor;
+        this.texture_offset.y = this.getMenuAvatarTextureYOffset(
+            this.lastColor
+        );
     }
 
     changeColor() {
@@ -47,7 +52,11 @@ export default class PlayerAvatar extends BottomPanelEl implements Focusable {
             color = AVATAR_COLORS.red;
         }
 
-        this.texture_offset.y = color;
+        this.texture_offset.y = this.getMenuAvatarTextureYOffset(color);
         this.lastColor = color;
+    }
+
+    getMenuAvatarTextureYOffset(x: number) {
+        return x + MENU_SECTION_TEXTURE_Y_OFFSET;
     }
 }

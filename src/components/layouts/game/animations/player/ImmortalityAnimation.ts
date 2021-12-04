@@ -1,11 +1,11 @@
 import { Position } from "../../../../interfaces";
-import { CanvasElement } from "../../../../rendering/interfaces";
 import { AVATAR_COLORS } from "../../../../../constants";
 import Animation from "../Animation";
 import { AnimationName } from "../animationNames";
 import store from "../../../store";
 import { COLOR_TO_GAME_AVATAR_Y } from "../../constants";
 import { PlayerFrames } from "../../player/playerFrames";
+import CanvasElement from "../../../../rendering/CavnasElement";
 
 export default class ImmortalityAnimation implements Animation {
     active = false;

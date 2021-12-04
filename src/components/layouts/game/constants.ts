@@ -87,19 +87,6 @@ export const COLOR_TO_GAME_AVATAR_Y = {
     [AVATAR_COLORS.white]: 400,
 };
 
-export const NUMBER_OFF = [
-    { x: 0, y: 350 },
-    { x: 0, y: 400 },
-    { x: 0, y: 450 },
-    { x: 0, y: 500 },
-    { x: 0, y: 550 },
-    { x: 75, y: 350 },
-    { x: 75, y: 400 },
-    { x: 75, y: 450 },
-    { x: 75, y: 500 },
-    { x: 75, y: 550 },
-];
-
 export const PLAYER_TAGS = [
     { x: 0, y: 200 },
     { x: 75, y: 200 },

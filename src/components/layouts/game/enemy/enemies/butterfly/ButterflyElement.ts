@@ -1,7 +1,7 @@
 import { Position } from "../../../../../interfaces";
-import { CanvasElement } from "../../../../../rendering/interfaces";
+import CanvasElement from "../../../../../rendering/CavnasElement";
 
-export default class ButterflyElement implements CanvasElement {
+export default class ButterflyElement extends CanvasElement {
     position: Position;
     texture_offset = {
         x: 600,
@@ -11,5 +11,4 @@ export default class ButterflyElement implements CanvasElement {
         width: 62,
         height: 75,
     };
-    texture = "game_sprite";
 }

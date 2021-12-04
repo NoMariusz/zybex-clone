@@ -1,5 +1,4 @@
 import { Collidable, Position, Renderable, Size } from "../../../interfaces";
-import { CanvasElement } from "../../../rendering/interfaces";
 import Renderer from "../../../rendering/Renderer";
 import { BASE_ENEMY_HP } from "../constants";
 import { SafeTimeoutable, translateToCanvasPos } from "../utils";
@@ -11,6 +10,7 @@ import { BulletType } from "../bullets/bulletsData";
 import { Pickups } from "../pickups/pickupsData";
 import SoundPlayer from "../../../sounds/SoundPlayer";
 import { Sound } from "../../../sounds/constants";
+import CanvasElement from "../../../rendering/CavnasElement";
 
 export default abstract class EnemySection
     extends SafeTimeoutable

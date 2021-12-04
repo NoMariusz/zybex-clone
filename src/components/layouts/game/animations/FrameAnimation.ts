@@ -1,5 +1,5 @@
 import { Position } from "../../../interfaces";
-import { CanvasElement } from "../../../rendering/interfaces";
+import CanvasElement from "../../../rendering/CavnasElement";
 import Animation from "./Animation";
 import { AnimationName } from "./animationNames";
 

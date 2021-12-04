@@ -1,4 +1,8 @@
 import { Focusable } from "../../../../interfaces";
+import {
+    SELECTED_SINGLE_PLAYER_ICO_Y,
+    SINGLE_PLAYER_ICO_Y,
+} from "../../constants";
 import BottomPanelEl from "./BottomPanelElement";
 
 export default class SinglePlayerIco
@@ -7,7 +11,7 @@ export default class SinglePlayerIco
 {
     texture_offset = {
         x: 1261,
-        y: 500,
+        y: SELECTED_SINGLE_PLAYER_ICO_Y,
     };
 
     size = {
@@ -29,10 +33,14 @@ export default class SinglePlayerIco
 
     startFocus() {}
     endFocus() {
-        this.texture_offset.y = this.isSelected ? 500 : 400;
+        this.texture_offset.y = this.isSelected
+            ? SELECTED_SINGLE_PLAYER_ICO_Y
+            : SINGLE_PLAYER_ICO_Y;
     }
 
     changeFocus(value: boolean) {
-        this.texture_offset.y = value ? 500 : 400;
+        this.texture_offset.y = value
+            ? SELECTED_SINGLE_PLAYER_ICO_Y
+            : SINGLE_PLAYER_ICO_Y;
     }
 }

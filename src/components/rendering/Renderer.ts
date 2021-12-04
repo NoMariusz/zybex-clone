@@ -1,17 +1,14 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants";
-import { CanvasElement, ScaledCanvasElement } from "./interfaces";
 import RendererImage from "./RendererImage";
 
-import menuSprite from "../../../static/gfx/menu.png";
-import screensSprite from "../../../static/gfx/screens_sprite.png";
-import gameSprite from "../../../static/gfx/game_sprite.png";
+import mainSprite from "../../../static/gfx/main_sprite_sheet.png";
 import levelSprite from "../../../static/gfx/level_sprite.png";
+import { TextureSpriteSheets } from "./constants";
+import CanvasElement from "./CavnasElement";
 
 const images: RendererImage[] = [
-    new RendererImage("menu_sprite", menuSprite),
-    new RendererImage("screens_sprite", screensSprite),
-    new RendererImage("game_sprite", gameSprite),
-    new RendererImage("level_sprite", levelSprite),
+    new RendererImage(TextureSpriteSheets.Main, mainSprite),
+    new RendererImage(TextureSpriteSheets.BertolusLevel, levelSprite),
 ];
 
 class Renderer {
@@ -44,8 +41,8 @@ class Renderer {
         }
 
         // draw
-        if ("texture_size" in target) {
-            this.drawWithScale(target as ScaledCanvasElement);
+        if (target.texture_size) {
+            this.drawWithScale(target);
         } else {
             this.draw(target);
         }
@@ -60,7 +57,7 @@ class Renderer {
         this.context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     }
 
-    getImage(name: string) {
+    getImage(name: TextureSpriteSheets) {
         const image = images.find((i) => i.name == name);
         if (!image) throw new Error(`Can't find ${name} image in images`);
         return image;
@@ -82,7 +79,9 @@ class Renderer {
         );
     }
 
-    drawWithScale(target: ScaledCanvasElement) {
+    drawWithScale(target: CanvasElement) {
+        if (!target.texture_size) throw new Error("Try to draw ");
+
         const image = this.getImage(target.texture);
 
         this.context.drawImage(

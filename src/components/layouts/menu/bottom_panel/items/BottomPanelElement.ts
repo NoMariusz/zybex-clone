@@ -1,8 +1,11 @@
 import { Focusable } from "../../../../interfaces";
-import { CanvasElement } from "../../../../rendering/interfaces";
+import CanvasElement from "../../../../rendering/CavnasElement";
 import { BOTTOM_PANEL_Y } from "../../constants";
 
-export default class BottomPanelElement implements CanvasElement, Focusable {
+export default abstract class BottomPanelElement
+    extends CanvasElement
+    implements Focusable
+{
     position = {
         x: 0,
         y: BOTTOM_PANEL_Y,
@@ -18,12 +21,8 @@ export default class BottomPanelElement implements CanvasElement, Focusable {
         height: 0,
     };
 
-    texture = "menu_sprite";
+    abstract changeFocus(value: boolean): void;
 
-    changeFocus(value: boolean) {
-        throw Error("Not implemented");
-    }
-
-    startFocus() {}
-    endFocus() {}
+    abstract startFocus(): void;
+    abstract endFocus(): void;
 }

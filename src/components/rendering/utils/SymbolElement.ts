@@ -1,18 +1,18 @@
 import {
-    NumberTypes,
     SMALL_SYMBOL_SIZE,
+    SymbolsTypes,
     SYMBOL_ELEMENT_HEIGHT,
     SYMBOL_ELEMENT_WIDTH,
-} from "../../../constants";
+    WHITE_NUMBER_OFFSETS,
+    ALPHABETIC_SYMBOLS_X,
+} from "../constants";
 import { Position } from "../../interfaces";
-import { NUMBER_OFF } from "../../layouts/game/constants";
-import { CanvasElement } from "../interfaces";
-import symbolTextureData from "./symbolTextureData";
+import CanvasElement from "../CavnasElement";
 
-export default class SymbolElement implements CanvasElement {
+export default class SymbolElement extends CanvasElement {
     texture_offset = {
         x: 0,
-        y: 2700,
+        y: 0,
     };
 
     position = {
@@ -25,25 +25,26 @@ export default class SymbolElement implements CanvasElement {
         height: SYMBOL_ELEMENT_HEIGHT,
     };
 
-    numberType: NumberTypes;
+    symbolType: SymbolsTypes;
 
-    constructor(pos: Position, numberType: NumberTypes = NumberTypes.BigGreen) {
+    constructor(
+        pos: Position,
+        symbolType: SymbolsTypes = SymbolsTypes.BigGreenNumber
+    ) {
+        super();
         this.position = pos;
-        this.numberType = numberType;
+        this.symbolType = symbolType;
         this.loadNumberType();
     }
 
     loadNumberType() {
-        if (this.numberType == NumberTypes.SmallWhite) {
+        if (this.symbolType == SymbolsTypes.SmallWhiteNumber) {
             this.size = {
                 width: SMALL_SYMBOL_SIZE,
                 height: SMALL_SYMBOL_SIZE,
             };
-            this.texture = "game_sprite";
         }
     }
-
-    texture = "screens_sprite";
 
     changeSymbol(value: number | string) {
         switch (typeof value) {
@@ -60,22 +61,25 @@ export default class SymbolElement implements CanvasElement {
             return;
         }
 
-        switch (this.numberType) {
-            case NumberTypes.BigGreen:
+        switch (this.symbolType) {
+            case SymbolsTypes.BigGreenNumber:
                 this.texture_offset = {
                     x: number * SYMBOL_ELEMENT_WIDTH,
-                    y: 2700,
+                    y: this.symbolType,
                 };
                 break;
-            case NumberTypes.SmallWhite:
-                this.texture_offset = NUMBER_OFF[number];
+            case SymbolsTypes.SmallWhiteNumber:
+                this.texture_offset = WHITE_NUMBER_OFFSETS[number];
                 break;
         }
     }
 
     private setStringValue(val: string) {
-        if (!(val in symbolTextureData)) return;
+        if (!(val in ALPHABETIC_SYMBOLS_X)) return;
 
-        this.texture_offset = symbolTextureData[val];
+        this.texture_offset = {
+            x: ALPHABETIC_SYMBOLS_X[val],
+            y: this.symbolType,
+        };
     }
 }

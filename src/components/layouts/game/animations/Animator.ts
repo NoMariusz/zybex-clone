@@ -1,7 +1,6 @@
 import Animation from "./Animation";
 import ImmortalityAnimation from "./player/ImmortalityAnimation";
 import DeathAnimation from "./player/DeathAnimation";
-import { CanvasElement } from "../../../rendering/interfaces";
 import FrameAnimation from "./FrameAnimation";
 import { AnimationName } from "./animationNames";
 import CoinIddleAnimation from "./enemies/CoinIddleAnimation";
@@ -20,6 +19,7 @@ import OrbitUseAnimation from "./weapons/OrbitUseAnimation";
 import PulseUseAnimation from "./weapons/PulseUseAnimation";
 import EightWayUseAnimation from "./weapons/EightWayAnimation";
 import RGunUseAnimation from "./weapons/RGunUseAnimation";
+import CanvasElement from "../../../rendering/CavnasElement";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */

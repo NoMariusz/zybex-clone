@@ -1,7 +1,9 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../../constants";
-import { CanvasElement } from "../../../rendering/interfaces";
+import CanvasElement from "../../../rendering/CavnasElement";
+import { TextureSpriteSheets } from "../../../rendering/constants";
+import { MENU_SECTION_TEXTURE_Y_OFFSET } from "../constants";
 
-export default class HighscoresBackground implements CanvasElement {
+export default class HighscoresBackground extends CanvasElement {
     position = {
         x: 0,
         y: 0,
@@ -9,7 +11,7 @@ export default class HighscoresBackground implements CanvasElement {
 
     texture_offset = {
         x: 0,
-        y: CANVAS_HEIGHT,
+        y: CANVAS_HEIGHT + MENU_SECTION_TEXTURE_Y_OFFSET,
     };
 
     size = {
@@ -17,7 +19,7 @@ export default class HighscoresBackground implements CanvasElement {
         height: CANVAS_HEIGHT,
     };
 
-    texture = "menu_sprite";
+    texture = TextureSpriteSheets.Main;
 
     flip = false;
 }

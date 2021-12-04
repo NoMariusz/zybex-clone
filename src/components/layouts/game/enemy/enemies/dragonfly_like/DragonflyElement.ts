@@ -1,7 +1,7 @@
 import { Position } from "../../../../../interfaces";
-import { CanvasElement } from "../../../../../rendering/interfaces";
+import CanvasElement from "../../../../../rendering/CavnasElement";
 
-export default class DragonFlyElement implements CanvasElement {
+export default class DragonFlyElement extends CanvasElement {
     position: Position;
     texture_offset = {
         x: 600,
@@ -11,5 +11,4 @@ export default class DragonFlyElement implements CanvasElement {
         width: 60,
         height: 73,
     };
-    texture = "game_sprite";
 }

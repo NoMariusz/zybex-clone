@@ -1,4 +1,4 @@
-import { SCORE_ELEMENTS_COUNT, SYMBOL_ELEMENT_WIDTH } from "../../../constants";
+import { SCORE_ELEMENTS_COUNT } from "../../../constants";
 import { Keys } from "../../controls/constants";
 import KeyListener from "../../controls/KeyListener";
 import SymbolElement from "../../rendering/utils/SymbolElement";
@@ -18,6 +18,7 @@ import ScoreBackgroundElement from "./ScoreBackgroundElement";
 import HighscoreManager from "../../highscores/HighscoreManager";
 import SoundPlayer from "../../sounds/SoundPlayer";
 import { Sound } from "../../sounds/constants";
+import { SymbolsTypes, SYMBOL_ELEMENT_WIDTH } from "../../rendering/constants";
 
 export default class SaveScore extends LayoutBaseImplementation {
     activeSymbolIndex: number;
@@ -63,10 +64,13 @@ export default class SaveScore extends LayoutBaseImplementation {
     initNameSymbols() {
         this.symbolsData = [];
         for (let i = 0; i < NAME_SYMBOLS_COUNT; i++) {
-            const element = new SymbolElement({
-                x: NAME_START_X + i * (SYMBOL_ELEMENT_WIDTH + 5),
-                y: NAME_START_Y,
-            });
+            const element = new SymbolElement(
+                {
+                    x: NAME_START_X + i * (SYMBOL_ELEMENT_WIDTH + 5),
+                    y: NAME_START_Y,
+                },
+                SymbolsTypes.Green
+            );
             element.changeSymbol("?");
             this.symbolsData.push({
                 element,

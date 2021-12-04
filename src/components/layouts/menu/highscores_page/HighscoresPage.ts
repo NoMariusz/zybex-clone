@@ -1,9 +1,10 @@
-import {
-    SCORE_ELEMENTS_COUNT,
-    SYMBOL_ELEMENT_WIDTH,
-} from "../../../../constants";
+import { SCORE_ELEMENTS_COUNT } from "../../../../constants";
 import HighscoreManager from "../../../highscores/HighscoreManager";
 import { Renderable } from "../../../interfaces";
+import {
+    SymbolsTypes,
+    SYMBOL_ELEMENT_WIDTH,
+} from "../../../rendering/constants";
 import Renderer from "../../../rendering/Renderer";
 import SymbolElement from "../../../rendering/utils/SymbolElement";
 import { loadNumberToElements } from "../../../utils";
@@ -58,12 +59,15 @@ export default class HighscoresPage implements Renderable {
     private makeNameSymbols(name: string, y: number) {
         for (let i = 0; i < name.length; i++) {
             const symbol = name[i];
-            const el = new SymbolElement({
-                x:
-                    HIGHSCORES_NAME_LEFT_OFFSET +
-                    i * (SYMBOL_ELEMENT_WIDTH + HIGHSCORE_ELEMENT_GAP),
-                y: y,
-            });
+            const el = new SymbolElement(
+                {
+                    x:
+                        HIGHSCORES_NAME_LEFT_OFFSET +
+                        i * (SYMBOL_ELEMENT_WIDTH + HIGHSCORE_ELEMENT_GAP),
+                    y: y,
+                },
+                SymbolsTypes.Green
+            );
             el.changeSymbol(symbol);
             this.elements.push(el);
         }

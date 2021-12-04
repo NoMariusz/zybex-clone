@@ -12,10 +12,11 @@ import {
 } from "./constans";
 import store from "../store";
 import SymbolElement from "../../rendering/utils/SymbolElement";
-import { SCORE_ELEMENTS_COUNT, SYMBOL_ELEMENT_WIDTH } from "../../../constants";
+import { SCORE_ELEMENTS_COUNT } from "../../../constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
 import SoundPlayer from "../../sounds/SoundPlayer";
 import { Sound } from "../../sounds/constants";
+import { SYMBOL_ELEMENT_WIDTH } from "../../rendering/constants";
 
 export default class LevelSummary extends LayoutBaseImplementation {
     active = false;

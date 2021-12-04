@@ -1,17 +1,17 @@
-import { CanvasElement } from "../../../rendering/interfaces";
+import CanvasElement from "../../../rendering/CavnasElement";
 import { AnimationName } from "./animationNames";
 
 export default interface Animation {
-  name: AnimationName;
-  active: boolean;
+    name: AnimationName;
+    active: boolean;
 
-  tickIntervalTime: number;
+    tickIntervalTime: number;
 
-  interval: NodeJS.Timer;
+    interval: NodeJS.Timer;
 
-  element: CanvasElement;
+    element: CanvasElement;
 
-  tick: () => void;
-  start: () => void;
-  end: () => void;
+    tick: () => void;
+    start: () => void;
+    end: () => void;
 }

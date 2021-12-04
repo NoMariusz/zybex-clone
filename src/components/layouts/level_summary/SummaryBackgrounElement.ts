@@ -1,7 +1,8 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
-import { CanvasElement } from "../../rendering/interfaces";
+import CanvasElement from "../../rendering/CavnasElement";
+import { TextureSpriteSheets } from "../../rendering/constants";
 
-export default class SummaryBackgroundElement implements CanvasElement {
+export default class SummaryBackgroundElement extends CanvasElement {
     position = {
         x: 0,
         y: 0,
@@ -9,13 +10,11 @@ export default class SummaryBackgroundElement implements CanvasElement {
 
     texture_offset = {
         x: 0,
-        y: CANVAS_HEIGHT * 2,
+        y: 2850,
     };
 
     size = {
         width: CANVAS_WIDTH,
         height: CANVAS_HEIGHT,
     };
-
-    texture = "screens_sprite";
 }

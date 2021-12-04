@@ -1,7 +1,7 @@
 import { Position } from "../../../../../interfaces";
-import { CanvasElement } from "../../../../../rendering/interfaces";
+import CanvasElement from "../../../../../rendering/CavnasElement";
 
-export default class PhantomElement implements CanvasElement {
+export default class PhantomElement extends CanvasElement {
     position: Position;
     texture_offset = {
         x: 825,
@@ -11,5 +11,4 @@ export default class PhantomElement implements CanvasElement {
         width: 68,
         height: 84,
     };
-    texture = "game_sprite";
 }

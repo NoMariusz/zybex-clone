@@ -1,6 +1,7 @@
-import { CanvasElement } from "../../../rendering/interfaces";
+import CanvasElement from "../../../rendering/CavnasElement";
+import { TextureSpriteSheets } from "../../../rendering/constants";
 
-export default class ShipElement implements CanvasElement {
+export default class ShipElement extends CanvasElement {
     texture_offset = {
         x: 150,
         y: 600,
@@ -15,6 +16,4 @@ export default class ShipElement implements CanvasElement {
         width: 130,
         height: 84,
     };
-
-    texture = "game_sprite";
 }

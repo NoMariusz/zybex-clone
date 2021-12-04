@@ -1,24 +1,26 @@
 import { Position, Size } from "../interfaces";
-import { CanvasElement } from "./interfaces";
+import CanvasElement from "./CavnasElement";
+import { TextureSpriteSheets } from "./constants";
 
-export default class HideableElement implements CanvasElement {
-  position: Position;
-  texture_offset: Position;
-  texture = "";
-  size: Size;
-  flip: boolean;
+export default class HideableElement extends CanvasElement {
+    position: Position;
+    texture_offset: Position;
+    texture = TextureSpriteSheets.Main;
+    size: Size;
+    flip: boolean;
 
-  baseHeight: number;
+    baseHeight: number;
 
-  constructor(h: number) {
-    this.baseHeight = h;
-  }
+    constructor(h: number) {
+        super();
+        this.baseHeight = h;
+    }
 
-  hide() {
-    this.size.height = 0;
-  }
+    hide() {
+        this.size.height = 0;
+    }
 
-  show() {
-    this.size.height = this.baseHeight;
-  }
+    show() {
+        this.size.height = this.baseHeight;
+    }
 }

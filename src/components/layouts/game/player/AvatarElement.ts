@@ -1,10 +1,11 @@
-import { CanvasElement } from "../../../rendering/interfaces";
 import { AVATAR_COLORS, CANVAS_HEIGHT } from "../../../../constants";
 import store from "../../store";
 import { COLOR_TO_GAME_AVATAR_Y } from "../constants";
 import { PlayerFrames } from "./playerFrames";
+import { TextureSpriteSheets } from "../../../rendering/constants";
+import CanvasElement from "../../../rendering/CavnasElement";
 
-export default class AvatarElement implements CanvasElement {
+export default class AvatarElement extends CanvasElement {
     texture_offset = {
         x: PlayerFrames.Base,
         y: AVATAR_COLORS.red,
@@ -20,7 +21,7 @@ export default class AvatarElement implements CanvasElement {
         height: 67,
     };
 
-    texture = "game_sprite";
+    texture = TextureSpriteSheets.Main;
 
     loadColor() {
         // load avatar color from store

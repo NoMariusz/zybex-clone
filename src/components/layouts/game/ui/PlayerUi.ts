@@ -1,8 +1,4 @@
-import {
-    CANVAS_WIDTH,
-    NumberTypes,
-    SMALL_SYMBOL_SIZE,
-} from "../../../../constants";
+import { CANVAS_WIDTH } from "../../../../constants";
 import { Renderable } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
@@ -18,6 +14,7 @@ import WeaponNameElement from "./WeaponNameElement";
 import WeaponIcoElement from "./WeaponIcoElement";
 import SymbolElement from "../../../rendering/utils/SymbolElement";
 import { loadNumberToElements } from "../../../utils";
+import { SMALL_SYMBOL_SIZE, SymbolsTypes } from "../../../rendering/constants";
 
 export default class PlayerUi implements Renderable {
     /* Display player status informations on game ui */
@@ -66,7 +63,7 @@ export default class PlayerUi implements Renderable {
                 x: this.getBottomUiOffset() + 370,
                 y: BOTTOM_UI_POS_Y,
             },
-            NumberTypes.SmallWhite
+            SymbolsTypes.SmallWhiteNumber
         );
         this.initScoreElements();
         this.weaponName = new WeaponNameElement();
@@ -85,7 +82,7 @@ export default class PlayerUi implements Renderable {
                         SMALL_SYMBOL_SIZE * idx,
                     y: BOTTOM_UI_POS_Y,
                 },
-                NumberTypes.SmallWhite
+                SymbolsTypes.SmallWhiteNumber
             );
             this.scoreElements.push(element);
         }

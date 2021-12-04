@@ -1,7 +1,8 @@
 import { Position } from "../../../../../interfaces";
-import { CanvasElement } from "../../../../../rendering/interfaces";
+import CanvasElement from "../../../../../rendering/CavnasElement";
+import { TextureSpriteSheets } from "../../../../../rendering/constants";
 
-export default class FiverElement implements CanvasElement {
+export default class FiverElement extends CanvasElement {
     position: Position;
     texture_offset = {
         x: 825,
@@ -11,5 +12,4 @@ export default class FiverElement implements CanvasElement {
         width: 66,
         height: 74,
     };
-    texture = "game_sprite";
 }

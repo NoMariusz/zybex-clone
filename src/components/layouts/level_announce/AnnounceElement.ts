@@ -1,21 +1,20 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
-import { CanvasElement } from "../../rendering/interfaces";
+import CanvasElement from "../../rendering/CavnasElement";
+import { TextureSpriteSheets } from "../../rendering/constants";
 
-export default class AnnounceElement implements CanvasElement {
-  position = {
-    x: 0,
-    y: 0,
-  };
+export default class AnnounceElement extends CanvasElement {
+    position = {
+        x: 0,
+        y: 0,
+    };
 
-  texture_offset = {
-    x: 0,
-    y: CANVAS_HEIGHT,
-  };
+    texture_offset = {
+        x: 0,
+        y: 1950,
+    };
 
-  size = {
-    width: CANVAS_WIDTH,
-    height: CANVAS_HEIGHT,
-  };
-
-  texture = "screens_sprite";
+    size = {
+        width: CANVAS_WIDTH,
+        height: CANVAS_HEIGHT,
+    };
 }
