@@ -4,10 +4,10 @@ import {
     SYMBOL_ELEMENT_HEIGHT,
     SYMBOL_ELEMENT_WIDTH,
     WHITE_NUMBER_OFFSETS,
-    ALPHABETIC_SYMBOLS_X,
 } from "../constants";
 import { Position } from "../../interfaces";
 import CanvasElement from "../CanvasElement";
+import { alphabeticSymbols, alphabeticSymbolsX } from "./alphabeticSymbols";
 
 export default class SymbolElement extends CanvasElement {
     texture_offset = {
@@ -75,10 +75,10 @@ export default class SymbolElement extends CanvasElement {
     }
 
     private setStringValue(val: string) {
-        if (!(val in ALPHABETIC_SYMBOLS_X)) return;
+        if (!alphabeticSymbols.includes(val)) return;
 
         this.texture_offset = {
-            x: ALPHABETIC_SYMBOLS_X[val],
+            x: alphabeticSymbolsX[val],
             y: this.symbolType,
         };
     }

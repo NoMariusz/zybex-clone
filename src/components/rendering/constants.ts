@@ -27,10 +27,3 @@ export const WHITE_NUMBER_OFFSETS = [
     { x: 75, y: 500 },
     { x: 75, y: 550 },
 ];
-
-export const ALPHABETIC_SYMBOLS_X: { [key: string]: number } = {
-    ["?"]: 0,
-    a: 60,
-    b: 120,
-    c: 180,
-};
