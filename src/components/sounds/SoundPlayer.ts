@@ -20,13 +20,12 @@ class SoundPlayer {
     }
 
     cancel(audio: HTMLAudioElement) {
-        audio.pause();
-        this.removeAudio(audio);
+        this.cancelAudio(audio);
     }
 
     clearAllSounds() {
         for (const audio of this.activeAudios) {
-            audio.pause();
+            this.stopPlaying(audio);
         }
         this.activeAudios = [];
     }
@@ -35,9 +34,20 @@ class SoundPlayer {
         return new Audio(SOUNDS_PATH + sound);
     }
 
+    private cancelAudio(audio: HTMLAudioElement) {
+        this.stopPlaying(audio);
+        this.removeAudio(audio);
+    }
+
+    private stopPlaying(audio: HTMLAudioElement) {
+        audio.oncanplaythrough = null; // to secure from start playing after audio is removed
+        audio.pause();
+    }
+
     private removeAudio(audio: HTMLAudioElement) {
+        // to not remove audio not existing in list
         const i = this.activeAudios.findIndex((e) => e == audio);
-        this.activeAudios.splice(i, 1);
+        if (i != -1) this.activeAudios.splice(i, 1);
     }
 }
 
