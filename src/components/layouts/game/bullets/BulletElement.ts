@@ -1,5 +1,5 @@
 import { Position, Size } from "../../../interfaces";
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 
 export default class BulletElement extends CanvasElement {
     position: Position;

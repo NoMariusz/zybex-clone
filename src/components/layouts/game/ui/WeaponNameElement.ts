@@ -1,4 +1,4 @@
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 import { TextureSpriteSheets } from "../../../rendering/constants";
 import { BOTTOM_UI_POS_Y, Weapons, WEAPON_UI_DATA } from "../constants";
 

@@ -1,5 +1,5 @@
 import { Focusable } from "../../../../interfaces";
-import CanvasElement from "../../../../rendering/CavnasElement";
+import CanvasElement from "../../../../rendering/CanvasElement";
 import { BOTTOM_PANEL_Y } from "../../constants";
 
 export default abstract class BottomPanelElement

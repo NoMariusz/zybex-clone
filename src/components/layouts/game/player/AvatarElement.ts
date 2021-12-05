@@ -3,7 +3,7 @@ import store from "../../store";
 import { COLOR_TO_GAME_AVATAR_Y } from "../constants";
 import { PlayerFrames } from "./playerFrames";
 import { TextureSpriteSheets } from "../../../rendering/constants";
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 
 export default class AvatarElement extends CanvasElement {
     texture_offset = {

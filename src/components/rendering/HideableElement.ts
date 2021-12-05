@@ -1,5 +1,5 @@
 import { Position, Size } from "../interfaces";
-import CanvasElement from "./CavnasElement";
+import CanvasElement from "./CanvasElement";
 import { TextureSpriteSheets } from "./constants";
 
 export default class HideableElement extends CanvasElement {

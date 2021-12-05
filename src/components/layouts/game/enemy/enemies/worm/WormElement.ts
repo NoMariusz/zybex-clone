@@ -1,5 +1,5 @@
 import { Position } from "../../../../../interfaces";
-import CanvasElement from "../../../../../rendering/CavnasElement";
+import CanvasElement from "../../../../../rendering/CanvasElement";
 import { TextureSpriteSheets } from "../../../../../rendering/constants";
 import { WormPatrs, WORM_PART_TO_TETURE_OFFSET } from "./wormData";
 

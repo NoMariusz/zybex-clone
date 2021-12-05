@@ -7,7 +7,7 @@ import {
     ALPHABETIC_SYMBOLS_X,
 } from "../constants";
 import { Position } from "../../interfaces";
-import CanvasElement from "../CavnasElement";
+import CanvasElement from "../CanvasElement";
 
 export default class SymbolElement extends CanvasElement {
     texture_offset = {

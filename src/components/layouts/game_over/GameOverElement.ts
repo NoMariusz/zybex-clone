@@ -1,5 +1,5 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
-import CanvasElement from "../../rendering/CavnasElement";
+import CanvasElement from "../../rendering/CanvasElement";
 import { TextureSpriteSheets } from "../../rendering/constants";
 
 export default class GameOverElement extends CanvasElement {

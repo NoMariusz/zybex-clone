@@ -1,5 +1,5 @@
 import { Position } from "../../../../../interfaces";
-import CanvasElement from "../../../../../rendering/CavnasElement";
+import CanvasElement from "../../../../../rendering/CanvasElement";
 
 export default class PhantomElement extends CanvasElement {
     position: Position;

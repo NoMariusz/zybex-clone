@@ -4,7 +4,7 @@ import RendererImage from "./RendererImage";
 import mainSprite from "../../../static/gfx/main_sprite_sheet.png";
 import levelSprite from "../../../static/gfx/level_sprite.png";
 import { TextureSpriteSheets } from "./constants";
-import CanvasElement from "./CavnasElement";
+import CanvasElement from "./CanvasElement";
 
 const images: RendererImage[] = [
     new RendererImage(TextureSpriteSheets.Main, mainSprite),

@@ -19,7 +19,7 @@ import OrbitUseAnimation from "./weapons/OrbitUseAnimation";
 import PulseUseAnimation from "./weapons/PulseUseAnimation";
 import EightWayUseAnimation from "./weapons/EightWayAnimation";
 import RGunUseAnimation from "./weapons/RGunUseAnimation";
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */

@@ -1,5 +1,5 @@
 import { CANVAS_WIDTH } from "../../../../constants";
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 import { BOARD_Y } from "../constants";
 
 export default class BackgroundElement extends CanvasElement {

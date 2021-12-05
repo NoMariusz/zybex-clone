@@ -5,7 +5,7 @@ import { AnimationName } from "../animationNames";
 import store from "../../../store";
 import { COLOR_TO_GAME_AVATAR_Y } from "../../constants";
 import { PlayerFrames } from "../../player/playerFrames";
-import CanvasElement from "../../../../rendering/CavnasElement";
+import CanvasElement from "../../../../rendering/CanvasElement";
 
 export default class ImmortalityAnimation implements Animation {
     active = false;

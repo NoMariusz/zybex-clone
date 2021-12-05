@@ -1,4 +1,4 @@
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 import { TextureSpriteSheets } from "../../../rendering/constants";
 import {
     BOARD_HEIGHT,

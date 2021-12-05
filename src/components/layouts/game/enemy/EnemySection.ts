@@ -10,7 +10,7 @@ import { BulletType } from "../bullets/bulletsData";
 import { Pickups } from "../pickups/pickupsData";
 import SoundPlayer from "../../../sounds/SoundPlayer";
 import { Sound } from "../../../sounds/constants";
-import CanvasElement from "../../../rendering/CavnasElement";
+import CanvasElement from "../../../rendering/CanvasElement";
 
 export default abstract class EnemySection
     extends SafeTimeoutable
