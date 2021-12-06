@@ -1,3 +1,4 @@
+import { clampValue } from "../../../../../../utils";
 import { AnimationName } from "../../../../animations/animationNames";
 import { BOARD_SCROLL_SPEED, TARGETED_BIRD_HP } from "../../../../constants";
 import Player from "../../../../player/Player";
@@ -30,10 +31,7 @@ export default class TargetedBirdSection extends EnemySection {
     }
 
     getYVelocity() {
-        return Math.min(
-            Math.max(this.position.y - this.player.position.y, -1),
-            1
-        );
+        return clampValue(this.position.y - this.player.position.y);
     }
 
     die() {

@@ -1,3 +1,4 @@
+import { Position } from "./interfaces";
 import SymbolElement from "./rendering/utils/SymbolElement";
 
 export const sleep = (ms: number) =>
@@ -28,4 +29,13 @@ export const loadNumberToElements = (
         const num = rest % 10;
         element.changeSymbol(num);
     }
+};
+
+export const clampValue = (value: number, min = -1, max = 1) => {
+    /* Calmps given value to be in range min to max */
+    return Math.min(Math.max(value, min), max);
+};
+
+export const areEqual = (posA: Position, posB: Position) => {
+    return posA.x == posB.x && posA.y == posB.y;
 };

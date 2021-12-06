@@ -1,8 +1,8 @@
-// overall things
-
 import { AVATAR_COLORS, CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
 import { Position } from "../../interfaces";
 import { AnimationName } from "./animations/animationNames";
+
+// overall things
 
 export const BOARD_Y = 105;
 export const BOARD_HEIGHT = CANVAS_HEIGHT - BOARD_Y * 2;
@@ -148,3 +148,7 @@ export const WEAPON_LEVELS_TEXTURES: Position[] = [
 
 export const PLAYER_SHIP_DISTANCE = 90;
 export const PLAYER_SHIP_SPEED = BOARD_SCROLL_SPEED;
+export const PLAYER_WAITING_FOR_SHIP_POSITION: Position = {
+    x: BOARD_WIDTH / 3,
+    y: BOARD_HEIGHT / 2,
+};
