@@ -69,7 +69,7 @@ export default class SaveScore extends LayoutBaseImplementation {
                     x: NAME_START_X + i * (SYMBOL_ELEMENT_WIDTH + 5),
                     y: NAME_START_Y,
                 },
-                SymbolsTypes.Green
+                SymbolsTypes.Chartreuse
             );
             element.changeSymbol("?");
             this.symbolsData.push({
@@ -82,10 +82,13 @@ export default class SaveScore extends LayoutBaseImplementation {
     initScoreElements() {
         this.scoreElements = [];
         for (let i = 0; i < SCORE_ELEMENTS_COUNT; i++) {
-            const el = new SymbolElement({
-                x: SCORE_START_X + i * (SYMBOL_ELEMENT_WIDTH + 5),
-                y: NAME_START_Y,
-            });
+            const el = new SymbolElement(
+                {
+                    x: SCORE_START_X + i * (SYMBOL_ELEMENT_WIDTH + 5),
+                    y: NAME_START_Y,
+                },
+                SymbolsTypes.ChartreuseNumber
+            );
             this.scoreElements.push(el);
         }
 

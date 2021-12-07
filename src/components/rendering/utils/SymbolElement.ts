@@ -25,19 +25,19 @@ export default class SymbolElement extends CanvasElement {
         height: SYMBOL_ELEMENT_HEIGHT,
     };
 
-    symbolType: SymbolsTypes;
+    private symbolType: SymbolsTypes;
 
     constructor(
         pos: Position,
-        symbolType: SymbolsTypes = SymbolsTypes.BigGreenNumber
+        symbolType: SymbolsTypes = SymbolsTypes.GreenNumber
     ) {
         super();
         this.position = pos;
         this.symbolType = symbolType;
-        this.loadNumberType();
+        this.loadSize();
     }
 
-    loadNumberType() {
+    private loadSize() {
         if (this.symbolType == SymbolsTypes.SmallWhiteNumber) {
             this.size = {
                 width: SMALL_SYMBOL_SIZE,
@@ -62,14 +62,14 @@ export default class SymbolElement extends CanvasElement {
         }
 
         switch (this.symbolType) {
-            case SymbolsTypes.BigGreenNumber:
+            case SymbolsTypes.SmallWhiteNumber:
+                this.texture_offset = WHITE_NUMBER_OFFSETS[number];
+                break;
+            default:
                 this.texture_offset = {
                     x: number * SYMBOL_ELEMENT_WIDTH,
                     y: this.symbolType,
                 };
-                break;
-            case SymbolsTypes.SmallWhiteNumber:
-                this.texture_offset = WHITE_NUMBER_OFFSETS[number];
                 break;
         }
     }

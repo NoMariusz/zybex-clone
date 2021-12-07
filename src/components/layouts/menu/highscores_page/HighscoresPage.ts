@@ -35,20 +35,35 @@ export default class HighscoresPage implements Renderable {
             const highscore = highscores[i];
             const y = HIGHSCORES_TOP_OFFSET + HIGHSCORE_WIDTH * i;
 
-            this.makeNameSymbols(highscore.playerName, y);
-            this.makeScoreSymbols(highscore.score, y);
+            this.makeNameSymbols(
+                highscore.playerName,
+                y,
+                i == 0 ? SymbolsTypes.RedBase : SymbolsTypes.Blue
+            );
+            this.makeScoreSymbols(
+                highscore.score,
+                y,
+                i == 0 ? SymbolsTypes.RedBaseNumber : SymbolsTypes.BlueNumber
+            );
         }
     }
 
-    private makeScoreSymbols(score: number, y: number) {
+    private makeScoreSymbols(
+        score: number,
+        y: number,
+        symbolType: SymbolsTypes
+    ) {
         const scoreElements = [];
         for (let i = 0; i < SCORE_ELEMENTS_COUNT; i++) {
-            const el = new SymbolElement({
-                x:
-                    HIGHSCORES_SCORE_LEFT_OFFSET +
-                    i * (SYMBOL_ELEMENT_WIDTH + HIGHSCORE_ELEMENT_GAP),
-                y: y,
-            });
+            const el = new SymbolElement(
+                {
+                    x:
+                        HIGHSCORES_SCORE_LEFT_OFFSET +
+                        i * (SYMBOL_ELEMENT_WIDTH + HIGHSCORE_ELEMENT_GAP),
+                    y: y,
+                },
+                symbolType
+            );
             scoreElements.push(el);
         }
         loadNumberToElements(scoreElements, score);
@@ -56,7 +71,7 @@ export default class HighscoresPage implements Renderable {
         this.elements.push(...scoreElements);
     }
 
-    private makeNameSymbols(name: string, y: number) {
+    private makeNameSymbols(name: string, y: number, symbolType: SymbolsTypes) {
         for (let i = 0; i < name.length; i++) {
             const symbol = name[i];
             const el = new SymbolElement(
@@ -66,7 +81,7 @@ export default class HighscoresPage implements Renderable {
                         i * (SYMBOL_ELEMENT_WIDTH + HIGHSCORE_ELEMENT_GAP),
                     y: y,
                 },
-                SymbolsTypes.Green
+                symbolType
             );
             el.changeSymbol(symbol);
             this.elements.push(el);

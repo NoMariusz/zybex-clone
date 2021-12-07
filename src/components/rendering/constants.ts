@@ -10,9 +10,21 @@ export const SMALL_SYMBOL_SIZE = 35;
 // enums with number/symbol types to their texture y offsets
 
 export enum SymbolsTypes {
-    Green = 6715,
     SmallWhiteNumber,
-    BigGreenNumber = 6650,
+    Green = 6715,
+    GreenNumber = 6650,
+    Chartreuse = 6779,
+    ChartreuseNumber = 6843,
+    Blue = 6907,
+    BlueNumber = 6971,
+    RedBase = 7035,
+    RedBaseNumber = 7099,
+    RedAnimationFrame1 = 7163,
+    RedAnimationFrame1Number = 7227,
+    RedAnimationFrame2 = 7291,
+    RedAnimationFrame2Number = 7355,
+    RedAnimationFrame3 = 7419,
+    RedAnimationFrame3Number = 7483,
 }
 
 export const WHITE_NUMBER_OFFSETS = [
