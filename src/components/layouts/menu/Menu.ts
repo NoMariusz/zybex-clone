@@ -62,6 +62,8 @@ export default class Menu extends LayoutBaseImplementation {
     onHide() {
         clearInterval(this.changePageInterval);
         this.bottomPanel.clear();
+
+        this.highscoresPage.clearAnimations();
     }
 
     changePage() {

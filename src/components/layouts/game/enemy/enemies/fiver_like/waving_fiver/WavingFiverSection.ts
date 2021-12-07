@@ -1,4 +1,4 @@
-import { AnimationName } from "../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animations/animationNames";
 import {
     BOARD_HEIGHT,
     BOARD_SCROLL_SPEED,

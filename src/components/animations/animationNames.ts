@@ -17,4 +17,5 @@ export enum AnimationName {
     PulseUse,
     EightWayUse,
     RGunUse,
+    RedSymbol,
 }

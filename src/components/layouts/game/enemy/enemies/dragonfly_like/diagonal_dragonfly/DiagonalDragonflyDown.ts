@@ -1,5 +1,5 @@
 import { Position, Size } from "../../../../../../interfaces";
-import { AnimationName } from "../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animations/animationNames";
 import Bullet from "../../../../bullets/Bullet";
 import { BulletType } from "../../../../bullets/bulletsData";
 import { BOARD_WIDTH } from "../../../../constants";

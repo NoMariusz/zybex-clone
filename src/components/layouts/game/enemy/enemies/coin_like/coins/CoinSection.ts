@@ -1,33 +1,33 @@
-import { AnimationName } from "../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animations/animationNames";
 import {
-  BOARD_HEIGHT,
-  BOARD_SCROLL_SPEED,
-  BOARD_WIDTH,
+    BOARD_HEIGHT,
+    BOARD_SCROLL_SPEED,
+    BOARD_WIDTH,
 } from "../../../../constants";
 import EnemySection from "../../../EnemySection";
 import CoinElement from "../CoinElement";
 
 export default class CoinSection extends EnemySection {
-  shotTimerMs: number;
+    shotTimerMs: number;
 
-  constructor() {
-    super();
-    this.element = new CoinElement();
-    this.initAfterElementPresent();
-    
-    this.shotTimerMs = 2500;
-    this.animator.startAnim(AnimationName.CoinIddle);
-  }
+    constructor() {
+        super();
+        this.element = new CoinElement();
+        this.initAfterElementPresent();
 
-  move() {
-    this.position = {
-      ...this.position,
-      x: this.position.x - BOARD_SCROLL_SPEED,
-    };
-  }
+        this.shotTimerMs = 2500;
+        this.animator.startAnim(AnimationName.CoinIddle);
+    }
 
-  die() {
-    super.die();
-    this.animator.endAnim(AnimationName.CoinIddle);
-  }
+    move() {
+        this.position = {
+            ...this.position,
+            x: this.position.x - BOARD_SCROLL_SPEED,
+        };
+    }
+
+    die() {
+        super.die();
+        this.animator.endAnim(AnimationName.CoinIddle);
+    }
 }

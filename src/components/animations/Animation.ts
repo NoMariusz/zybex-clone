@@ -1,4 +1,4 @@
-import CanvasElement from "../../../rendering/CanvasElement";
+import CanvasElement from "../rendering/CanvasElement";
 import { AnimationName } from "./animationNames";
 
 export default interface Animation {

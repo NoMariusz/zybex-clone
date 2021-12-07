@@ -1,4 +1,4 @@
-import { AnimationName } from "../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animations/animationNames";
 import {
     BIRD_WALL_WAIT_TIME,
     BOARD_SCROLL_SPEED,

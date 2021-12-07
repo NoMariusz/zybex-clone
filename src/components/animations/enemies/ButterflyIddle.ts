@@ -1,4 +1,4 @@
-import { Position } from "../../../../interfaces";
+import { Position } from "../../interfaces";
 import { AnimationName } from "../animationNames";
 import FrameAnimation from "../FrameAnimation";
 

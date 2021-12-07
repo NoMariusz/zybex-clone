@@ -26,6 +26,7 @@ export default class SymbolElement extends CanvasElement {
     };
 
     private symbolType: SymbolsTypes;
+    value: number | string;
 
     constructor(
         pos: Position,
@@ -35,6 +36,11 @@ export default class SymbolElement extends CanvasElement {
         this.position = pos;
         this.symbolType = symbolType;
         this.loadSize();
+    }
+
+    changeType(type: SymbolsTypes) {
+        this.symbolType = type;
+        this.changeSymbol(this.value);
     }
 
     private loadSize() {
@@ -47,6 +53,7 @@ export default class SymbolElement extends CanvasElement {
     }
 
     changeSymbol(value: number | string) {
+        this.value = value;
         switch (typeof value) {
             case "number":
                 this.setNumberValue(value);

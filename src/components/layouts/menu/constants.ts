@@ -1,6 +1,6 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
 
-export const CHANGE_LAYOUT_TIMEOUT = 2500;
+export const CHANGE_LAYOUT_TIMEOUT = 5000;
 
 export const BOTTOM_PANEL_Y = (CANVAS_HEIGHT / 8) * 7;
 
@@ -33,3 +33,8 @@ export const SINGLE_PLAYER_ICO_Y = MENU_SECTION_TEXTURE_Y_OFFSET + 400;
 
 export const SELECTED_MULTI_PLAYER_ICO_Y = MENU_SECTION_TEXTURE_Y_OFFSET + 700;
 export const MULTI_PLAYER_ICO_Y = MENU_SECTION_TEXTURE_Y_OFFSET + 600;
+
+export const NUMBER_ONE_POSITION = {
+    x: 210,
+    y: 242,
+};

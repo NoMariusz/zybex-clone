@@ -1,4 +1,4 @@
-import { PlayerFrames } from "../../player/playerFrames";
+import { PlayerFrames } from "../../layouts/game/player/playerFrames";
 import { AnimationName } from "../animationNames";
 import PlayerFrameAnimation from "./PlayerFrameAnimation";
 

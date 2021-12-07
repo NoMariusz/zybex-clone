@@ -1,6 +1,6 @@
 import { AVATAR_COLORS, CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../constants";
 import { Position } from "../../interfaces";
-import { AnimationName } from "./animations/animationNames";
+import { AnimationName } from "../../animations/animationNames";
 
 // overall things
 
