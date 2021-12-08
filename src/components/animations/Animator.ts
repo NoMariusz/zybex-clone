@@ -1,26 +1,8 @@
 import Animation from "./Animation";
-import ImmortalityAnimation from "./player/ImmortalityAnimation";
-import DeathAnimation from "./player/DeathAnimation";
 import FrameAnimation from "./FrameAnimation";
 import { AnimationName } from "./animationNames";
-import CoinIddleAnimation from "./enemies/CoinIddleAnimation";
-import EnemyDeathAnimation from "./enemies/EnemyDeathAnimation";
-import BirdIddleAnimation from "./enemies/BirdIddleAnimation";
-import DragonflyIddleAnimation from "./enemies/DragonflyIddleAnimation";
-import ButterflyIddleAnimation from "./enemies/ButterflyIddle";
-import FiverIddleAnimation from "./enemies/FiverIddleAnimation";
-import PhantomIddleAnimation from "./enemies/PhantomIddleAnimation";
-import PlayerIddleAnimation from "./player/PlayerIddleAnimation";
-import MoveUpAnimation from "./player/MoveUpAnimation";
-import MoveDownAnimation from "./player/MoveDownAnimation";
-import MoveForwardAnimation from "./player/MoveForwardAnimation";
-import MoveBackwardAnimation from "./player/MoveBackwardAnimation";
-import OrbitUseAnimation from "./weapons/OrbitUseAnimation";
-import PulseUseAnimation from "./weapons/PulseUseAnimation";
-import EightWayUseAnimation from "./weapons/EightWayAnimation";
-import RGunUseAnimation from "./weapons/RGunUseAnimation";
 import CanvasElement from "../rendering/CanvasElement";
-import SymbolRedAnimation from "./general/SymbolRedAnimation";
+import animationConfig from "./animationConfig";
 
 export default class Animator {
     /* Handle starting and ending animations and protect animations from overlaping */
@@ -32,31 +14,17 @@ export default class Animator {
     constructor(element: CanvasElement) {
         this.element = element;
 
-        this.animations = [
-            new DeathAnimation(this.element),
-            new ImmortalityAnimation(this.element),
-            new EnemyDeathAnimation(this.element),
-            new CoinIddleAnimation(this.element),
-            new BirdIddleAnimation(this.element),
-            new DragonflyIddleAnimation(this.element),
-            new ButterflyIddleAnimation(this.element),
-            new FiverIddleAnimation(this.element),
-            new PhantomIddleAnimation(this.element),
-            new MoveUpAnimation(this.element),
-            new MoveDownAnimation(this.element),
-            new MoveForwardAnimation(this.element),
-            new MoveBackwardAnimation(this.element),
-            new PlayerIddleAnimation(this.element),
-            new OrbitUseAnimation(this.element),
-            new PulseUseAnimation(this.element),
-            new EightWayUseAnimation(this.element),
-            new RGunUseAnimation(this.element),
-            new SymbolRedAnimation(this.element),
-        ];
+        this.animations = [];
     }
 
-    getAnimByName(name: AnimationName) {
-        return this.animations.find((a) => a.name == name);
+    receiveAnimation(name: AnimationName) {
+        // try to find and return already created anim
+        const createdAnim = this.animations.find((a) => a.name == name);
+        if (createdAnim) return createdAnim;
+        // create new anim and save in animations
+        const anim = new animationConfig[name].class(this.element);
+        this.animations.push(anim);
+        return anim;
     }
 
     private playAnim(anim: Animation) {
@@ -77,7 +45,7 @@ export default class Animator {
         /**
          * Start animation in normal mode
          */
-        const anim = this.getAnimByName(name);
+        const anim = this.receiveAnimation(name);
         if (!anim) return;
 
         return this.playAnim(anim);
@@ -87,14 +55,14 @@ export default class Animator {
         /**
          * Start animation only if is not active
          */
-        const anim = this.getAnimByName(name);
+        const anim = this.receiveAnimation(name);
         if (!anim || anim.active) return;
 
         return this.playAnim(anim);
     }
 
     endAnim(name: AnimationName) {
-        const anim = this.getAnimByName(name);
+        const anim = this.receiveAnimation(name);
         if (!anim) return;
 
         if (anim.active) {
@@ -113,10 +81,13 @@ export default class Animator {
 
     checkIfCanPlay(animName: AnimationName) {
         /* Check if animation can play, so check if there is active
-    animation that is more important */
-        const animIdx = this.animations.findIndex((a) => a.name == animName);
+        animation that is more important */
+        const animationPriority = animationConfig[animName].priority;
+        // try to find animation with higher priority
         const idx = this.animations.findIndex(
-            (anim, i) => anim.active && i < animIdx
+            (anim) =>
+                anim.active &&
+                animationConfig[anim.name].priority > animationPriority
         );
 
         return idx == -1;

@@ -30,19 +30,19 @@ export default class App {
 
         // calc time elapsed between last frame
         const now = Date.now();
-        const elapsed = now - this.lastFrame
+        const elapsed = now - this.lastFrame;
 
         // if elapsed enough time, do loop work
-        if(elapsed > this.fpsInterval){
+        if (elapsed > this.fpsInterval) {
             // prepare last frame
-            this.lastFrame = now - (elapsed %  this.fpsInterval);
+            this.lastFrame = now - (elapsed % this.fpsInterval);
 
             this.doGameLoop();
         }
     }
 
-    doGameLoop(){
-        Renderer.clear()
-        this.layoutManager.render(); 
+    doGameLoop() {
+        Renderer.clear();
+        this.layoutManager.render();
     }
 }
