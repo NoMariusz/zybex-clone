@@ -6,6 +6,19 @@ import levelSprite from "../../../static/gfx/level_sprite.png";
 import { TextureSpriteSheets } from "./constants";
 import CanvasElement from "./CanvasElement";
 
+export const contextModification = (
+    target: Renderer,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+) => {
+    const original = descriptor.value;
+
+    descriptor.value = function (...args: any[]) {
+        this.contextChanged = true;
+        return original.apply(this, args);
+    };
+};
+
 const images: RendererImage[] = [
     new RendererImage(TextureSpriteSheets.Main, mainSprite),
     new RendererImage(TextureSpriteSheets.BertolusLevel, levelSprite),
@@ -16,6 +29,7 @@ class Renderer {
 
     canvas: HTMLCanvasElement;
     context: CanvasRenderingContext2D;
+    contextChanged: boolean = false;
 
     constructor() {
         this.loadContext();
@@ -39,6 +53,9 @@ class Renderer {
         if (target.flip) {
             this.flip(target);
         }
+        if (target.flipY) {
+            this.flipY(target);
+        }
 
         // draw
         if (target.texture_size) {
@@ -47,9 +64,10 @@ class Renderer {
             this.draw(target);
         }
 
-        if (target.flip) {
+        if (this.contextChanged) {
             // restore context to base configuration
             this.context.restore();
+            this.contextChanged = false;
         }
     }
 
@@ -97,6 +115,7 @@ class Renderer {
         );
     }
 
+    @contextModification
     flip(target: CanvasElement) {
         // move context to right, so after scale target be in apropriate pos
         const translateAxis = (target.position.x + target.size.width / 2) * 2;
@@ -104,6 +123,16 @@ class Renderer {
 
         // scale to have mirror effect
         this.context.scale(-1, 1);
+    }
+
+    @contextModification
+    flipY(target: CanvasElement) {
+        // move context to right, so after scale target be in apropriate pos
+        const translateAxis = (target.position.y + target.size.height / 2) * 2;
+        this.context.translate(0, translateAxis);
+
+        // scale to have mirror effect
+        this.context.scale(1, -1);
     }
 }
 

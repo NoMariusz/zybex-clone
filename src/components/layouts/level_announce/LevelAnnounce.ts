@@ -6,9 +6,11 @@ import { Keys } from "../../controls/constants";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
 import SoundPlayer from "../../sounds/SoundPlayer";
 import { Sound } from "../../sounds/constants";
+import DoubleWavingTrianglesBlock from "../../rendering/utils/waving_triangle/WavingTrianglesBlock";
 
 export default class LevelAnnounce extends LayoutBaseImplementation {
     announceBackground: AnnounceBackground;
+    trianglesBlock: DoubleWavingTrianglesBlock;
 
     constructor(
         changeLayout: (layName: Layouts) => void,
@@ -21,6 +23,7 @@ export default class LevelAnnounce extends LayoutBaseImplementation {
 
     render() {
         Renderer.render(this.announceBackground);
+        this.trianglesBlock.render();
     }
 
     handleKeys(key: string) {
@@ -30,9 +33,13 @@ export default class LevelAnnounce extends LayoutBaseImplementation {
     }
 
     onShow() {
+        this.trianglesBlock = new DoubleWavingTrianglesBlock();
         this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
 
         SoundPlayer.play(Sound.LevelAnnounce);
     }
-    onHide() {}
+
+    onHide() {
+        this.trianglesBlock.clear();
+    }
 }

@@ -1,4 +1,4 @@
-import { Layout, Layouts } from "../interfaces";
+import { Layouts } from "../interfaces";
 import KeyListener from "../../controls/KeyListener";
 import Renderer from "../../rendering/Renderer";
 import { Keys } from "../../controls/constants";
@@ -6,9 +6,11 @@ import GameOverElement from "./GameOverElement";
 import LayoutBaseImplementation from "../LayoutBaseImplementation";
 import SoundPlayer from "../../sounds/SoundPlayer";
 import { Sound } from "../../sounds/constants";
+import WavingTrianglesBlock from "../../rendering/utils/waving_triangle/WavingTrianglesBlock";
 
 export default class GameOver extends LayoutBaseImplementation {
     background: GameOverElement;
+    trianglesBlock: WavingTrianglesBlock;
 
     constructor(
         changeLayout: (layName: Layouts) => void,
@@ -21,6 +23,7 @@ export default class GameOver extends LayoutBaseImplementation {
 
     render() {
         Renderer.render(this.background);
+        this.trianglesBlock.render();
     }
 
     handleKeys(key: string) {
@@ -30,8 +33,11 @@ export default class GameOver extends LayoutBaseImplementation {
     }
 
     onShow() {
+        this.trianglesBlock = new WavingTrianglesBlock();
         this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
         SoundPlayer.play(Sound.GamOver);
     }
-    onHide() {}
+    onHide() {
+        this.trianglesBlock.clear();
+    }
 }

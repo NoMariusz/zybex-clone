@@ -21,4 +21,5 @@ export enum AnimationName {
     MenuSubtitle1,
     MenuSubtitle2,
     MenuSubtitle3,
+    TriangleWaving,
 }

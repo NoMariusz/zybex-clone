@@ -39,3 +39,5 @@ export const WHITE_NUMBER_OFFSETS = [
     { x: 75, y: 500 },
     { x: 75, y: 550 },
 ];
+
+export const WAVING_TRIANGLE_WIDTH = 532;
