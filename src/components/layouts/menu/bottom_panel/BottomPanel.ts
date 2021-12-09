@@ -41,9 +41,11 @@ export default class BottomPanel implements Renderable {
         this.avatar2.flip = true;
         this.avatar2.changeColor();
         this.selectElement(this.multiIco);
+
+        this.playInitAnim();
     }
 
-    public get canvasElements(): BottomPanelEl[] {
+    get canvasElements(): BottomPanelEl[] {
         return [
             this.avatar1,
             this.singleIco,

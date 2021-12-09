@@ -38,7 +38,7 @@ export default class HighscoresPage implements Renderable {
         }
     }
 
-    loadHighscore() {
+    private loadHighscore() {
         this.elements = [];
         const highscores = HighscoreManager.getHighscores();
 

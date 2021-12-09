@@ -1,7 +1,7 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../../constants";
-import CanvasElement from "../../../rendering/CanvasElement";
-import { TextureSpriteSheets } from "../../../rendering/constants";
-import { MENU_SECTION_TEXTURE_Y_OFFSET } from "../constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../../../../constants";
+import CanvasElement from "../../../../rendering/CanvasElement";
+import { TextureSpriteSheets } from "../../../../rendering/constants";
+import { MENU_SECTION_TEXTURE_Y_OFFSET } from "../../constants";
 
 export default class MainBackground extends CanvasElement {
     position = {

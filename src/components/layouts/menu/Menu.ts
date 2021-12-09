@@ -25,10 +25,6 @@ export default class Menu extends LayoutBaseImplementation {
     ) {
         super(changeLayout, keyListener);
         this.actualPage = Pages.Main;
-
-        this.bottomPanel = new BottomPanel(() => this.startGame());
-        this.mainPage = new MainPage();
-        this.highscoresPage = new HighscoresPage();
     }
 
     render() {
@@ -44,6 +40,10 @@ export default class Menu extends LayoutBaseImplementation {
     }
 
     onShow() {
+        this.bottomPanel = new BottomPanel(() => this.startGame());
+        this.mainPage = new MainPage();
+        this.highscoresPage = new HighscoresPage();
+
         this.keyListener.subscribedFunc = (e: string) =>
             this.bottomPanel.handleKeys(e);
         this.actualPage = Pages.Main;
@@ -51,10 +51,6 @@ export default class Menu extends LayoutBaseImplementation {
             () => this.changePage(),
             CHANGE_LAYOUT_TIMEOUT
         );
-        this.changePage();
-
-        // update scores in highscores
-        this.highscoresPage.loadHighscore();
 
         SoundPlayer.play(Sound.MainTheme, true);
     }
@@ -64,20 +60,21 @@ export default class Menu extends LayoutBaseImplementation {
         this.bottomPanel.clear();
 
         this.highscoresPage.clearAnimations();
+        this.mainPage.clearAnimations();
     }
 
-    changePage() {
+    private changePage() {
         this.actualPage =
             this.actualPage == Pages.Main ? Pages.Highscores : Pages.Main;
         this.bottomPanel.playInitAnim();
     }
 
-    startGame() {
+    private startGame() {
         this.prepareStoreForGame();
         this.changeLayout(Layouts.LEVEL_ANNOUNCE);
     }
 
-    prepareStoreForGame() {
+    private prepareStoreForGame() {
         store.avatarColor = this.bottomPanel.avatar1.lastColor;
         store.livesAfterLevel = BASE_PLAYER_LIVES;
         store.fuelScores = 0;

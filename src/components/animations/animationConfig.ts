@@ -17,8 +17,11 @@ import OrbitUseAnimation from "./weapons/OrbitUseAnimation";
 import PulseUseAnimation from "./weapons/PulseUseAnimation";
 import EightWayUseAnimation from "./weapons/EightWayAnimation";
 import RGunUseAnimation from "./weapons/RGunUseAnimation";
-import SymbolRedAnimation from "./general/SymbolRedAnimation";
+import SymbolRedAnimation from "./menu/SymbolRedAnimation";
 import { AnimationName } from "./animationNames";
+import MenuSubtitle1Animation from "./menu/MenuSubtitle1Animation";
+import MenuSubtitle2Animation from "./menu/MenuSubtitle2Animation";
+import MenuSubtitle3Animation from "./menu/MenuSubtitle3Animation";
 
 const animationConfig: {
     [key in AnimationName]: { class: AnimationClass; priority: number };
@@ -54,6 +57,18 @@ const animationConfig: {
     [AnimationName.EightWayUse]: { class: EightWayUseAnimation, priority: 1 },
     [AnimationName.RGunUse]: { class: RGunUseAnimation, priority: 1 },
     [AnimationName.RedSymbol]: { class: SymbolRedAnimation, priority: 1 },
+    [AnimationName.MenuSubtitle1]: {
+        class: MenuSubtitle1Animation,
+        priority: 1,
+    },
+    [AnimationName.MenuSubtitle2]: {
+        class: MenuSubtitle2Animation,
+        priority: 1,
+    },
+    [AnimationName.MenuSubtitle3]: {
+        class: MenuSubtitle3Animation,
+        priority: 1,
+    },
 };
 
 export default animationConfig;

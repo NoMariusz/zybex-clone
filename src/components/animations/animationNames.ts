@@ -18,4 +18,7 @@ export enum AnimationName {
     EightWayUse,
     RGunUse,
     RedSymbol,
+    MenuSubtitle1,
+    MenuSubtitle2,
+    MenuSubtitle3,
 }
