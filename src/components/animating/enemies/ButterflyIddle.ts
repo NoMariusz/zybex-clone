@@ -1,6 +1,6 @@
 import { Position } from "../../interfaces";
 import { AnimationName } from "../animationNames";
-import FrameAnimation from "../FrameAnimation";
+import FrameAnimation from "../utils/FrameAnimation";
 
 export default class ButterflyIddleAnimation extends FrameAnimation {
     name = AnimationName.ButterflyIddle;

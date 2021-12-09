@@ -59,8 +59,8 @@ export default class Menu extends LayoutBaseImplementation {
         clearInterval(this.changePageInterval);
         this.bottomPanel.clear();
 
-        this.highscoresPage.clearAnimations();
-        this.mainPage.clearAnimations();
+        this.highscoresPage.clear();
+        this.mainPage.clear();
     }
 
     private changePage() {

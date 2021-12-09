@@ -1,5 +1,6 @@
-import { AnimationName } from "../../../animations/animationNames";
-import Animator from "../../../animations/Animator";
+import { AnimationName } from "../../../animating/animationNames";
+import Animator from "../../../animating/Animator";
+import SafeAnimatorsStore from "../../../animating/utils/SafeAnimatorsStore";
 import { Renderable } from "../../../interfaces";
 import CanvasElement from "../../../rendering/CanvasElement";
 import Renderer from "../../../rendering/Renderer";
@@ -8,7 +9,7 @@ import Subtitle1Element from "./elements/Subtitle1Element";
 import Subtitle2Element from "./elements/Subtitle2Element";
 import Subtitle3Element from "./elements/Subtitle3Element";
 
-export default class MainPage implements Renderable {
+export default class MainPage extends SafeAnimatorsStore implements Renderable {
     static subtitlesData = [
         { class: Subtitle1Element, anim: AnimationName.MenuSubtitle1 },
         { class: Subtitle2Element, anim: AnimationName.MenuSubtitle2 },
@@ -17,9 +18,9 @@ export default class MainPage implements Renderable {
 
     background: MainBackground;
     subtitles: CanvasElement[] = [];
-    animators: Animator[] = [];
 
     constructor() {
+        super();
         this.background = new MainBackground();
         this.initSubtitleElements();
     }
@@ -47,12 +48,5 @@ export default class MainPage implements Renderable {
         const animator = new Animator(element);
         animator.startAnim(animation);
         this.animators.push(animator);
-    }
-
-    clearAnimations() {
-        for (const animator of this.animators) {
-            animator.clearAnims();
-        }
-        this.animators = [];
     }
 }

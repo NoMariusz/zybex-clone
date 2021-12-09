@@ -1,8 +1,8 @@
 import { Keys } from "../../../controls/constants";
 import pressedKeys from "../../../controls/pressedKeys";
 import { Renderable } from "../../../interfaces";
-import { AnimationName } from "../../../animations/animationNames";
-import Animator from "../../../animations/Animator";
+import { AnimationName } from "../../../animating/animationNames";
+import Animator from "../../../animating/Animator";
 
 const KEY_TO_ANIM: { [key in Keys]?: AnimationName } = {
     [Keys.UP]: AnimationName.PlayerMoveUp,

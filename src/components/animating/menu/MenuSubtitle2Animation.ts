@@ -1,6 +1,6 @@
 import { Position } from "../../interfaces";
 import { AnimationName } from "../animationNames";
-import FrameAnimation from "../FrameAnimation";
+import FrameAnimation from "../utils/FrameAnimation";
 
 export default class MenuSubtitle2Animation extends FrameAnimation {
     name = AnimationName.MenuSubtitle2;

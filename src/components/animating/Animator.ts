@@ -1,5 +1,5 @@
 import Animation from "./Animation";
-import FrameAnimation from "./FrameAnimation";
+import FrameAnimation from "./utils/FrameAnimation";
 import { AnimationName } from "./animationNames";
 import CanvasElement from "../rendering/CanvasElement";
 import animationConfig from "./animationConfig";

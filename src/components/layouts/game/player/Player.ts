@@ -15,9 +15,9 @@ import {
     whenPlayerNotHardLocked,
 } from "../utils";
 import Avatar from "./AvatarElement";
-import PlayerAnimator from "../../../animations/Animator";
+import PlayerAnimator from "../../../animating/Animator";
 import ShotManager from "./ShotManager";
-import { AnimationName } from "../../../animations/animationNames";
+import { AnimationName } from "../../../animating/animationNames";
 import WeaponsFactory from "../weapons/WeaponsFactory";
 import WeaponsManager from "./WeaponsManager";
 import PickUp from "../pickups/Pickup";

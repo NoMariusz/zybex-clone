@@ -1,6 +1,7 @@
 import { SCORE_ELEMENTS_COUNT } from "../../../../constants";
-import { AnimationName } from "../../../animations/animationNames";
-import Animator from "../../../animations/Animator";
+import { AnimationName } from "../../../animating/animationNames";
+import Animator from "../../../animating/Animator";
+import SafeAnimatorsStore from "../../../animating/utils/SafeAnimatorsStore";
 import HighscoreManager from "../../../highscores/HighscoreManager";
 import { Renderable } from "../../../interfaces";
 import {
@@ -20,13 +21,16 @@ import {
 } from "../constants";
 import HighscoresBackground from "./HighscoresBackground";
 
-export default class HighscoresPage implements Renderable {
+export default class HighscoresPage
+    extends SafeAnimatorsStore
+    implements Renderable
+{
     background: HighscoresBackground;
 
     elements: SymbolElement[];
-    animators: Animator[] = [];
 
     constructor() {
+        super();
         this.background = new HighscoresBackground();
         this.loadHighscore();
     }
@@ -108,12 +112,5 @@ export default class HighscoresPage implements Renderable {
         const animator = new Animator(el);
         animator.startAnim(AnimationName.RedSymbol);
         this.animators.push(animator);
-    }
-
-    clearAnimations() {
-        for (const animator of this.animators) {
-            animator.clearAnims();
-        }
-        this.animators = [];
     }
 }

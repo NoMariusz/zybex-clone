@@ -1,7 +1,7 @@
 import { Position } from "../../../interfaces";
 import { TextureSpriteSheets } from "../../../rendering/constants";
 import HideableElement from "../../../rendering/HideableElement";
-import Animator from "../../../animations/Animator";
+import Animator from "../../../animating/Animator";
 import { TOP_UI_POS_Y, Weapons, WEAPON_UI_DATA } from "../constants";
 
 export default class WeaponIcoElement extends HideableElement {

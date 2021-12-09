@@ -1,16 +1,20 @@
 import { CANVAS_WIDTH } from "../../../../constants";
-import { AnimationName } from "../../../animations/animationNames";
-import Animator from "../../../animations/Animator";
+import { AnimationName } from "../../../animating/animationNames";
+import Animator from "../../../animating/Animator";
+import SafeAnimatorsStore from "../../../animating/utils/SafeAnimatorsStore";
 import { Position, Renderable } from "../../../interfaces";
 import { WAVING_TRIANGLE_WIDTH } from "../../constants";
 import Renderer from "../../Renderer";
 import WavingTriangleElement from "./WavingTriangleElement";
 
-export default class WavingTrianglesBlock implements Renderable {
+export default class WavingTrianglesBlock
+    extends SafeAnimatorsStore
+    implements Renderable
+{
     wavingTriangles: WavingTriangleElement[] = [];
-    animators: Animator[] = [];
 
     constructor() {
+        super();
         this.intTriangles();
     }
 
@@ -37,12 +41,5 @@ export default class WavingTrianglesBlock implements Renderable {
         for (const triangle of this.wavingTriangles) {
             Renderer.render(triangle);
         }
-    }
-
-    clear() {
-        for (const animator of this.animators) {
-            animator.clearAnims();
-        }
-        this.animators = [];
     }
 }

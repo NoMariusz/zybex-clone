@@ -1,4 +1,4 @@
-import { AnimationName } from "../../../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animating/animationNames";
 import { BulletType } from "../../../../bullets/bulletsData";
 import {
     BOARD_HEIGHT,

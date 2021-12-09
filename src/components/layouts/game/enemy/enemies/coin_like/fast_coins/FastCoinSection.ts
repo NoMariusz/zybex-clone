@@ -1,4 +1,4 @@
-import { AnimationName } from "../../../../../../animations/animationNames";
+import { AnimationName } from "../../../../../../animating/animationNames";
 import { BOARD_SCROLL_SPEED } from "../../../../constants";
 import EnemySection from "../../../EnemySection";
 import CoinElement from "../CoinElement";
