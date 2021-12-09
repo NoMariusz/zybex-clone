@@ -6,9 +6,10 @@ interface BulletData {
     damage: number;
 }
 
+const ORBIT_DAMAGE = 35;
 const EIGHT_WAY_DAMAGE = 23;
 const PULSE_DAMAGE = 20;
-const RGUN_DAMAGE = 30;
+const RGUN_DAMAGE = 15;
 
 export enum BulletType {
     Enemy,
@@ -76,7 +77,7 @@ const bulletData: { [key in BulletType]: BulletData } = {
             width: 33,
             height: 34,
         },
-        damage: 35,
+        damage: ORBIT_DAMAGE,
     },
     [BulletType.Pulse1]: {
         texture_offset: {
