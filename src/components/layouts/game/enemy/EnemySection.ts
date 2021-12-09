@@ -92,9 +92,13 @@ export default abstract class EnemySection
             y: this.position.y + this.size.height / 2 - bullet.size.height / 2,
         };
 
-        SoundPlayer.play(Sound.EnemyShot);
+        this.playShotSound();
 
         this.bullets.push(bullet);
+    }
+
+    playShotSound() {
+        SoundPlayer.play(Sound.EnemyShot);
     }
 
     makeBullet() {

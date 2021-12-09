@@ -14,9 +14,11 @@ export default class WormSection extends EnemySection {
     shotTimerMs: number;
 
     moveIterator: number;
+    index: number;
 
     constructor(index: number) {
         super();
+        this.index = index;
         this.moveIterator = (-index * Math.PI) / 10;
         this.hp = WORM_HP;
         // make element
@@ -47,5 +49,12 @@ export default class WormSection extends EnemySection {
                 BOARD_SCROLL_SPEED / 3,
         };
         this.moveIterator += Math.PI / 30;
+    }
+
+    playShotSound() {
+        /* override parrent function to only middle section can play shot sound
+        so that sound shouldn't ovelapping self */
+        if (this.index == Math.round(Worm.sectionCount / 2))
+            super.playShotSound();
     }
 }
