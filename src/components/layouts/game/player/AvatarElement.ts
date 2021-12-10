@@ -1,6 +1,6 @@
 import { AVATAR_COLORS, CANVAS_HEIGHT } from "../../../../constants";
 import store from "../../store";
-import { COLOR_TO_GAME_AVATAR_Y } from "../constants";
+import { COLOR_TO_GAME_AVATAR_Y, PlayerType } from "../constants";
 import { PlayerFrames } from "./playerFrames";
 import { TextureSpriteSheets } from "../../../rendering/constants";
 import CanvasElement from "../../../rendering/CanvasElement";
@@ -21,10 +21,16 @@ export default class AvatarElement extends CanvasElement {
         height: 67,
     };
 
+    color: AVATAR_COLORS;
+
     texture = TextureSpriteSheets.Main;
 
-    loadColor() {
-        // load avatar color from store
-        this.texture_offset.y = COLOR_TO_GAME_AVATAR_Y[store.avatarColor];
+    loadColor(playerType: PlayerType) {
+        this.color = store.avatarColors[playerType];
+        this.loadBaseColor();
+    }
+
+    loadBaseColor() {
+        this.texture_offset.y = COLOR_TO_GAME_AVATAR_Y[this.color];
     }
 }

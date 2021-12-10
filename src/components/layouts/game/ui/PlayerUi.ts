@@ -3,6 +3,7 @@ import { Renderable } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
     BOTTOM_UI_POS_Y,
+    PlayerType,
     SCORE_ELEMENTS_OFFSET,
     Weapons,
     WEAPON_UI_DATA,
@@ -18,8 +19,6 @@ import { SMALL_SYMBOL_SIZE, SymbolsTypes } from "../../../rendering/constants";
 
 export default class PlayerUi implements Renderable {
     /* Display player status informations on game ui */
-    player: Player;
-    playerNum: number;
     private activeWeaponType: Weapons;
 
     //elements
@@ -29,12 +28,6 @@ export default class PlayerUi implements Renderable {
     weaponName: WeaponNameElement;
     weaponLevel: WeaponLevelElement;
     weaponIcos: WeaponIcoElement[] = [];
-
-    constructor(player: Player, playerNum: number) {
-        this.playerNum = playerNum;
-        this.player = player;
-        this.initElements();
-    }
 
     get canvasElements() {
         return [
@@ -47,16 +40,9 @@ export default class PlayerUi implements Renderable {
         ];
     }
 
-    render() {
-        this.updateUiData();
-        for (const el of this.canvasElements) {
-            if (el) Renderer.render(el);
-        }
-        this.checkIfWeaponChanged();
-    }
-
-    initElements() {
-        this.playerTag = new PlayerTagElement(this.playerNum);
+    constructor(private player: Player) {
+        // init elements
+        this.playerTag = new PlayerTagElement(this.player.playerType);
         this.playerTag.position.x = this.getBottomUiOffset() + 50;
         this.hpNumber = new SymbolElement(
             {
@@ -69,7 +55,16 @@ export default class PlayerUi implements Renderable {
         this.weaponName = new WeaponNameElement();
         this.weaponName.position.x = this.getBottomUiOffset() + 420;
 
-        if (this.playerNum == 1) this.initOnlyP1Elements();
+        if (this.player.playerType == PlayerType.Player1)
+            this.initOnlyP1Elements();
+    }
+
+    render() {
+        this.updateUiData();
+        for (const el of this.canvasElements) {
+            if (el) Renderer.render(el);
+        }
+        this.checkIfWeaponChanged();
     }
 
     initScoreElements() {
@@ -105,7 +100,8 @@ export default class PlayerUi implements Renderable {
     }
 
     updateUiData() {
-        this.hpNumber.changeSymbol(this.player.lives);
+        const lives = this.player.lives < 0 ? 0 : this.player.lives;
+        this.hpNumber.changeSymbol(lives);
         loadNumberToElements(this.scoreElements, this.player.points);
         this.weaponName.change(this.player.weapon.type);
         this.weaponLevel?.change(this.player.weapon.level);
@@ -126,7 +122,7 @@ export default class PlayerUi implements Renderable {
     }
 
     getBottomUiOffset() {
-        return (CANVAS_WIDTH / 2) * (this.playerNum - 1);
+        return (CANVAS_WIDTH / 2) * this.player.playerType;
     }
 
     // playe icons animation

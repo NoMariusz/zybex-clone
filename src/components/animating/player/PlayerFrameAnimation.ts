@@ -1,5 +1,4 @@
-import { COLOR_TO_GAME_AVATAR_Y } from "../../layouts/game/constants";
-import store from "../../layouts/store";
+import AvatarElement from "../../layouts/game/player/AvatarElement";
 import FrameAnimation from "../utils/FrameAnimation";
 
 export default abstract class PlayerFrameAnimation extends FrameAnimation {
@@ -7,8 +6,12 @@ export default abstract class PlayerFrameAnimation extends FrameAnimation {
 
     get textures() {
         return this.texturesX.map((e) => ({
+            ...this.element.texture_offset,
             x: e,
-            y: COLOR_TO_GAME_AVATAR_Y[store.avatarColor],
         }));
+    }
+
+    end() {
+        (this.element as AvatarElement).loadBaseColor();
     }
 }

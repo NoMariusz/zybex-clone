@@ -92,7 +92,11 @@ export default class SaveScore extends LayoutBaseImplementation {
             this.scoreElements.push(el);
         }
 
-        loadNumberToElements(this.scoreElements, store.levelScore);
+        loadNumberToElements(this.scoreElements, this.getScore());
+    }
+
+    getScore() {
+        return store.levelScores.reduce((prev, next) => prev + next);
     }
 
     // actions
@@ -139,7 +143,7 @@ export default class SaveScore extends LayoutBaseImplementation {
         const name = this.symbolsData.map((e) => e.value).join("");
         HighscoreManager.saveHighscore({
             playerName: name,
-            score: store.levelScore,
+            score: this.getScore(),
         });
     }
 

@@ -20,8 +20,8 @@ import { SYMBOL_ELEMENT_WIDTH } from "../../rendering/constants";
 
 export default class LevelSummary extends LayoutBaseImplementation {
     active = false;
-    score: number;
-    fuelCount: number;
+    scores: number[];
+    fuelCounts: number[];
 
     scoreElements: SymbolElement[];
     livesElements: SymbolElement[];
@@ -68,8 +68,8 @@ export default class LevelSummary extends LayoutBaseImplementation {
 
     goToNextLevel() {
         if (this.active) this.calcScore(true);
-        store.levelScore = this.score;
-        store.fuelScores = 0;
+        store.levelScores = this.scores;
+        store.fuelScores = [0, 0];
         this.changeLayout(Layouts.LEVEL_ANNOUNCE);
     }
 
@@ -101,21 +101,28 @@ export default class LevelSummary extends LayoutBaseImplementation {
 
     async calcScore(force = false) {
         // load statistics from store
-        this.score = store.levelScore;
-        this.fuelCount = store.fuelScores;
-
-        while (this.active && this.fuelCount > 0) {
-            if (!force) await sleep(300);
-            this.fuelCount--;
-            this.score += 100;
-            SoundPlayer.play(Sound.CalculatePoints);
+        this.scores = store.levelScores;
+        this.fuelCounts = store.fuelScores;
+        while (this.active && this.fuelCounts.some((n) => n > 0)) {
+            for (let i = 0; i < this.scores.length; i++) {
+                if (!force) await sleep(300);
+                this.fuelCounts[i]--;
+                this.scores[i] += 100;
+                SoundPlayer.play(Sound.CalculatePoints);
+            }
         }
         this.active = false;
         SoundPlayer.play(Sound.CalculatePointsEnd);
     }
 
     refreshNumbers() {
-        loadNumberToElements(this.scoreElements, this.score);
-        loadNumberToElements(this.livesElements, this.fuelCount);
+        loadNumberToElements(
+            this.scoreElements,
+            this.scores.reduce((p, n) => p + n)
+        );
+        loadNumberToElements(
+            this.livesElements,
+            this.fuelCounts.reduce((p, n) => p + n)
+        );
     }
 }

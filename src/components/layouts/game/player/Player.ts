@@ -1,9 +1,11 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
+    BASE_PLAYER_LIVES,
     BOARD_HEIGHT,
     ENTRANCE_MAX_DISTANCE,
     PlayerStatuses,
+    PlayerType,
     PLAYER_IMMORTAL,
     PLAYER_IMMORTALITY_TIME,
     SCORE_FOR_ENEMY,
@@ -27,7 +29,6 @@ import { sleep } from "../../../utils";
 import store from "../../store";
 import SoundPlayer from "../../../sounds/SoundPlayer";
 import { Sound } from "../../../sounds/constants";
-import Weapon from "../weapons/Weapon";
 import MoveManager from "./MoveManager";
 
 export default class Player extends SafeTimeoutable implements Renderable {
@@ -42,14 +43,12 @@ export default class Player extends SafeTimeoutable implements Renderable {
     moveManager: MoveManager;
 
     // properties in game
-    lives: number = store.livesAfterLevel;
-    points: number = store.levelScore;
+    lives: number;
+    points: number;
     immortality = false;
     private status: PlayerStatuses;
 
     size: Size;
-
-    dieCallbak: () => void;
 
     // make real position private to set pos only by setter
     // that updates position in other subclassses
@@ -75,24 +74,36 @@ export default class Player extends SafeTimeoutable implements Renderable {
         return this.weaponManager.weapons;
     }
 
-    constructor(dieCallbak: () => void = () => {}) {
+    constructor(
+        private dieCallback: () => boolean,
+        public playerType: PlayerType
+    ) {
         super();
         this.avatar = new Avatar();
 
         this.animator = new PlayerAnimator(this.avatar);
 
-        this.dieCallbak = dieCallbak;
-
         this.shotManager = new ShotManager(this._position);
-        this.weaponManager = new WeaponsManager(this.shotManager);
-        this.moveAnimationManager = new MoveAnimationManager(this.animator);
+        this.weaponManager = new WeaponsManager(
+            this.shotManager,
+            this.playerType
+        );
         this.moveManager = new MoveManager(
             this.position,
-            (p: Position) => (this.position = p)
+            (p: Position) => (this.position = p),
+            this.playerType
+        );
+        this.moveAnimationManager = new MoveAnimationManager(
+            this.animator,
+            this.playerType
         );
 
         this.size = this.avatar.size;
         this.updateAvatar();
+
+        // get from store
+        this.lives = store.livesAfterLevel[this.playerType];
+        this.points = store.levelScores[this.playerType];
     }
 
     //lifecycle
@@ -100,7 +111,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     onStart() {
         this.immortality = true;
         this.tempLock();
-        this.avatar.loadColor();
+        this.avatar.loadColor(this.playerType);
         this.animator.startAnim(AnimationName.PlayerIddle);
 
         this.rebirth();
@@ -115,7 +126,14 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     onDie() {
         this.immortality = true;
-        this.dieCallbak();
+        const gameEnd = this.dieCallback();
+        if (!gameEnd) {
+            const time = this.animator.startAnim(AnimationName.PlayerDeath);
+            this.makeSafeTimeout(() => {
+                this.animator.endAnim(AnimationName.PlayerDeath);
+                this.hideOutsideBorder();
+            }, time);
+        }
     }
 
     onEnemyDie() {
@@ -197,10 +215,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
 
     @whenPlayerNotHardLocked
     private async rebirth() {
-        this.position = {
-            x: -this.size.width,
-            y: BOARD_HEIGHT / 2,
-        };
+        this.hideOutsideBorder();
 
         this.shotManager.startShot();
 
@@ -234,6 +249,13 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.immortality = false;
     }
 
+    private hideOutsideBorder() {
+        this.position = {
+            x: -this.size.width,
+            y: BOARD_HEIGHT / 2,
+        };
+    }
+
     // weapons
 
     changeWeapon() {
@@ -255,7 +277,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
     }
 
     private onFuelPickup() {
-        store.fuelScores++;
+        store.fuelScores[this.playerType] =
+            store.fuelScores[this.playerType] || 0 + 1;
         SoundPlayer.play(Sound.Pickup);
     }
 

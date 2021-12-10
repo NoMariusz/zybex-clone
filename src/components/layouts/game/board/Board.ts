@@ -20,51 +20,51 @@ import Bullet from "../bullets/Bullet";
 export default class Board implements Renderable {
     /* Handle board placed things, relations between enemy and player,
   like collisions, or calculating shot attack speed */
-    player: Player;
 
     playfieldManager: PlayfieldManager;
     enemyManager: EnemyManager;
     collidableCollider: CollidableCollider;
     pickupsManager: PickupsManager;
 
-    constructor(player: Player, enemyManager: EnemyManager) {
-        this.player = player;
-        this.playfieldManager = new PlayfieldManager(player);
+    constructor(private players: Player[], enemyManager: EnemyManager) {
+        this.playfieldManager = new PlayfieldManager(players);
         this.enemyManager = enemyManager;
         this.collidableCollider = new CollidableCollider();
         this.pickupsManager = new PickupsManager();
     }
 
     render() {
-        this.restrictPlayerMove();
+        for (const player of this.players) {
+            this.restrictPlayerMove(player);
+            this.modifyAttackSpeed(player);
+        }
         this.playfieldManager.render();
         this.pickupsManager.render();
         this.collidePlayer();
         this.collideEnemies();
-        this.modifyAttackSpeed();
     }
 
     //player moves
 
-    private restrictPlayerMove() {
+    private restrictPlayerMove(player: Player) {
         // not move player when is locked
-        if (this.player.locked) {
+        if (player.locked) {
             return;
         }
         // restrict player move to board area
-        const restrictedPos = this.getRestrictedPlayerPos(this.player.position);
-        this.player.position = restrictedPos;
+        const restrictedPos = this.getRestrictedPlayerPos(player);
+        player.position = restrictedPos;
     }
 
-    private getRestrictedPlayerPos(pos: Position) {
+    private getRestrictedPlayerPos(player: Player) {
         return {
             x: Math.min(
-                Math.max(pos.x, 0),
-                BOARD_WIDTH - this.player.size.width
+                Math.max(player.position.x, 0),
+                BOARD_WIDTH - player.size.width
             ),
             y: Math.min(
-                Math.max(pos.y, 0),
-                BOARD_HEIGHT - this.player.size.height
+                Math.max(player.position.y, 0),
+                BOARD_HEIGHT - player.size.height
             ),
         };
     }
@@ -72,28 +72,30 @@ export default class Board implements Renderable {
     // not playfield collisions
 
     collidePlayer() {
-        this.collidePlayerWithEnemies();
-        this.collidePlayerWithPickups();
-    }
-
-    collidePlayerWithEnemies() {
-        for (const enemyColl of this.enemyManager.collidablesWithPlayer) {
-            const collide = this.collidableCollider.checkCollision(
-                enemyColl,
-                this.player
-            );
-            if (collide) this.player.takeDamage();
+        for (const player of this.players) {
+            this.collidePlayerWithEnemies(player);
+            this.collidePlayerWithPickups(player);
         }
     }
 
-    collidePlayerWithPickups() {
+    collidePlayerWithEnemies(player: Player) {
+        for (const enemyColl of this.enemyManager.collidablesWithPlayer) {
+            const collide = this.collidableCollider.checkCollision(
+                enemyColl,
+                player
+            );
+            if (collide) player.takeDamage();
+        }
+    }
+
+    collidePlayerWithPickups(player: Player) {
         for (const pickup of this.pickupsManager.pickups) {
             const collide = this.collidableCollider.checkCollision(
                 pickup,
-                this.player
+                player
             );
             if (collide) {
-                this.player.onPickup(pickup);
+                player.onPickup(pickup);
                 this.pickupsManager.clearPickup(pickup);
             }
         }
@@ -102,34 +104,40 @@ export default class Board implements Renderable {
     collideEnemies() {
         if (this.enemyManager.activeEnemy == null) return;
 
-        for (const bullet of this.player.shotManager.bullets) {
-            let destroyBullet = false;
+        for (const player of this.players) {
+            for (const bullet of player.shotManager.bullets) {
+                let destroyBullet = false;
 
-            for (const enemyCollidable of this.enemyManager
-                .collidablesWithPlayerBullets) {
-                const collide = this.collidableCollider.checkCollision(
-                    bullet,
-                    enemyCollidable
-                );
-                if (collide) {
-                    if (enemyCollidable instanceof EnemySection)
-                        this.onEnemyCollide(enemyCollidable, bullet);
-                    destroyBullet = true;
+                for (const enemyCollidable of this.enemyManager
+                    .collidablesWithPlayerBullets) {
+                    const collide = this.collidableCollider.checkCollision(
+                        bullet,
+                        enemyCollidable
+                    );
+                    if (collide) {
+                        if (enemyCollidable instanceof EnemySection)
+                            this.onEnemyCollide(
+                                enemyCollidable,
+                                bullet,
+                                player
+                            );
+                        destroyBullet = true;
+                    }
                 }
-            }
-            // destroy bullet after check collisions with all collidables
-            // so bullet can hit simultaneously many enemy sections
-            if (destroyBullet) {
-                bullet.destroy();
+                // destroy bullet after check collisions with all collidables
+                // so bullet can hit simultaneously many enemy sections
+                if (destroyBullet) {
+                    bullet.destroy();
+                }
             }
         }
     }
 
-    onEnemyCollide(enemySection: EnemySection, bullet: Bullet) {
+    onEnemyCollide(enemySection: EnemySection, bullet: Bullet, player: Player) {
         enemySection.takeDamage(bullet.damage);
         // detect if enemy died after got shoot
         if (!enemySection.live) {
-            this.player.onEnemyDie();
+            player.onEnemyDie();
             this.pickupsManager.onEnemyDie(
                 enemySection.position,
                 enemySection.posiiblePickup
@@ -139,53 +147,56 @@ export default class Board implements Renderable {
 
     // calculating attack speed multiplier
 
-    modifyAttackSpeed() {
+    modifyAttackSpeed(player: Player) {
         // don't modify attack speed for 8way weapon
         const speed =
-            this.player.weapon.type == Weapons.EightWay
+            player.weapon.type == Weapons.EightWay
                 ? 1
-                : this.calcAttackSpeed();
-        this.player.shotManager.shotSpeedMultiplier = speed;
+                : this.calcAttackSpeed(player);
+        player.shotManager.shotSpeedMultiplier = speed;
     }
 
-    private getEnemiesOnLine() {
+    private getEnemiesOnLine(player: Player) {
         return this.enemyManager.activeSections.filter(
             (e) =>
                 Math.abs(
                     e.position.y +
                         e.size.height / 2 -
-                        (this.player.position.y + this.player.size.height / 2)
+                        (player.position.y + player.size.height / 2)
                 ) < 25
         );
     }
 
-    private calcAttackSpeed() {
-        const enemiesOnLine = this.getEnemiesOnLine();
+    private calcAttackSpeed(player: Player) {
+        const enemiesOnLine = this.getEnemiesOnLine(player);
         if (enemiesOnLine.length <= 0) {
-            return this.calcAttackSpeedForRightEdge();
+            return this.calcAttackSpeedForRightEdge(player);
         }
 
-        return this.calcAttackSpeedFromEnemies(enemiesOnLine);
+        return this.calcAttackSpeedFromEnemies(enemiesOnLine, player);
     }
 
-    private calcAttackSpeedFromEnemies(enemiesOnLine: EnemySection[]) {
+    private calcAttackSpeedFromEnemies(
+        enemiesOnLine: EnemySection[],
+        player: Player
+    ) {
         const minDistance = enemiesOnLine.reduce(
             (prev, current) =>
-                prev <= this.calcDistance(current)
+                prev <= this.calcDistance(current, player)
                     ? prev
-                    : this.calcDistance(current),
+                    : this.calcDistance(current, player),
             Infinity
         );
         return this.calcAttackSpeedFromDistance(minDistance);
     }
 
-    private calcAttackSpeedForRightEdge() {
-        const distanceToRight = BOARD_WIDTH - this.player.position.x;
+    private calcAttackSpeedForRightEdge(player: Player) {
+        const distanceToRight = BOARD_WIDTH - player.position.x;
         return this.calcAttackSpeedFromDistance(distanceToRight);
     }
 
-    private calcDistance(enemy: EnemySection) {
-        return Math.abs(enemy.position.x - this.player.position.x);
+    private calcDistance(enemy: EnemySection, player: Player) {
+        return Math.abs(enemy.position.x - player.position.x);
     }
 
     private calcAttackSpeedFromDistance(distance: number) {

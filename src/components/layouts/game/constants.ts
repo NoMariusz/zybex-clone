@@ -13,6 +13,19 @@ export const BOARD_WIDTH = CANVAS_WIDTH;
 
 // player
 
+export enum PlayerType {
+    Player1 = 0,
+    Player2 = 1,
+}
+
+export enum PlayerAction {
+    MoveLeft,
+    MoveRight,
+    MoveUp,
+    MoveDown,
+    ChangeWeapon,
+}
+
 export enum PlayerStatuses {
     Playing, // player is controling a player
     TempLocked, // player lock player controls
@@ -22,7 +35,7 @@ export enum PlayerStatuses {
 // disable player loosing hp for testing purpouses
 export const PLAYER_IMMORTAL = false;
 
-export const BASE_PLAYER_LIVES = 7;
+export const BASE_PLAYER_LIVES = 2;
 export const PLAYER_SPEED = 8;
 export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
 

@@ -11,7 +11,6 @@ export default class EnemyManager extends BulletClearer implements Renderable {
     private spawnDataIndex: number;
     activeEnemy: Enemy | null;
     bullets: Bullet[];
-    player: Player;
 
     enemiesEndedCallback: () => void;
 
@@ -29,9 +28,8 @@ export default class EnemyManager extends BulletClearer implements Renderable {
         return this.activeEnemy == null ? [] : [...this.activeSections];
     }
 
-    constructor(player: Player, enemiesEndedCallback: () => void) {
+    constructor(private players: Player[], enemiesEndedCallback: () => void) {
         super();
-        this.player = player;
         this.enemiesEndedCallback = enemiesEndedCallback;
     }
 
@@ -72,7 +70,7 @@ export default class EnemyManager extends BulletClearer implements Renderable {
             spawnInfo.initialPosition,
             () => this.onEnemyDie(),
             this.bullets,
-            this.player,
+            this.players[0],
             spawnInfo.pickups
         );
         this.activeEnemy = enemy;

@@ -1,7 +1,9 @@
 import { AVATAR_COLORS } from "../../../constants";
 import { Position } from "../../interfaces";
 import { COLOR_TO_GAME_AVATAR_Y } from "../../layouts/game/constants";
+import AvatarElement from "../../layouts/game/player/AvatarElement";
 import { PlayerFrames } from "../../layouts/game/player/playerFrames";
+import PlayerAvatar from "../../layouts/menu/bottom_panel/items/PlayerAvatar";
 import store from "../../layouts/store";
 import CanvasElement from "../../rendering/CanvasElement";
 import Animation from "../Animation";
@@ -15,7 +17,6 @@ export default class ImmortalityAnimation implements Animation {
     interval: NodeJS.Timer;
 
     element: CanvasElement;
-    baseTexture: Position;
 
     colorQueue = [AVATAR_COLORS.red, AVATAR_COLORS.green, AVATAR_COLORS.blue];
     xQueue = [PlayerFrames.Base, PlayerFrames.Iddle2];
@@ -26,15 +27,15 @@ export default class ImmortalityAnimation implements Animation {
     }
 
     start() {
-        this.baseTexture = this.element.texture_offset;
         this.animationIdx = 0;
     }
 
     end() {
         this.element.texture_offset = {
+            ...this.element.texture_offset,
             x: PlayerFrames.Base,
-            y: COLOR_TO_GAME_AVATAR_Y[store.avatarColor],
         };
+        (this.element as AvatarElement).loadBaseColor();
     }
 
     tick() {

@@ -1,4 +1,4 @@
-import { MAX_IPLEMENTED_WEAPON_LEVEL, Weapons } from "../constants";
+import { MAX_IPLEMENTED_WEAPON_LEVEL, PlayerType, Weapons } from "../constants";
 import Weapon from "../weapons/Weapon";
 import ShotManager from "./ShotManager";
 import WeaponsFactory from "../weapons/WeaponsFactory";
@@ -17,8 +17,14 @@ export default class WeaponManager {
         this._weapon = val;
         this.shotManager.weapon = val;
     }
+    get storeWaponData() {
+        return store.weaponsDatas[this.playerType];
+    }
+    set storeWaponData(val: { [key in Weapons]?: number }) {
+        store.weaponsDatas[this.playerType] = val;
+    }
 
-    constructor(shotManager: ShotManager) {
+    constructor(shotManager: ShotManager, private playerType: PlayerType) {
         this.shotManager = shotManager;
         this.weaponFactory = new WeaponsFactory();
 
@@ -28,7 +34,7 @@ export default class WeaponManager {
     // loading weapons
 
     private loadWeapons() {
-        if (!store.weaponsData[Weapons.Orbit]) {
+        if (!this.storeWaponData[Weapons.Orbit]) {
             this.loadBaseWapons();
         } else {
             this.loadStoreWapons();
@@ -46,11 +52,11 @@ export default class WeaponManager {
     private loadStoreWapons() {
         this.weapons = [];
 
-        for (const weaponKey in store.weaponsData) {
+        for (const weaponKey in this.storeWaponData) {
             const weaponType = parseInt(weaponKey) as Weapons;
 
             const weapon = this.weaponFactory.create(weaponType);
-            weapon.level = store.weaponsData[weaponType] || 1;
+            weapon.level = this.storeWaponData[weaponType] || 1;
 
             this.weapons.push(weapon);
         }
@@ -59,9 +65,9 @@ export default class WeaponManager {
     // save
 
     saveWeapons() {
-        store.weaponsData = {};
+        this.storeWaponData = {};
         for (const weapon of this.weapons) {
-            store.weaponsData[weapon.type] = weapon.level;
+            this.storeWaponData[weapon.type] = weapon.level;
         }
     }
 

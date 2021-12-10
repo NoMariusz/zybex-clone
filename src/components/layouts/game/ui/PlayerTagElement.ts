@@ -1,7 +1,6 @@
-import { Focusable, Position } from "../../../interfaces";
+import { Position } from "../../../interfaces";
 import CanvasElement from "../../../rendering/CanvasElement";
-import { TextureSpriteSheets } from "../../../rendering/constants";
-import { BOTTOM_UI_POS_Y, PLAYER_TAGS } from "../constants";
+import { BOTTOM_UI_POS_Y, PlayerType, PLAYER_TAGS } from "../constants";
 
 export default class PlayerTagElement extends CanvasElement {
     texture_offset: Position;
@@ -16,8 +15,8 @@ export default class PlayerTagElement extends CanvasElement {
         height: 40,
     };
 
-    constructor(playerNum: number) {
+    constructor(playerType: PlayerType) {
         super();
-        this.texture_offset = PLAYER_TAGS[playerNum - 1];
+        this.texture_offset = PLAYER_TAGS[playerType];
     }
 }

@@ -3,6 +3,7 @@ import Renderer from "../../../rendering/Renderer";
 import { areEqual, clampValue } from "../../../utils";
 import {
     BOARD_WIDTH,
+    PlayerType,
     PLAYER_SHIP_DISTANCE,
     PLAYER_SHIP_SPEED,
     PLAYER_WAITING_FOR_SHIP_POSITION,
@@ -23,7 +24,6 @@ export default class ShipManager implements Renderable {
     shipElement: ShipElement;
     endCallback: () => void;
     stage: Stages;
-    player: Player;
 
     private _position: Position = {
         x: 0,
@@ -37,16 +37,17 @@ export default class ShipManager implements Renderable {
         this.shipElement.position = translateToCanvasPos(newPos);
     }
 
-    constructor(player: Player) {
+    constructor(private players: Player[]) {
         this.stage = Stages.Waiting;
         this.shipElement = new ShipElement();
-        this.player = player;
     }
 
     startScene(endCallback: () => void) {
         this.endCallback = endCallback;
 
-        this.player.lock();
+        for (const player of this.players) {
+            player.lock();
+        }
         this.position = {
             x: 0,
             y: PLAYER_WAITING_FOR_SHIP_POSITION.y - PLAYER_SHIP_DISTANCE,
@@ -69,7 +70,7 @@ export default class ShipManager implements Renderable {
                 break;
             case Stages.MovingBoth:
                 this.moveShip();
-                this.movePlayer();
+                this.movePlayers();
                 Renderer.render(this.shipElement);
                 break;
             default:
@@ -85,25 +86,29 @@ export default class ShipManager implements Renderable {
         };
     }
 
-    private movePlayer() {
-        this.player.position = {
-            ...this.player.position,
-            x: this.player.position.x + PLAYER_SHIP_SPEED,
-        };
+    private movePlayers() {
+        for (const player of this.players) {
+            player.position = {
+                ...player.position,
+                x: player.position.x + PLAYER_SHIP_SPEED,
+            };
+        }
     }
 
     private positionPlayer() {
-        for (const coordinate of ["x", "y"] as const) {
-            const offset = clampValue(
-                PLAYER_WAITING_FOR_SHIP_POSITION[coordinate] -
-                    this.player.position[coordinate],
-                -PLAYER_SHIP_SPEED,
-                PLAYER_SHIP_SPEED
-            );
-            this.player.position = {
-                ...this.player.position,
-                [coordinate]: this.player.position[coordinate] + offset,
-            };
+        for (const player of this.players) {
+            for (const coordinate of ["x", "y"] as const) {
+                const offset = clampValue(
+                    this.waitingPositionForPlayerType(player)[coordinate] -
+                        player.position[coordinate],
+                    -PLAYER_SHIP_SPEED,
+                    PLAYER_SHIP_SPEED
+                );
+                player.position = {
+                    ...player.position,
+                    [coordinate]: player.position[coordinate] + offset,
+                };
+            }
         }
     }
 
@@ -111,21 +116,23 @@ export default class ShipManager implements Renderable {
         switch (this.stage) {
             case Stages.PositionPlayer:
                 if (
-                    areEqual(
-                        this.player.position,
-                        PLAYER_WAITING_FOR_SHIP_POSITION
+                    this.players.every((player) =>
+                        areEqual(
+                            player.position,
+                            this.waitingPositionForPlayerType(player)
+                        )
                     )
                 ) {
                     this.stage = Stages.MovingShip;
                 }
                 break;
             case Stages.MovingShip:
-                if (this.shipElement.position.x > this.player.position.x) {
+                if (this.shipElement.position.x > this.players[0].position.x) {
                     this.stage = Stages.MovingBoth;
                 }
                 break;
             case Stages.MovingBoth:
-                if (this.player.position.x > BOARD_WIDTH + 100) {
+                if (this.players[0].position.x > BOARD_WIDTH + 100) {
                     this.stage = Stages.Ended;
                     this.endCallback();
                 }
@@ -133,5 +140,14 @@ export default class ShipManager implements Renderable {
             default:
                 break;
         }
+    }
+
+    private waitingPositionForPlayerType(player: Player) {
+        return {
+            ...PLAYER_WAITING_FOR_SHIP_POSITION,
+            x:
+                PLAYER_WAITING_FOR_SHIP_POSITION.x +
+                player.playerType * player.avatar.size.width,
+        };
     }
 }

@@ -75,10 +75,14 @@ export default class Menu extends LayoutBaseImplementation {
     }
 
     private prepareStoreForGame() {
-        store.avatarColor = this.bottomPanel.avatar1.lastColor;
-        store.livesAfterLevel = BASE_PLAYER_LIVES;
-        store.fuelScores = 0;
-        store.levelScore = 0;
-        store.weaponsData = {};
+        store.avatarColors = [
+            this.bottomPanel.avatar1.lastColor,
+            this.bottomPanel.avatar2.lastColor,
+        ];
+        store.livesAfterLevel = [BASE_PLAYER_LIVES, BASE_PLAYER_LIVES];
+        store.fuelScores = [0, 0];
+        store.levelScores = [0, 0];
+        store.weaponsDatas = [{}, {}];
+        store.twoPlayersMode = this.bottomPanel.multiIco.isSelected;
     }
 }

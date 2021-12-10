@@ -2,20 +2,22 @@ import { AVATAR_COLORS } from "../../constants";
 import { Weapons } from "./game/constants";
 
 interface storeData {
-    avatarColor: AVATAR_COLORS;
-    levelScore: number;
-    livesAfterLevel: number;
-    fuelScores: number;
-    weaponsData: { [key in Weapons]?: number };
+    avatarColors: AVATAR_COLORS[];
+    levelScores: number[];
+    livesAfterLevel: number[];
+    fuelScores: number[];
+    weaponsDatas: { [key in Weapons]?: number }[];
+    twoPlayersMode: boolean;
 }
 
 /* Simple store, storing all configuration needed between layouts */
 const store: storeData = {
-    avatarColor: AVATAR_COLORS.red,
-    levelScore: 0,
-    livesAfterLevel: 0,
-    fuelScores: 0,
-    weaponsData: {},
+    avatarColors: [AVATAR_COLORS.red, AVATAR_COLORS.red],
+    levelScores: [0, 0],
+    livesAfterLevel: [0, 0],
+    fuelScores: [0, 0],
+    weaponsDatas: [{}, {}],
+    twoPlayersMode: false,
 };
 
 export default store;
