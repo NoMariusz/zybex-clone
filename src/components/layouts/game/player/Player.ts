@@ -28,6 +28,7 @@ import store from "../../store";
 import SoundPlayer from "../../../sounds/SoundPlayer";
 import { Sound } from "../../../sounds/constants";
 import Weapon from "../weapons/Weapon";
+import MoveManager from "./MoveManager";
 
 export default class Player extends SafeTimeoutable implements Renderable {
     /* Describe player in game */
@@ -38,6 +39,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
     weaponFactory: WeaponsFactory;
     weaponManager: WeaponsManager;
     moveAnimationManager: MoveAnimationManager;
+    moveManager: MoveManager;
 
     // properties in game
     lives: number = store.livesAfterLevel;
@@ -62,6 +64,7 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this._position = newPos;
         this.updateAvatar();
         this.shotManager.position = newPos;
+        this.moveManager.position = newPos;
     }
 
     // get values from managers
@@ -83,6 +86,10 @@ export default class Player extends SafeTimeoutable implements Renderable {
         this.shotManager = new ShotManager(this._position);
         this.weaponManager = new WeaponsManager(this.shotManager);
         this.moveAnimationManager = new MoveAnimationManager(this.animator);
+        this.moveManager = new MoveManager(
+            this.position,
+            (p: Position) => (this.position = p)
+        );
 
         this.size = this.avatar.size;
         this.updateAvatar();
@@ -119,6 +126,10 @@ export default class Player extends SafeTimeoutable implements Renderable {
         Renderer.render(this.avatar);
         this.shotManager.render();
         this.moveAnimationManager.render();
+        // not move player when is locked
+        if (!this.locked) {
+            this.moveManager.render();
+        }
     }
 
     // locks

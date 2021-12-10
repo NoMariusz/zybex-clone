@@ -1,7 +1,7 @@
 export enum Keys {
-  LEFT = "a",
-  RIGHT = "d",
-  UP = "w",
-  DOWN = "s",
-  ACTION = " ",
+    LEFT = "a",
+    RIGHT = "d",
+    UP = "w",
+    DOWN = "s",
+    ACTION = " ",
 }
