@@ -26,7 +26,14 @@ export default class Game extends LayoutBaseImplementation {
     player2: Player | undefined;
 
     players: Player[];
-    livePlayersCount: number;
+
+    get alivePlayers() {
+        return this.players.filter((p) => p.alive);
+    }
+
+    get livePlayersCount() {
+        return this.alivePlayers.length;
+    }
 
     constructor(
         changeLayout: (layName: Layouts) => void,
@@ -41,17 +48,17 @@ export default class Game extends LayoutBaseImplementation {
         this.player = new Player(() => this.onPlayerDie(), PlayerType.Player1);
         this.playerUi = new PlayerUi(this.player);
         this.players = [this.player];
-        this.initPlayer2Stuff();
-        this.livePlayersCount = this.players.length;
+        this.initPlayer2();
 
         this.enemyManager = new EnemyManager(this.players, () =>
             this.onAllEnemiesDies()
         );
         this.board = new Board(this.players, this.enemyManager);
-        this.shipManager = new ShipManager(this.players);
+        this.shipManager = new ShipManager();
     }
 
-    private initPlayer2Stuff() {
+    private initPlayer2() {
+        // dummy player2 only for use to ui
         let playerForUi = new Player(() => true, PlayerType.Player2);
 
         if (store.twoPlayersMode) {
@@ -93,7 +100,8 @@ export default class Game extends LayoutBaseImplementation {
         this.init();
 
         this.keyListener.subscribedFunc = (k) => this.handleKeys(k);
-        for (const player of this.players) {
+        // start game only for alive players
+        for (const player of this.alivePlayers) {
             player.onStart();
         }
         this.enemyManager.start();
@@ -109,7 +117,6 @@ export default class Game extends LayoutBaseImplementation {
 
     onPlayerDie() {
         /* @return: boolean - if player die end with gameover */
-        this.livePlayersCount--;
         if (this.livePlayersCount == 0) {
             this.gameOver();
             return true;
@@ -125,7 +132,9 @@ export default class Game extends LayoutBaseImplementation {
 
     onAllEnemiesDies() {
         // playing end level animation and change layout
-        this.shipManager.startScene(() => this.levelCompleted());
+        this.shipManager.startScene(this.alivePlayers, () =>
+            this.levelCompleted()
+        );
 
         SoundPlayer.play(Sound.LevelEnd);
     }

@@ -1,7 +1,6 @@
 import { Position, Renderable, Size } from "../../../interfaces";
 import Renderer from "../../../rendering/Renderer";
 import {
-    BASE_PLAYER_LIVES,
     BOARD_HEIGHT,
     ENTRANCE_MAX_DISTANCE,
     PlayerStatuses,
@@ -45,8 +44,8 @@ export default class Player extends SafeTimeoutable implements Renderable {
     // properties in game
     lives: number;
     points: number;
-    immortality = false;
-    private status: PlayerStatuses;
+    immortality = true;
+    private status: PlayerStatuses = PlayerStatuses.TempLocked;
 
     size: Size;
 
@@ -72,6 +71,10 @@ export default class Player extends SafeTimeoutable implements Renderable {
     }
     get weapons() {
         return this.weaponManager.weapons;
+    }
+
+    get alive() {
+        return this.lives >= 0;
     }
 
     constructor(
@@ -104,6 +107,9 @@ export default class Player extends SafeTimeoutable implements Renderable {
         // get from store
         this.lives = store.livesAfterLevel[this.playerType];
         this.points = store.levelScores[this.playerType];
+
+        // set initial position
+        this.hideOutsideBorder();
     }
 
     //lifecycle

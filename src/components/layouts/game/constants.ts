@@ -35,7 +35,7 @@ export enum PlayerStatuses {
 // disable player loosing hp for testing purpouses
 export const PLAYER_IMMORTAL = false;
 
-export const BASE_PLAYER_LIVES = 2;
+export const BASE_PLAYER_LIVES = 7;
 export const PLAYER_SPEED = 8;
 export const PLAYER_IMMORTALITY_TIME = 5 * 1000;
 

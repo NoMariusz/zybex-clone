@@ -25,6 +25,8 @@ export default class ShipManager implements Renderable {
     endCallback: () => void;
     stage: Stages;
 
+    private players: Player[];
+
     private _position: Position = {
         x: 0,
         y: 0,
@@ -37,12 +39,13 @@ export default class ShipManager implements Renderable {
         this.shipElement.position = translateToCanvasPos(newPos);
     }
 
-    constructor(private players: Player[]) {
+    constructor() {
         this.stage = Stages.Waiting;
         this.shipElement = new ShipElement();
     }
 
-    startScene(endCallback: () => void) {
+    startScene(players: Player[], endCallback: () => void) {
+        this.players = players;
         this.endCallback = endCallback;
 
         for (const player of this.players) {
