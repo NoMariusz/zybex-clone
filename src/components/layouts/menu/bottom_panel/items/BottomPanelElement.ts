@@ -21,6 +21,11 @@ export default abstract class BottomPanelElement
         height: 0,
     };
 
+    // max position to reach at bottom panel animation
+    maxPos: number = 0;
+    // velocity in bottom panel animation
+    velocity: number = 0;
+
     abstract changeFocus(value: boolean): void;
 
     abstract startFocus(): void;

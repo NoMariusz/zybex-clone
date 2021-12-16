@@ -5,7 +5,6 @@ import Renderer from "../../../rendering/Renderer";
 import {
     BOTTOM_ANIM_MAX_OFFSET,
     BOTTOM_ANIM_STEP,
-    BOTTOM_ANIM_MIN_OFFSET,
     FOCUS_ANIM_MS,
 } from "../constants";
 import BottomPanelEl from "./items/BottomPanelElement";
@@ -30,6 +29,21 @@ export default class BottomPanel implements Renderable {
 
     selectedItem: BottomPanelEl;
 
+    // constants values for playing animation
+    middlePos: number;
+    middleIdx: number;
+
+    animWork: boolean = false;
+
+    get canvasElements(): BottomPanelEl[] {
+        return [
+            this.avatar1,
+            this.singleIco,
+            this.startIco,
+            this.multiIco,
+            this.avatar2,
+        ];
+    }
     constructor(startGameCallback: () => void) {
         this.startGameCallback = startGameCallback;
         this.avatar1 = new PlayerAvatar();
@@ -42,18 +56,25 @@ export default class BottomPanel implements Renderable {
         this.avatar2.changeColor();
         this.selectElement(this.multiIco);
 
+        this.initAnimConsts();
         this.playInitAnim();
     }
 
-    get canvasElements(): BottomPanelEl[] {
-        return [
-            this.avatar1,
-            this.singleIco,
-            this.startIco,
-            this.multiIco,
-            this.avatar2,
-        ];
+    initAnimConsts() {
+        const elemsCount = this.canvasElements.length;
+        this.middleIdx = (elemsCount / 2) | 0;
+        this.middlePos = CANVAS_WIDTH / 2 - this.startIco.size.width / 2;
+        // init consts for elements
+        for (let idx = 0; idx < this.canvasElements.length; idx++) {
+            const element = this.canvasElements[idx];
+            element.maxPos =
+                this.middlePos +
+                BOTTOM_ANIM_MAX_OFFSET * (idx - this.middleIdx);
+            element.velocity = Math.sign(idx - this.middleIdx);
+        }
     }
+
+    // lifecycle
 
     render() {
         this.animTick();
@@ -70,33 +91,33 @@ export default class BottomPanel implements Renderable {
 
     playInitAnim() {
         //start interval playing animation
-        this.elementOffset = BOTTOM_ANIM_MIN_OFFSET;
+        for (const element of this.canvasElements) {
+            element.position.x = this.middlePos;
+        }
+        this.animWork = true;
     }
 
     animTick() {
         // end loop if should
-        if (this.elementOffset >= BOTTOM_ANIM_MAX_OFFSET) {
+        if (!this.animWork) {
             return;
         }
 
         // chage elements position
-        const elemsCount = this.canvasElements.length;
-        const middleIdx = elemsCount / 2 - 0.5;
-        const middlePos = CANVAS_WIDTH / 2 - 37;
-        for (let idx = 0; idx < elemsCount; idx++) {
+        for (let idx = 0; idx < this.canvasElements.length; idx++) {
             const element = this.canvasElements[idx];
-            const sign = Math.sign(idx - middleIdx);
-            const maxPos =
-                middlePos + BOTTOM_ANIM_MAX_OFFSET * (idx - middleIdx);
-            const actualPos = middlePos + this.elementOffset * middleIdx * sign;
+            // const actualPos = this.middlePos + this.elementOffset * this.middleIdx * sign;
+            const step = element.velocity * BOTTOM_ANIM_STEP;
             element.position.x =
-                sign < 0
-                    ? Math.max(maxPos, actualPos)
-                    : Math.min(maxPos, actualPos);
+                element.velocity < 0
+                    ? Math.max(element.maxPos, step + element.position.x)
+                    : Math.min(element.maxPos, step + element.position.x);
         }
 
-        // increment elements offset
-        this.elementOffset += BOTTOM_ANIM_STEP;
+        // check if should stop anim
+        this.animWork = !this.canvasElements.every(
+            (e) => e.maxPos == e.position.x
+        );
     }
 
     // focusing elements in menu

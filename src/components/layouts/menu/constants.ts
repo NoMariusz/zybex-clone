@@ -6,7 +6,6 @@ export const BOTTOM_PANEL_Y = (CANVAS_HEIGHT / 8) * 7;
 
 export const BOTTOM_MENU_RADIUS = CANVAS_WIDTH / 4;
 
-export const BOTTOM_ANIM_MIN_OFFSET = 20;
 export const BOTTOM_ANIM_STEP = 5;
 export const BOTTOM_ANIM_MAX_OFFSET = 120;
 
