@@ -7,13 +7,15 @@ import Game from "./game/Game";
 import LevelSummary from "./level_summary/LevelSummary";
 import GameOver from "./game_over/GameOver";
 import SaveScore from "./score_save/SaveScore";
-import LayoutBaseImplementation from "./LayoutBaseImplementation";
+import LayoutBaseImplementation, {
+    LayoutClass,
+} from "./LayoutBaseImplementation";
 import SoundPlayer from "../sounds/SoundPlayer";
 
 export default class LayoutManager implements Renderable {
     /* Manage swaps between layouts and controlling them */
 
-    layouts: { [key in Layouts]: Layout };
+    layouts: { [key in Layouts]: LayoutClass };
     activeLayout: Layout;
     keyListener: KeyListener;
 
@@ -21,19 +23,19 @@ export default class LayoutManager implements Renderable {
         this.keyListener = new KeyListener();
 
         this.layouts = {
-            [Layouts.MENU]: this.makeLayoutInst(Menu),
-            [Layouts.LEVEL_ANNOUNCE]: this.makeLayoutInst(LevelAnnounce),
-            [Layouts.GAME]: this.makeLayoutInst(Game),
-            [Layouts.LEVEL_SUMMARY]: this.makeLayoutInst(LevelSummary),
-            [Layouts.GAME_OVER]: this.makeLayoutInst(GameOver),
-            [Layouts.SAVE_SCORE]: this.makeLayoutInst(SaveScore),
+            [Layouts.MENU]: Menu,
+            [Layouts.LEVEL_ANNOUNCE]: LevelAnnounce,
+            [Layouts.GAME]: Game,
+            [Layouts.LEVEL_SUMMARY]: LevelSummary,
+            [Layouts.GAME_OVER]: GameOver,
+            [Layouts.SAVE_SCORE]: SaveScore,
         };
 
-        this.activeLayout = this.layouts[Layouts.MENU];
+        this.activeLayout = this.makeLayoutInst(this.layouts[Layouts.MENU]);
         this.activeLayout.onShow();
     }
 
-    makeLayoutInst(layoutClass: typeof LayoutBaseImplementation) {
+    makeLayoutInst(layoutClass: LayoutClass) {
         return new layoutClass(
             (name: Layouts) => this.changeLayout(name),
             this.keyListener
@@ -49,7 +51,7 @@ export default class LayoutManager implements Renderable {
         // to isolate sounds between layouts
         SoundPlayer.clearAllSounds();
 
-        this.activeLayout = this.layouts[name];
+        this.activeLayout = this.makeLayoutInst(this.layouts[name]);
 
         this.activeLayout.onShow();
     }

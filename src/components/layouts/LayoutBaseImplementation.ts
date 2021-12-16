@@ -19,3 +19,5 @@ export default class LayoutBaseImplementation implements Layout {
 
     render() {}
 }
+
+export type LayoutClass = typeof LayoutBaseImplementation;
