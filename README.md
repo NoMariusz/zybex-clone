@@ -8,7 +8,7 @@
 - Implemented only first level - Bertolus, but map sprite sheet is from Enceladus level of zybex Commodore version
 - Enemies and weapons are from Bertolous
 - There is no Boss mode implemented yet
-- There is no 2 players mode implemented yet
+- Two players mode works not identical
 
 ## Features 📜
 - **Weapons**: You can use all 4 weapons from first level: Orbit, Pulse, Rgun and 8way each with 4 levels of upgrades
@@ -23,20 +23,27 @@
 * [Webpack](https://github.com/webpack/webpack)
 
 ### Controls ⌨️
+##### For player one:
 - **W** - up
 - **A** - left
 - **D** - right
 - **S** - down
 - **Space bar** - action
+##### For player two:
+- **ArrowUp** - up
+- **ArrowLeft** - left
+- **ArrowRight** - right
+- **ArrowDown** - down
+- **Control** - action
 
 ## TODO 🎯
-- More animations
-- Mobile devices support
-- Add all letters available for username
-- Implement other fonts
-- Mode for 2 players
-- Other levels available
-- Implement boss
+- [x] More animations
+- [x] Add all letters available for username
+- [x] Implement other fonts
+- [x] Mode for 2 players
+- [ ] Mobile devices support
+- [ ] Other levels available
+- [ ] Implement boss
 
 
 #### Made by [NoMariusz](https://github.com/NoMariusz)
