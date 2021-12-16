@@ -11,6 +11,9 @@ export const BOTTOM_ANIM_MAX_OFFSET = 120;
 
 export const FOCUS_ANIM_MS = 250;
 
+export const RIGHT_AVATARS_X = 1260;
+export const LEFT_AVATARS_X = 1350;
+
 export enum Pages {
     Main,
     Highscores,

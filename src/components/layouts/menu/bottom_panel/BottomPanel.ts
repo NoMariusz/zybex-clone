@@ -52,7 +52,7 @@ export default class BottomPanel implements Renderable {
         this.multiIco = new MultiPlayerIco();
         this.startIco = new StartIco();
 
-        this.avatar2.flip = true;
+        this.avatar2.useFlippedTexture();
         this.avatar2.changeColor();
         this.selectElement(this.multiIco);
 

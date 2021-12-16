@@ -8,7 +8,5 @@ export default abstract class CanvasElement {
 
     texture = TextureSpriteSheets.Main;
 
-    flip: boolean = false;
-    flipY: boolean = false;
     texture_size: Size | undefined;
 }

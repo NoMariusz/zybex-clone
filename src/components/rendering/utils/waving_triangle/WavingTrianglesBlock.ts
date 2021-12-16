@@ -33,7 +33,11 @@ export default class WavingTrianglesBlock
         const triangle = new WavingTriangleElement(pos, flip);
         this.wavingTriangles.push(triangle);
         const animator = new Animator(triangle);
-        animator.startAnim(AnimationName.TriangleWaving);
+        animator.startAnim(
+            flip
+                ? AnimationName.ReverseTriangleWaving
+                : AnimationName.TriangleWaving
+        );
         this.animators.push(animator);
     }
 

@@ -23,6 +23,7 @@ import MenuSubtitle1Animation from "./menu/MenuSubtitle1Animation";
 import MenuSubtitle2Animation from "./menu/MenuSubtitle2Animation";
 import MenuSubtitle3Animation from "./menu/MenuSubtitle3Animation";
 import WavingTriangleAnimation from "./other/WavingTriangleAnimation";
+import WavingReverseTriangleAnimation from "./other/WavingReverseTriangleAnimation";
 
 const animationConfig: {
     [key in AnimationName]: { class: AnimationClass; priority: number };
@@ -72,6 +73,10 @@ const animationConfig: {
     },
     [AnimationName.TriangleWaving]: {
         class: WavingTriangleAnimation,
+        priority: 1,
+    },
+    [AnimationName.ReverseTriangleWaving]: {
+        class: WavingReverseTriangleAnimation,
         priority: 1,
     },
 };

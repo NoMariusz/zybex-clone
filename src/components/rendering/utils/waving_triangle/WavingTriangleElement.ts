@@ -17,7 +17,10 @@ export default class WavingTriangleElement extends CanvasElement {
 
     constructor(pos: Position, flipY = false) {
         super();
-        this.flipY = flipY;
+
         this.position = pos;
+        if (flipY) {
+            this.texture_offset.y = 8855;
+        }
     }
 }
