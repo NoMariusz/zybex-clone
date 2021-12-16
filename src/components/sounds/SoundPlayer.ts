@@ -1,4 +1,5 @@
-import { Sound, SOUNDS_PATH } from "./constants";
+import { Sound } from "./constants";
+import soundsData from "./soundsData";
 
 class SoundPlayer {
     private activeAudios: HTMLAudioElement[] = [];
@@ -31,7 +32,7 @@ class SoundPlayer {
     }
 
     private makeAudio(sound: Sound) {
-        return new Audio(SOUNDS_PATH + sound);
+        return new Audio(soundsData[sound]);
     }
 
     private cancelAudio(audio: HTMLAudioElement) {

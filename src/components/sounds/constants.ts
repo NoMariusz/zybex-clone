@@ -1,5 +1,3 @@
-export const SOUNDS_PATH = "../../../static/sounds/";
-
 export enum Sound {
     MainTheme = "main_theme.mp3",
     LevelAnnounce = "level_announce.mp3",
