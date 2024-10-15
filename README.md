@@ -3,8 +3,6 @@
 
 ![game image](https://user-images.githubusercontent.com/60425872/144413668-4d112b44-b846-44aa-983c-0eb37b5adcff.png)
 
-### See the game in action 👉 [mariuszg-zybex.ct8.pl](http://mariuszg-zybex.ct8.pl/)
-
 ## Overall info 🗺️
 - This isn't an ideal port, only a simple project for school
 - Implemented only first level - Bertolus, but map sprite sheet is from Enceladus level of zybex Commodore version
